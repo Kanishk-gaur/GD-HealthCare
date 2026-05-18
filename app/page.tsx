@@ -1,7 +1,10 @@
+'use client';
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { Star, MapPin, Stethoscope, DollarSign, Clock, TrendingUp, CheckCircle } from 'lucide-react'
 import { hospitals, doctors, treatments, testimonials, faqs } from '@/lib/data'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const stats = [
   { label: '5000+', description: 'Successful Surgeries', icon: '✓' },
@@ -43,6 +46,9 @@ const treatmentCategories = [
 ]
 
 export default function Home() {
+  // No array arguments passed anymore! The hook tracks text dynamically as it renders.
+  const { translate } = useTranslation();
+
   return (
     <div className="w-full">
       {/* Hero Section */}
@@ -52,23 +58,23 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-                World-Class Healthcare at <span className="text-primary">Affordable Prices</span>
+                {translate('World-Class Healthcare at Affordable Prices')}
               </h1>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                Access premium medical treatments from top hospitals and surgeons worldwide. Save up to 80% while receiving world-class care.
+                {translate('Access premium medical treatments from top hospitals and surgeons worldwide. Save up to 80% while receiving world-class care.')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="#consultation"
                   className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors text-center"
                 >
-                  Schedule Consultation
+                  {translate('Schedule Consultation')}
                 </a>
                 <a
                   href="/treatments"
                   className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors text-center"
                 >
-                  Explore Treatments
+                  {translate('Explore Treatments')}
                 </a>
               </div>
             </div>
@@ -92,7 +98,7 @@ export default function Home() {
             {stats.map((stat, idx) => (
               <div key={idx} className="text-center">
                 <div className="text-4xl font-bold mb-2">{stat.label}</div>
-                <p className="text-white/80">{stat.description}</p>
+                <p className="text-white/80">{translate(stat.description)}</p>
               </div>
             ))}
           </div>
@@ -102,15 +108,15 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Why Choose GD Healthcare?</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Why Choose GD Healthcare?')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, idx) => {
               const Icon = feature.icon
               return (
                 <div key={idx} className="bg-card rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-border">
                   <Icon className="text-primary mb-4" size={40} />
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-2">{translate(feature.title)}</h3>
+                  <p className="text-muted-foreground">{translate(feature.description)}</p>
                 </div>
               )
             })}
@@ -121,7 +127,7 @@ export default function Home() {
       {/* Treatment Categories */}
       <section className="py-16 bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Popular Treatments</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Popular Treatments')}</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {treatmentCategories.map((category, idx) => (
               <Link
@@ -130,8 +136,8 @@ export default function Home() {
                 className="bg-white rounded-lg p-4 text-center hover:shadow-lg transition-shadow border border-border hover:border-primary"
               >
                 <div className="text-4xl mb-2">{category.icon}</div>
-                <h3 className="font-semibold text-sm mb-1">{category.name}</h3>
-                <p className="text-xs text-muted-foreground">{category.count}+ procedures</p>
+                <h3 className="font-semibold text-sm mb-1">{translate(category.name)}</h3>
+                <p className="text-xs text-muted-foreground">{category.count}+ {translate('procedures')}</p>
               </Link>
             ))}
           </div>
@@ -141,7 +147,7 @@ export default function Home() {
       {/* Featured Hospitals */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Partner Hospitals</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Our Partner Hospitals')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {hospitals.slice(0, 3).map((hospital) => (
               <Link
@@ -159,7 +165,7 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold">{hospital.name}</h3>
+                    <h3 className="text-xl font-semibold">{translate(hospital.name)}</h3>
                     <div className="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded">
                       <Star size={16} className="text-yellow-600" />
                       <span className="text-sm font-semibold text-yellow-600">{hospital.rating}</span>
@@ -167,13 +173,13 @@ export default function Home() {
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground mb-4">
                     <MapPin size={16} />
-                    <span className="text-sm">{hospital.country}</span>
+                    <span className="text-sm">{translate(hospital.country)}</span>
                   </div>
-                  <p className="text-sm text-muted-foreground mb-4">{hospital.description}</p>
+                  <p className="text-sm text-muted-foreground mb-4">{translate(hospital.description)}</p>
                   <div className="flex flex-wrap gap-2">
                     {hospital.specializations.slice(0, 2).map((spec, idx) => (
                       <span key={idx} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
-                        {spec}
+                        {translate(spec)}
                       </span>
                     ))}
                   </div>
@@ -186,7 +192,7 @@ export default function Home() {
               href="/hospitals"
               className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
             >
-              View All Hospitals →
+              {translate('View All Hospitals →')}
             </Link>
           </div>
         </div>
@@ -195,7 +201,7 @@ export default function Home() {
       {/* Featured Doctors */}
       <section className="py-16 bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Meet Our Expert Doctors</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Meet Our Expert Doctors')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {doctors.slice(0, 3).map((doctor) => (
               <Link
@@ -212,9 +218,9 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-1">{doctor.name}</h3>
-                  <p className="text-primary text-sm font-medium mb-2">{doctor.specialization}</p>
-                  <p className="text-xs text-muted-foreground mb-4">{doctor.hospital}</p>
+                  <h3 className="text-xl font-semibold mb-1">{translate(doctor.name)}</h3>
+                  <p className="text-primary text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
+                  <p className="text-xs text-muted-foreground mb-4">{translate(doctor.hospital)}</p>
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex items-center gap-1">
                       <Star size={16} className="text-yellow-600" />
@@ -235,7 +241,7 @@ export default function Home() {
               href="/doctors"
               className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
             >
-              View All Doctors →
+              {translate('View All Doctors →')}
             </Link>
           </div>
         </div>
@@ -244,15 +250,15 @@ export default function Home() {
       {/* Cost Comparison */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Cost Comparison: India vs Western Countries</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Cost Comparison: India vs Western Countries')}</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-primary text-white">
-                  <th className="px-6 py-3 font-semibold">Procedure</th>
-                  <th className="px-6 py-3 font-semibold text-center">USA Cost</th>
-                  <th className="px-6 py-3 font-semibold text-center">India Cost</th>
-                  <th className="px-6 py-3 font-semibold text-center">Savings</th>
+                  <th className="px-6 py-3 font-semibold">{translate('Procedure')}</th>
+                  <th className="px-6 py-3 font-semibold text-center">{translate('USA Cost')}</th>
+                  <th className="px-6 py-3 font-semibold text-center">{translate('India Cost')}</th>
+                  <th className="px-6 py-3 font-semibold text-center">{translate('Savings')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -265,7 +271,7 @@ export default function Home() {
                   const savings = ((item.usa - item.india) / item.usa * 100).toFixed(0)
                   return (
                     <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-muted/20'} >
-                      <td className="px-6 py-3 font-semibold">{item.name}</td>
+                      <td className="px-6 py-3 font-semibold">{translate(item.name)}</td>
                       <td className="px-6 py-3 text-center">${item.usa.toLocaleString()}</td>
                       <td className="px-6 py-3 text-center text-primary font-semibold">${item.india.toLocaleString()}</td>
                       <td className="px-6 py-3 text-center">
@@ -285,7 +291,7 @@ export default function Home() {
       {/* Testimonials */}
       <section className="py-16 bg-muted/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Patient Testimonials</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Patient Testimonials')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.slice(0, 3).map((testimonial) => (
               <div key={testimonial.id} className="bg-white rounded-lg p-6 shadow-md border border-border hover:shadow-lg transition-shadow">
@@ -298,8 +304,8 @@ export default function Home() {
                     className="rounded-full"
                   />
                   <div>
-                    <h4 className="font-semibold">{testimonial.name}</h4>
-                    <p className="text-xs text-muted-foreground">{testimonial.location}</p>
+                    <h4 className="font-semibold">{translate(testimonial.name)}</h4>
+                    <p className="text-xs text-muted-foreground">{translate(testimonial.location)}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-3">
@@ -307,8 +313,8 @@ export default function Home() {
                     <Star key={idx} size={16} className="text-yellow-600 fill-yellow-600" />
                   ))}
                 </div>
-                <p className="text-muted-foreground text-sm mb-2">&quot;{testimonial.text}&quot;</p>
-                <p className="text-xs text-primary font-semibold">{testimonial.treatment} at {testimonial.hospital}</p>
+                <p className="text-muted-foreground text-sm mb-2">&quot;{translate(testimonial.text)}&quot;</p>
+                <p className="text-xs text-primary font-semibold">{translate(testimonial.treatment)} at {translate(testimonial.hospital)}</p>
               </div>
             ))}
           </div>
@@ -318,15 +324,15 @@ export default function Home() {
       {/* FAQ Section */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Frequently Asked Questions')}</h2>
           <div className="space-y-4">
             {faqs.slice(0, 5).map((faq, idx) => (
               <details key={idx} className="bg-card rounded-lg border border-border p-6 hover:border-primary transition-colors cursor-pointer">
                 <summary className="font-semibold flex justify-between items-center">
-                  {faq.question}
+                  {translate(faq.question)}
                   <span className="text-primary">+</span>
                 </summary>
-                <p className="text-muted-foreground mt-4">{faq.answer}</p>
+                <p className="text-muted-foreground mt-4">{translate(faq.answer)}</p>
               </details>
             ))}
           </div>
@@ -335,7 +341,7 @@ export default function Home() {
               href="/contact"
               className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-block"
             >
-              Have More Questions? Contact Us
+              {translate('Have More Questions? Contact Us')}
             </Link>
           </div>
         </div>
@@ -344,16 +350,16 @@ export default function Home() {
       {/* CTA Section */}
       <section id="consultation" className="py-20 bg-gradient-to-r from-primary to-primary/80 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Health?</h2>
+          <h2 className="text-4xl font-bold mb-6">{translate('Ready to Transform Your Health?')}</h2>
           <p className="text-lg text-white/90 mb-8">
-            Schedule a free consultation with our medical experts today and start your journey to better health.
+            {translate('Schedule a free consultation with our medical experts today and start your journey to better health.')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="tel:+919999999999"
               className="px-8 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-white/90 transition-colors"
             >
-              Call Now
+              {translate('Call Now')}
             </a>
             <a
               href="https://wa.me/919999999999"
@@ -361,7 +367,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
             >
-              WhatsApp
+              {translate('WhatsApp')}
             </a>
           </div>
         </div>

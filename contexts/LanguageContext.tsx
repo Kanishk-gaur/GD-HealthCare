@@ -2,15 +2,16 @@
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 
-export type Language = 'en' | 'hi' | 'ar' | 'fr' | 'ru' | 'es';
+// 1. Precise Language keys requested (en as default, ru, my, fr, ar)
+export type Language = 'en' | 'ru' | 'my' | 'fr' | 'ar';
 
+// 2. Display names mapping
 export const LANGUAGES: Record<Language, string> = {
   en: 'English',
-  hi: 'हिन्दी',
-  ar: 'العربية',
-  fr: 'Français',
   ru: 'Русский',
-  es: 'Español',
+  my: 'မြန်မာဘာသာ',
+  fr: 'Français',
+  ar: 'العربية',
 };
 
 interface LanguageContextType {
@@ -23,12 +24,21 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en');
+  // 3. Initialize state with English as the absolute default
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('preferred-language') as Language;
+      if (saved && saved in LANGUAGES) return saved;
+    }
+    return 'en';
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
-    localStorage.setItem('preferred-language', lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferred-language', lang);
+    }
   }, []);
 
   const translate = useCallback(async (text: string): Promise<string> => {

@@ -2,50 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const languageMap: Record<string, string> = {
   en: 'en',
-  hi: 'hi',
-  ar: 'ar',
-  fr: 'fr',
   ru: 'ru',
-  es: 'es',
-}
-
-// Basic fallback translations for demo purposes
-const basicTranslations: Record<string, Record<string, string>> = {
-  hi: {
-    'Premium Medical Tourism Solutions': 'प्रीमियम चिकित्सा पर्यटन समाधान',
-    'Access world-class healthcare at affordable prices': 'सस्ती कीमतों पर विश्व स्तरीय स्वास्थ्यसेवा प्राप्त करें',
-    'Free Consultation': 'मुफ्त परामर्श',
-    'Explore Treatments': 'उपचार की खोज करें',
-    'Learn More': 'अधिक जानें',
-  },
-  ar: {
-    'Premium Medical Tourism Solutions': 'حلول السياحة الطبية الممتازة',
-    'Access world-class healthcare at affordable prices': 'الوصول إلى الرعاية الصحية على المستوى العالمي بأسعار معقولة',
-    'Free Consultation': 'استشارة مجانية',
-    'Explore Treatments': 'استكشاف العلاجات',
-    'Learn More': 'اعرف أكثر',
-  },
-  es: {
-    'Premium Medical Tourism Solutions': 'Soluciones de Turismo Médico Premium',
-    'Access world-class healthcare at affordable prices': 'Acceda a atención médica de clase mundial a precios asequibles',
-    'Free Consultation': 'Consulta Gratuita',
-    'Explore Treatments': 'Explorar Tratamientos',
-    'Learn More': 'Aprende Más',
-  },
-  fr: {
-    'Premium Medical Tourism Solutions': 'Solutions de Tourisme Médical Premium',
-    'Access world-class healthcare at affordable prices': 'Accédez aux soins de santé de classe mondiale à des prix abordables',
-    'Free Consultation': 'Consultation Gratuite',
-    'Explore Treatments': 'Explorer les Traitements',
-    'Learn More': 'En Savoir Plus',
-  },
-  ru: {
-    'Premium Medical Tourism Solutions': 'Премиум решения медицинского туризма',
-    'Access world-class healthcare at affordable prices': 'Получите доступ к здравоохранению мирового класса по доступным ценам',
-    'Free Consultation': 'Бесплатная консультация',
-    'Explore Treatments': 'Изучить методы лечения',
-    'Learn More': 'Узнать больше',
-  },
+  my: 'my',
+  fr: 'fr',
+  ar: 'ar',
 }
 
 export async function POST(request: NextRequest) {
@@ -69,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     let translatedText = text
 
-    // Try Google Translate API if credentials are set
+    // 1. Try official Google Translate API if credentials exist in your .env
     if (process.env.GOOGLE_TRANSLATE_API_KEY && process.env.GOOGLE_CLOUD_PROJECT_ID) {
       try {
         const response = await fetch(
@@ -90,15 +50,32 @@ export async function POST(request: NextRequest) {
         if (response.ok) {
           const data = await response.json()
           translatedText = data.data.translations[0].translatedText
+          return NextResponse.json({ translatedText, originalText: text, language: targetLanguage })
         }
       } catch (error) {
-        console.warn('Google Translate API failed, using fallback:', error)
-        // Fall through to basic translations
-        translatedText = basicTranslations[targetLanguage]?.[text] || text
+        console.warn('Official Google Translate API failed, switching to dynamic fallback:', error)
       }
-    } else {
-      // Use basic fallback translations when API credentials aren't configured
-      translatedText = basicTranslations[targetLanguage]?.[text] || text
+    }
+
+    // 2. AUTOMATIC TRANSLATION FALLBACK (For working completely on-the-fly without keys)
+    // This fetches a live translation directly for whatever string is currently rendering on screen.
+    try {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(text)}`
+      
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        if (data && data[0]) {
+          // Merge multiple translated chunks if it is a long paragraph
+          translatedText = data[0].map((item: any) => item[0]).join('')
+        }
+      }
+    } catch (fallbackError) {
+      console.error('On-the-fly fallback translation failed:', fallbackError)
     }
 
     return NextResponse.json({

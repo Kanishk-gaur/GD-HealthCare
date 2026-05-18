@@ -1,43 +1,51 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface TranslationCache {
   [key: string]: string
 }
 
-export function useTranslation(texts: string[]) {
+export function useTranslation() {
   const { language, translate: apiTranslate } = useLanguage()
   const [translations, setTranslations] = useState<TranslationCache>({})
-  const [isLoading, setIsLoading] = useState(false)
+  const pendingTranslations = useRef<Set<string>>(new Set())
 
   useEffect(() => {
     if (language === 'en') {
       setTranslations({})
-      return
+      pendingTranslations.current.clear()
     }
-
-    const untranslatedTexts = texts.filter(text => !translations[text])
-    if (untranslatedTexts.length === 0) return
-
-    setIsLoading(true)
-    Promise.all(untranslatedTexts.map(text => apiTranslate(text)))
-      .then(results => {
-        const newTranslations: TranslationCache = {}
-        untranslatedTexts.forEach((text, index) => {
-          newTranslations[text] = results[index]
-        })
-        setTranslations(prev => ({ ...prev, ...newTranslations }))
-      })
-      .catch(err => console.error('Translation error:', err))
-      .finally(() => setIsLoading(false))
-  }, [language, texts, translations, apiTranslate])
+  }, [language])
 
   const translate = useCallback((text: string): string => {
-    if (language === 'en') return text
-    return translations[text] || text
-  }, [language, translations])
+    if (!text || language === 'en') return text
 
-  return { translate, isLoading, language }
+    if (translations[text]) {
+      return translations[text]
+    }
+
+    if (!pendingTranslations.current.has(text)) {
+      pendingTranslations.current.add(text)
+
+      apiTranslate(text)
+        .then((result) => {
+          setTranslations((prev) => ({
+            ...prev,
+            [text]: result,
+          }))
+        })
+        .catch((err) => {
+          console.error('Automatic translation error for:', text, err)
+        })
+        .finally(() => {
+          pendingTranslations.current.delete(text)
+        })
+    }
+
+    return text
+  }, [language, translations, apiTranslate])
+
+  return { translate, language }
 }
