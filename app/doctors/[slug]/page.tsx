@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Star, Award, Briefcase, Phone, Mail, MapPin, Calendar } from 'lucide-react'
+import { Star, MapPin, Award, Phone, Mail, GraduationCap, Briefcase, Languages, Coins, HeartPulse, ShieldAlert, CheckCircle2, ArrowLeft } from 'lucide-react'
 import { doctors } from '@/lib/data'
 
 export function generateStaticParams() {
@@ -9,239 +9,303 @@ export function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const doctor = doctors.find((d) => d.slug === params.slug)
+// Fixed: Made params asynchronous for generateMetadata
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params
+  const doctor = doctors.find((d) => d.slug === resolvedParams.slug)
   return {
-    title: `${doctor?.name} - ${doctor?.specialization} | GD Healthcare`,
-    description: `Consult ${doctor?.name}, expert in ${doctor?.specialization} with ${doctor?.experience} years of experience.`,
+    title: `${doctor?.name} | ${doctor?.specialization} Expert`,
+    description: doctor?.description,
   }
 }
 
-export default function DoctorDetail({ params }: { params: { slug: string } }) {
-  const doctor = doctors.find((d) => d.slug === params.slug)
+// Fixed: Made the component async and awaited params to solve the Next.js API Promise error
+export default async function DoctorDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params
+  const doctor = doctors.find((d) => d.slug === resolvedParams.slug)
 
   if (!doctor) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Doctor Not Found</h1>
-          <Link href="/doctors" className="text-primary hover:underline">
-            Back to Doctors
+          <h1 className="text-4xl font-bold mb-4">Doctor Profile Not Found</h1>
+          <Link href="/doctors" className="text-primary hover:underline flex items-center justify-center gap-2">
+            <ArrowLeft size={16} /> Back to Medical Staff
           </Link>
         </div>
       </div>
     )
   }
 
+  // Profile URL context generation
+  const profileUrl = `https://www.gdhealthcare.com/doctors/${doctor.slug}`
+
   return (
-    <div className="w-full">
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Profile Header */}
-            <div className="flex flex-col md:flex-row gap-8 mb-12">
-              <div className="relative w-48 h-64 rounded-lg overflow-hidden shadow-lg flex-shrink-0">
-                <Image
-                  src={doctor.image}
-                  alt={doctor.name}
-                  fill
-                  className="object-cover"
-                />
+    <div className="w-full bg-muted/10 min-h-screen pb-16">
+      
+      {/* Top Breadcrumb Navigation */}
+      <div className="bg-background border-b border-border py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link href="/doctors" className="text-sm text-muted-foreground hover:text-primary inline-flex items-center gap-1.5 transition-colors">
+            <ArrowLeft size={14} /> Back to Doctors Directory
+          </Link>
+        </div>
+      </div>
+
+      {/* Profile Header Hero Section */}
+      <div className="bg-background border-b border-border pt-8 pb-12 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
+            
+            {/* Photo URL Display */}
+            <div className="relative h-48 w-48 rounded-2xl overflow-hidden border border-border shadow-md bg-muted flex-shrink-0">
+              <Image
+                src={doctor.image}
+                alt={`${doctor.name} Photo`}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            {/* Core Summary */}
+            <div className="flex-1 space-y-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <h1 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">{doctor.name}</h1>
+                <span className="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full border border-primary/20">
+                  {doctor.specialization}
+                </span>
               </div>
 
-              <div className="flex-1">
-                <h1 className="text-4xl font-bold mb-2">{doctor.name}</h1>
-                <p className="text-xl text-primary font-semibold mb-4">{doctor.specialization}</p>
+              <p className="text-lg font-semibold text-muted-foreground">{doctor.subSpecialty}</p>
 
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex items-center gap-2 bg-yellow-100 px-4 py-2 rounded-lg">
-                    <Star size={20} className="text-yellow-600" />
-                    <span className="text-2xl font-bold text-yellow-600">{doctor.rating}</span>
-                    <span className="text-sm text-muted-foreground">({doctor.reviews} reviews)</span>
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-2 gap-x-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Briefcase size={16} className="text-primary" />
+                  <span><strong>Experience:</strong> {doctor.experience} Years active</span>
                 </div>
-
-                <div className="space-y-2 text-muted-foreground">
-                  <p className="flex items-center gap-2">
-                    <Award size={18} className="text-primary" />
-                    <span><strong>Qualification:</strong> {doctor.qualification}</span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Briefcase size={18} className="text-primary" />
-                    <span><strong>Experience:</strong> {doctor.experience} years</span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <MapPin size={18} className="text-primary" />
-                    <span><strong>Hospital:</strong> {doctor.hospital}</span>
-                  </p>
+                <div className="flex items-center gap-2">
+                  <MapPin size={16} className="text-primary" />
+                  <span><strong>Location:</strong> {doctor.city}, {doctor.country}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <GraduationCap size={16} className="text-primary" />
+                  <span className="truncate"><strong>Dept:</strong> {doctor.department}</span>
                 </div>
               </div>
-            </div>
 
-            {/* About */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">About Dr. {doctor.name.split(' ').pop()}</h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Dr. {doctor.name} is a highly skilled and experienced {doctor.specialization.toLowerCase()} specialist with a
-                proven track record of successful treatments. With {doctor.experience} years of professional experience, Dr.{' '}
-                {doctor.name.split(' ').pop()} has earned a stellar reputation for medical excellence and patient care.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Holding the prestigious qualification of {doctor.qualification}, Dr. {doctor.name.split(' ').pop()} is dedicated
-                to providing world-class healthcare services to patients from around the globe. Their expertise, combined with a
-                compassionate approach to patient care, makes them a preferred choice for international patients.
-              </p>
-            </div>
-
-            {/* Expertise Areas */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">Areas of Expertise</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {[
-                  'Complex Surgical Procedures',
-                  'Minimally Invasive Techniques',
-                  'Patient Care Management',
-                  'Pre & Post-Operative Care',
-                  'Advanced Diagnostic Methods',
-                  'International Patient Coordination',
-                ].map((expertise, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border hover:border-primary transition-colors"
-                  >
-                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
-                    <span className="font-medium">{expertise}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Education & Qualifications */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">Education & Qualifications</h2>
-              <div className="space-y-4">
-                {[
-                  { title: 'Medical Degree (MD)', description: 'Prestigious Medical University' },
-                  { title: 'Post-Graduate Specialization', description: doctor.specialization },
-                  { title: 'International Fellowship', description: 'Leading Medical Institution' },
-                  { title: 'Board Certification', description: 'Medical Excellence Board' },
-                ].map((edu, idx) => (
-                  <div key={idx} className="p-4 bg-muted/20 rounded-lg border border-border">
-                    <h4 className="font-semibold text-foreground mb-1">{edu.title}</h4>
-                    <p className="text-sm text-muted-foreground">{edu.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Languages */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">Languages</h2>
-              <div className="flex flex-wrap gap-3">
-                {doctor.languages.map((lang, idx) => (
-                  <span key={idx} className="px-4 py-2 bg-primary/10 text-primary rounded-lg font-medium">
-                    {lang}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Success Stories */}
-            <div>
-              <h2 className="text-2xl font-bold mb-6">Patient Success Stories</h2>
-              <div className="space-y-4">
-                {['Patient Recovery Story 1', 'Patient Recovery Story 2', 'Patient Recovery Story 3'].map((story, idx) => (
-                  <div key={idx} className="p-4 bg-card rounded-lg border border-border">
-                    <p className="text-muted-foreground">{story}</p>
-                  </div>
-                ))}
+              <div className="flex items-center gap-2 pt-2">
+                <div className="flex items-center gap-1 bg-yellow-100 dark:bg-yellow-950/40 px-3 py-1 rounded-lg border border-yellow-200 dark:border-yellow-900/30">
+                  <Star size={16} className="text-yellow-600 fill-yellow-600" />
+                  <span className="text-sm font-bold text-yellow-700 dark:text-yellow-400">{doctor.rating}</span>
+                </div>
+                <span className="text-xs text-muted-foreground">Based on {doctor.reviews} patient checkups</span>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Sidebar */}
-          <div>
-            {/* Consultation Card */}
-            <div className="bg-card rounded-lg p-6 border border-border mb-6 sticky top-20">
-              <h3 className="text-xl font-bold mb-6">Book Consultation</h3>
+      {/* Layout Columns */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
+          {/* Main Biography & Experience Deep-dive */}
+          <div className="lg:col-span-2 space-y-8">
+            
+            {/* Bio Section (500-700 words layout) */}
+            <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+              <h2 className="text-xl font-bold text-foreground mb-4 border-b pb-2">Medical Practitioner Biography</h2>
+              <div className="text-muted-foreground leading-relaxed whitespace-pre-line space-y-4 text-base">
+                {doctor.longBio || doctor.description}
+              </div>
+            </section>
 
-              <div className="mb-6 p-4 bg-primary/10 rounded-lg">
-                <p className="text-sm text-muted-foreground mb-1">Consultation Fee</p>
-                <p className="text-3xl font-bold text-primary">${doctor.consultationFee}</p>
+            {/* Areas of Expertise Grid */}
+            {doctor.expertiseAreas && doctor.expertiseAreas.length > 0 && (
+              <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                  <HeartPulse size={20} className="text-primary" />
+                  Areas of Clinical Expertise
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {doctor.expertiseAreas.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 p-3 bg-muted/40 rounded-xl border border-border/60">
+                      <CheckCircle2 size={16} className="text-emerald-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm font-medium text-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Major Procedures Undertaken */}
+            {doctor.majorProcedures && doctor.majorProcedures.length > 0 && (
+              <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-foreground mb-4">Major Interventional Procedures</h2>
+                <div className="flex flex-wrap gap-2.5">
+                  {doctor.majorProcedures.map((proc, idx) => (
+                    <span key={idx} className="bg-muted text-foreground border border-border px-3 py-1.5 rounded-lg text-sm font-medium">
+                      {proc}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* International Experience Matrix */}
+            {doctor.intlExperience && doctor.intlExperience.length > 0 && (
+              <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
+                  <Award size={20} className="text-primary" />
+                  International Medical Tenures
+                </h2>
+                <ul className="space-y-3">
+                  {doctor.intlExperience.map((exp, idx) => (
+                    <li key={idx} className="flex items-start gap-3 text-muted-foreground text-sm">
+                      <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+                      <span className="leading-relaxed">{exp}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+
+            {/* Professional Memberships */}
+            {doctor.memberships && doctor.memberships.length > 0 && (
+              <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+                <h2 className="text-xl font-bold text-foreground mb-4">Professional Fellowships & Memberships</h2>
+                <div className="space-y-2.5">
+                  {doctor.memberships.map((member, idx) => (
+                    <p key={idx} className="text-sm text-muted-foreground bg-muted/30 p-3 rounded-lg border border-border/40">
+                      • {member}
+                    </p>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
+
+          {/* Quick Specifications Sidebar */}
+          <div className="space-y-6">
+            
+            {/* Consultation and Hospital Summary Box */}
+            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm sticky top-24 space-y-6">
+              <h3 className="text-lg font-bold text-foreground pb-2 border-b">Practice Matrix</h3>
+              
+              {/* Consultation Fee (INR) */}
+              <div className="bg-primary/5 border border-primary/10 rounded-xl p-4">
+                <div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase tracking-wider mb-1">
+                  <Coins size={14} className="text-primary" />
+                  Consultation Fee
+                </div>
+                <p className="text-2xl font-black text-foreground">
+                  ₹{doctor.consultationFee.toLocaleString()} <span className="text-xs font-medium text-muted-foreground">INR / session</span>
+                </p>
               </div>
 
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <Calendar size={20} className="text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-sm font-semibold">Quick Availability</p>
-                    <p className="text-xs text-muted-foreground">Consultations within 48 hours</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Star size={20} className="text-yellow-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-sm font-semibold">Highly Rated</p>
-                    <p className="text-xs text-muted-foreground">{doctor.reviews}+ patient reviews</p>
-                  </div>
+              {/* Hospital Affiliation */}
+              <div>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Primary Affiliation</p>
+                <p className="text-sm font-bold text-foreground">{doctor.hospital}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{doctor.city}, {doctor.country}</p>
+              </div>
+
+              {/* Qualification details */}
+              <div>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Qualifications</p>
+                <p className="text-xs font-medium text-muted-foreground leading-relaxed bg-muted p-2.5 rounded-lg border border-border/60">
+                  {doctor.qualification}
+                </p>
+              </div>
+
+              {/* Languages Spoken */}
+              <div>
+                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1">
+                  <Languages size={14} /> Language Fluency
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {doctor.languages.map((lang, idx) => (
+                    <span key={idx} className="text-xs font-semibold bg-muted text-foreground px-2.5 py-1 rounded-md border border-border">
+                      {lang}
+                    </span>
+                  ))}
                 </div>
               </div>
 
-              <button className="w-full px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors mb-3">
-                Book Now
-              </button>
-
-              <a
-                href="https://wa.me/919999999999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-center px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-              >
-                WhatsApp Consultation
-              </a>
-            </div>
-
-            {/* Hospital Info */}
-            <div className="bg-card rounded-lg p-6 border border-border mb-6">
-              <h3 className="text-lg font-bold mb-4">Hospital</h3>
-              <Link href={`/hospitals`} className="text-primary font-semibold hover:underline mb-4 block">
-                {doctor.hospital}
-              </Link>
-              <p className="text-sm text-muted-foreground mb-4">{doctor.country}</p>
-              <a
-                href={`/hospitals`}
-                className="text-sm text-primary hover:underline font-semibold"
-              >
-                View Hospital Details →
-              </a>
-            </div>
-
-            {/* Contact Info */}
-            <div className="bg-card rounded-lg p-6 border border-border">
-              <h3 className="text-lg font-bold mb-4">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Phone size={18} className="text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <a href="tel:+919999999999" className="font-semibold text-primary hover:underline text-sm">
-                      +91 9999 999 999
-                    </a>
+              {/* Accolades & Awards */}
+              {doctor.awards && doctor.awards.length > 0 && (
+                <div>
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Major Recognitions</p>
+                  <div className="space-y-1.5">
+                    {doctor.awards.map((award, idx) => (
+                      <span key={idx} className="block text-[11px] font-medium text-amber-800 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-100 dark:border-amber-900/20 px-2 py-1 rounded">
+                        🏆 {award}
+                      </span>
+                    ))}
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <Mail size={18} className="text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1">Email</p>
-                    <a href="mailto:info@gdhealthcare.com" className="font-semibold text-primary hover:underline text-sm">
-                      info@gdhealthcare.com
-                    </a>
+              )}
+
+              {/* Recommended Treatments Linking Context */}
+              {doctor.recommendedTreatments && doctor.recommendedTreatments.length > 0 && (
+                <div>
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Specialized Treatments</p>
+                  <div className="space-y-1">
+                    {doctor.recommendedTreatments.map((treatSlug, idx) => (
+                      <Link 
+                        key={idx} 
+                        href={`/treatments/${treatSlug}`}
+                        className="block text-xs font-semibold text-primary hover:underline bg-primary/5 p-2 rounded border border-primary/10"
+                      >
+                        View Treatment Procedures →
+                      </Link>
+                    ))}
                   </div>
+                </div>
+              )}
+
+              {/* Verified Profile URL Metadata */}
+              <div className="pt-2 border-t border-border">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Profile Reference URL</p>
+                <span className="text-[11px] text-muted-foreground/80 font-mono break-all block p-1.5 bg-muted/60 rounded">
+                  {profileUrl}
+                </span>
+              </div>
+
+              {/* Interventions Schedule Action Panels */}
+              <div className="space-y-2 pt-2">
+                <button className="w-full px-4 py-2.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors text-sm">
+                  Book Clinical Appointment
+                </button>
+                <a
+                  href="https://wa.me/919999999999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-center px-4 py-2.5 border border-primary/30 text-primary bg-primary/5 rounded-xl font-semibold hover:bg-primary/10 transition-colors text-sm"
+                >
+                  Consult on WhatsApp
+                </a>
+              </div>
+            </div>
+
+            {/* Quick Informational Communication Panel */}
+            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm space-y-4">
+              <h4 className="font-bold text-foreground text-sm flex items-center gap-1.5">
+                <ShieldAlert size={16} className="text-primary" /> Urgent Assistance
+              </h4>
+              <div className="space-y-3 text-xs text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Phone size={14} className="text-primary" />
+                  <span>Hotline: +91 9999 999 999</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Mail size={14} className="text-primary" />
+                  <span>Desk: info@gdhealthcare.com</span>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

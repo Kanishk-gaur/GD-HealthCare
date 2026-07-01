@@ -69,7 +69,7 @@ export default function HospitalsPage() {
 
                   <div className="flex items-center gap-2 text-muted-foreground mb-3">
                     <MapPin size={16} />
-                    <span className="text-sm">{hospital.country}</span>
+                    <span className="text-sm">{hospital.city || hospital.country}, {hospital.country}</span>
                   </div>
 
                   <p className="text-sm text-muted-foreground mb-4">{hospital.description}</p>
