@@ -1961,3 +1961,726 @@ export const faqs = [
     answer: 'Yes, we provide online follow-ups and coordinate with your local doctor for post-operative care.',
   },
 ];
+
+
+// lib/data.ts
+
+export interface Treatment {
+  id: string;
+  slug: string;
+  name: string;
+  category: string;
+  thumbnailUrl: string;
+  startingCostINR: number;
+  startingCostUSD: number;
+  averageCostINR: number;
+  averageCostUSD: number;
+  recoveryTime: string;
+  hospitalStay: string;
+  successRate: string;
+  recommendedHospitals: string[];
+  recommendedDoctors: string[];
+  description: string;
+}
+
+export const MOCK_TREATMENTS: Treatment[] = [
+  {
+    id: "t1",
+    slug: "coronary-artery-bypass-grafting-cabg",
+    name: "Coronary Artery Bypass Grafting (CABG)",
+    category: "Cardiac Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23c0392b'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23e74c3c' stroke='%23fff' stroke-width='4'/%3E%3Cpath d='M140 150 L260 150 M200 90 L200 210' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3ECABG Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 200000,
+    startingCostUSD: 2100,
+    averageCostINR: 400000,
+    averageCostUSD: 4200,
+    recoveryTime: "6–8 Weeks",
+    hospitalStay: "7–10 Days",
+    successRate: "98%",
+    recommendedHospitals: [
+      "Fortis Escorts Heart Institute, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "BLK-Max Super Speciality Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Dr. Naresh Trehan (Cardiac Surgery)",
+      "Dr. Sanjay Sharma (Cardiac Surgery)",
+      "Dr. Ashok Seth (Cardiology)"
+    ],
+    description: "Coronary Artery Bypass Grafting (CABG) is open-heart surgery performed to restore blood flow to blocked coronary arteries, relieving angina and preventing heart attacks. Surgeons use arteries or veins from other parts of the body to create a bypass around the blocked section. Delhi NCR's cardiac centres offer both conventional and off-pump CABG with international-level outcomes. Patients typically recover in 6–8 weeks and return to normal activity with significantly improved cardiac function. Delhi NCR hospitals perform thousands of CABG procedures annually with mortality rates well below 1% at leading centres."
+  },
+  {
+    id: "t2",
+    slug: "coronary-angioplasty-ptca-with-stenting",
+    name: "Coronary Angioplasty (PTCA) with Stenting",
+    category: "Interventional Cardiology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232980b9'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M160 150 L240 150' stroke='%23fff' stroke-width='6'/%3E%3Ccircle cx='180' cy='150' r='8' fill='%23f1c40f'/%3E%3Ccircle cx='220' cy='150' r='8' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EAngioplasty%3C/text%3E%3C/svg%3E",
+    startingCostINR: 150000,
+    startingCostUSD: 1600,
+    averageCostINR: 250000,
+    averageCostUSD: 2650,
+    recoveryTime: "3–5 Days",
+    hospitalStay: "2–3 Days",
+    successRate: "99%",
+    recommendedHospitals: [
+      "Fortis Escorts Heart Institute, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Jaypee Hospital, Noida"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Seth (Cardiology)",
+      "Dr. K.K. Saxena (Cardiology)",
+      "Dr. Subhash Chandra (Cardiology)"
+    ],
+    description: "Coronary Angioplasty is a minimally invasive procedure to open narrowed or blocked coronary arteries using a balloon catheter, followed by stent placement to keep the artery open. It is performed via the wrist or groin under local anaesthesia and takes 1–2 hours. Delhi NCR hospitals perform over 50,000 angioplasty procedures annually, including complex cases with robotic guidance and bioresorbable stents. Most patients are discharged within 2–3 days and return to light activity within a week, making it one of the most effective and rapid cardiac interventions available."
+  },
+  {
+    id: "t3",
+    slug: "heart-valve-replacement-repair",
+    name: "Heart Valve Replacement / Repair",
+    category: "Cardiac Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%238e44ad'/%3E%3Cpath d='M200 100 L160 200 L200 170 L240 200 L200 100' fill='%239b59b6' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EValve Replacement%3C/text%3E%3C/svg%3E",
+    startingCostINR: 250000,
+    startingCostUSD: 2650,
+    averageCostINR: 500000,
+    averageCostUSD: 5250,
+    recoveryTime: "6–8 Weeks",
+    hospitalStay: "7–10 Days",
+    successRate: "97%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Fortis Escorts Heart Institute, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Fortis FMRI, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Naresh Trehan (Cardiac Surgery)",
+      "Dr. Sanjay Sharma (Cardiac Surgery)",
+      "Dr. Ashok Seth (Cardiology)"
+    ],
+    description: "Heart Valve Replacement or Repair surgery corrects damaged or diseased heart valves – most commonly the mitral and aortic valves – restoring normal blood flow and preventing heart failure. Delhi NCR surgeons prefer valve repair over replacement wherever feasible, preserving the native valve and avoiding lifelong anticoagulation. Both mechanical and biological prosthetic valves are used when replacement is necessary. The procedure requires 7–10 days hospitalisation and 6–8 weeks full recovery. Delhi NCR's cardiac centres perform hundreds of valve procedures annually with outcomes matching European and US benchmarks."
+  },
+  {
+    id: "t4",
+    slug: "total-knee-replacement-tkr",
+    name: "Total Knee Replacement (TKR)",
+    category: "Orthopaedics",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231abc9c'/%3E%3Crect x='160' y='120' width='80' height='60' rx='10' fill='%2316a085' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EKnee Replacement%3C/text%3E%3C/svg%3E",
+    startingCostINR: 200000,
+    startingCostUSD: 2100,
+    averageCostINR: 350000,
+    averageCostUSD: 3700,
+    recoveryTime: "6–8 Weeks",
+    hospitalStay: "4–5 Days",
+    successRate: "98%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "Fortis Hospital Gurugram",
+      "Jaypee Hospital, Noida",
+      "Artemis Hospital, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Rajgopal (Orthopedics)",
+      "Dr. Yash Gulati (Orthopedics)",
+      "Dr. Atul Mishra (Orthopedics)"
+    ],
+    description: "Total Knee Replacement replaces damaged knee joint surfaces with metal and plastic implants, eliminating pain and restoring mobility in patients with severe osteoarthritis, rheumatoid arthritis or post-traumatic arthritis. Delhi NCR's orthopaedic centres offer robotic-assisted and computer-navigated TKR that achieves significantly better implant alignment than conventional surgery, improving longevity and patient outcomes. Bilateral TKR – both knees in one procedure – is also performed at high-volume centres. Most patients walk with support the day after surgery, are discharged in 4–5 days and return to normal activity within 6–8 weeks."
+  },
+  {
+    id: "t5",
+    slug: "total-hip-replacement-thr",
+    name: "Total Hip Replacement (THR)",
+    category: "Orthopaedics",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d35400'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23e67e22' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EHip Replacement%3C/text%3E%3C/svg%3E",
+    startingCostINR: 200000,
+    startingCostUSD: 2100,
+    averageCostINR: 350000,
+    averageCostUSD: 3700,
+    recoveryTime: "6–10 Weeks",
+    hospitalStay: "4–5 Days",
+    successRate: "97%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Artemis Hospital, Gurugram",
+      "Jaypee Hospital, Noida"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Rajgopal (Orthopedics)",
+      "Dr. Yash Gulati (Orthopedics)",
+      "Dr. Atul Mishra (Orthopedics)"
+    ],
+    description: "Total Hip Replacement removes damaged bone and cartilage from the hip joint and replaces it with a prosthetic implant, eliminating pain and restoring normal walking in patients with advanced hip arthritis, avascular necrosis or hip fractures. Delhi NCR hospitals use cemented, uncemented and hybrid fixation techniques with metal-on-polyethylene, ceramic-on-ceramic and other implant bearing surfaces tailored to the patient's age and activity level. Modern minimally invasive surgical approaches reduce blood loss and speed recovery. Patients typically walk on the operated hip the day after surgery and are fully mobile within 6–10 weeks."
+  },
+  {
+    id: "t6",
+    slug: "lumbar-disc-surgery-spinal-fusion",
+    name: "Lumbar Disc Surgery / Spinal Fusion",
+    category: "Spine Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231b4f72'/%3E%3Crect x='180' y='110' width='40' height='80' rx='5' fill='%232c3e50' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ESpine Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 150000,
+    startingCostUSD: 1600,
+    averageCostINR: 300000,
+    averageCostUSD: 3150,
+    recoveryTime: "4–8 Weeks",
+    hospitalStay: "3–5 Days",
+    successRate: "95%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Fortis FMRI, Gurugram",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Jaypee Hospital, Noida"
+    ],
+    recommendedDoctors: [
+      "Dr. Rahul Gupta (Spine Surgery)",
+      "Dr. Rajesh Sharma (Spine Surgery)"
+    ],
+    description: "Lumbar Disc Surgery – including microdiscectomy, TLIF and PLIF spinal fusion – treats severe back and leg pain caused by herniated discs, spinal stenosis or degenerative disc disease. Delhi NCR neurosurgeons and spine surgeons increasingly use minimally invasive and endoscopic approaches that use smaller incisions, cause less muscle damage, reduce blood loss and allow faster recovery than traditional open surgery. Patients with disc herniation compressing spinal nerves experience rapid pain relief following surgery. Fusion procedures for instability and spondylolisthesis typically require 4–6 weeks recovery with physiotherapy support."
+  },
+  {
+    id: "t7",
+    slug: "liver-transplant-living-donor-ldlt",
+    name: "Liver Transplant (Living Donor LDLT)",
+    category: "Transplant Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%237d3c98'/%3E%3Cpath d='M200 90 L170 190 L200 170 L230 190 L200 90' fill='%239b59b6' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ELiver Transplant%3C/text%3E%3C/svg%3E",
+    startingCostINR: 2000000,
+    startingCostUSD: 21050,
+    averageCostINR: 2800000,
+    averageCostUSD: 29450,
+    recoveryTime: "3–6 Months",
+    hospitalStay: "20–30 Days",
+    successRate: "90%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Fortis FMRI, Gurugram",
+      "Max Super Speciality Hospital Patparganj, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Dr. Arvinder Singh Soin (Transplant Surgery)",
+      "Dr. Vivek Vij (Transplant Surgery)",
+      "Dr. Deepak Govil (Transplant Surgery)"
+    ],
+    description: "Living Donor Liver Transplant – LDLT – replaces a patient's diseased liver with a portion donated by a living donor, typically a family member. Delhi NCR is a global leader in LDLT, having pioneered the technique in India due to limited deceased donor availability. The procedure is indicated for end-stage liver cirrhosis, hepatocellular carcinoma within transplant criteria and acute liver failure. Delhi NCR's transplant centres perform hundreds of liver transplants annually with five-year patient survival rates exceeding 85%, matching the best international benchmarks. Post-transplant immunosuppression and lifelong follow-up are essential components of care."
+  },
+  {
+    id: "t8",
+    slug: "kidney-transplant",
+    name: "Kidney Transplant",
+    category: "Transplant Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e67e22'/%3E%3Cpath d='M170 130 Q200 90 230 130 L230 170 Q200 210 170 170 Z' fill='%23f39c12' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EKidney Transplant%3C/text%3E%3C/svg%3E",
+    startingCostINR: 700000,
+    startingCostUSD: 7350,
+    averageCostINR: 1100000,
+    averageCostUSD: 11600,
+    recoveryTime: "4–6 Weeks",
+    hospitalStay: "10–14 Days",
+    successRate: "95%",
+    recommendedHospitals: [
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "Max Super Speciality Hospital Patparganj, New Delhi",
+      "Jaypee Hospital, Noida",
+      "Fortis FMRI, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Anil Agarwal (Transplant Surgery)",
+      "Dr. Ajay Kumar Sharma (Transplant Surgery)"
+    ],
+    description: "Kidney Transplant offers patients with end-stage renal disease a superior alternative to lifelong dialysis, providing better quality of life, longer survival and restored kidney function. Delhi NCR hospitals perform both living donor and deceased donor kidney transplants, with active ABO-incompatible transplant and paired kidney exchange programmes expanding donor availability. Leading centres achieve one-year graft survival rates exceeding 95%. Post-transplant immunosuppression management and regular follow-up are critical for long-term graft survival. Delhi NCR offers kidney transplant at significantly lower cost than Western countries while maintaining international-standard clinical outcomes."
+  },
+  {
+    id: "t9",
+    slug: "bone-marrow-transplant-autologous",
+    name: "Bone Marrow Transplant – Autologous",
+    category: "Oncology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23c0392b'/%3E%3Ccircle cx='200' cy='150' r='45' fill='%23e74c3c' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='20' fill='%23c0392b'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EBone Marrow Transplant%3C/text%3E%3C/svg%3E",
+    startingCostINR: 700000,
+    startingCostUSD: 7350,
+    averageCostINR: 1400000,
+    averageCostUSD: 14750,
+    recoveryTime: "3–4 Months",
+    hospitalStay: "3–4 Weeks",
+    successRate: "80–85%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Rajiv Gandhi Cancer Institute, New Delhi",
+      "Fortis FMRI, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Kumar Vaid (Oncology)",
+      "Dr. Niti Raizada (Oncology)"
+    ],
+    description: "Autologous Bone Marrow Transplant uses the patient's own stem cells – harvested before high-dose chemotherapy – to restore the blood and immune system after intensive cancer treatment. It is primarily used for multiple myeloma, Hodgkin Lymphoma, Non-Hodgkin Lymphoma and certain solid tumours. Delhi NCR's BMT units operate within HEPA-filtered rooms to minimise infection risk during the critical engraftment phase. Five-year overall survival rates for myeloma and lymphoma after autologous BMT in Delhi NCR match international benchmarks from leading USA and European BMT centres, at a fraction of the cost."
+  },
+  {
+    id: "t10",
+    slug: "ivf-icsi-in-vitro-fertilisation",
+    name: "IVF / ICSI (In Vitro Fertilisation)",
+    category: "Reproductive Medicine",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d4ac0d'/%3E%3Ccircle cx='170' cy='150' r='25' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ccircle cx='230' cy='150' r='25' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EIVF%3C/text%3E%3C/svg%3E",
+    startingCostINR: 150000,
+    startingCostUSD: 1600,
+    averageCostINR: 250000,
+    averageCostUSD: 2650,
+    recoveryTime: "2 weeks (per cycle)",
+    hospitalStay: "Day care – no overnight stay",
+    successRate: "50–65% (age under 35)",
+    recommendedHospitals: [
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Max Super Speciality Hospital Saket, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "Jaypee Hospital, Noida",
+      "BLK-Max Super Speciality Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Dr. Ranjana Sharma (Reproductive Medicine)",
+      "Dr. Gautam Sharma (Reproductive Medicine)"
+    ],
+    description: "IVF involves stimulating the ovaries to produce multiple eggs, retrieving them under light sedation, fertilising with sperm in the laboratory, and transferring resulting embryos to the uterus. ICSI – Intracytoplasmic Sperm Injection – is used for male factor infertility. Delhi NCR's IVF centres offer PGT-A embryo genetic testing, egg freezing, donor egg IVF and comprehensive fertility preservation services. Clinical pregnancy rates per transfer in leading Delhi NCR IVF programmes for women under 35 range from 50–65%, comparing favourably with international benchmarks. IVF in Delhi NCR costs 30–50% less than equivalent programmes in the UK, USA or Australia."
+  },
+  {
+    id: "t11",
+    slug: "chemotherapy",
+    name: "Chemotherapy",
+    category: "Oncology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232c3e50'/%3E%3Crect x='160' y='110' width='80' height='80' rx='10' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EChemotherapy%3C/text%3E%3C/svg%3E",
+    startingCostINR: 50000,
+    startingCostUSD: 550,
+    averageCostINR: 150000,
+    averageCostUSD: 1600,
+    recoveryTime: "Ongoing (cycles every 2–4 weeks)",
+    hospitalStay: "Day care or 1–2 days per cycle",
+    successRate: "Varies by cancer type",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Rajiv Gandhi Cancer Institute, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Max Super Speciality Hospital Saket, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Kumar Vaid (Oncology)",
+      "Dr. Harsh Dua (Oncology)",
+      "Dr. Manish Singhal (Oncology)",
+      "Dr. Niti Raizada (Oncology)"
+    ],
+    description: "Chemotherapy uses powerful drugs to kill cancer cells or stop them from growing and dividing. It is administered intravenously or orally in treatment cycles spaced 2–4 weeks apart to allow normal cells to recover. Delhi NCR's oncology centres offer comprehensive chemotherapy across all solid and haematological malignancies, using both conventional cytotoxic protocols and modern targeted chemotherapy regimens guided by molecular profiling. Day-care chemotherapy administration facilities at leading Delhi NCR hospitals allow most patients to receive treatment and return home the same day. Modern supportive care with anti-emetics and growth factors significantly reduces treatment-related side effects."
+  },
+  {
+    id: "t12",
+    slug: "radiation-therapy-imrt-vmat-sbrt",
+    name: "Radiation Therapy (IMRT / VMAT / SBRT)",
+    category: "Radiation Oncology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231f6188'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%232980b9' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='15' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ERadiation Therapy%3C/text%3E%3C/svg%3E",
+    startingCostINR: 200000,
+    startingCostUSD: 2100,
+    averageCostINR: 400000,
+    averageCostUSD: 4200,
+    recoveryTime: "During treatment & 2–4 weeks after",
+    hospitalStay: "Outpatient (daily sessions 15–30 mins)",
+    successRate: "Varies by cancer type and stage",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Max Super Speciality Hospital Saket, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Rajiv Gandhi Cancer Institute, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Dr. Tejinder Kataria (Radiation Oncology)",
+      "Dr. Rakesh Kapoor (Radiation Oncology)"
+    ],
+    description: "Modern Radiation Therapy using IMRT and VMAT delivers precisely shaped radiation doses to tumours while sparing adjacent normal tissues, significantly reducing side effects compared to conventional radiotherapy. SBRT – Stereotactic Body Radiotherapy – delivers ablative radiation in 1–5 sessions to small tumours in the lung, liver, spine and prostate. Delhi NCR hospitals are equipped with the latest Varian TrueBeam and Edge linear accelerators alongside CyberKnife radiosurgery systems, offering the most advanced radiation technologies available. Treatment is typically delivered as daily outpatient sessions of 15–30 minutes over 4–7 weeks, allowing patients to continue daily activities throughout."
+  },
+  {
+    id: "t13",
+    slug: "brain-tumour-surgery",
+    name: "Brain Tumour Surgery",
+    category: "Neurosciences",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%234a235a'/%3E%3Ccircle cx='200' cy='150' r='55' fill='%236c3483' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EBrain Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 300000,
+    startingCostUSD: 3150,
+    averageCostINR: 550000,
+    averageCostUSD: 5800,
+    recoveryTime: "6–12 Weeks",
+    hospitalStay: "7–10 Days",
+    successRate: "92%",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Fortis FMRI, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Jaypee Hospital, Noida"
+    ],
+    recommendedDoctors: [
+      "Dr. Aditya Gupta (Neurosurgery)",
+      "Dr. Rahul Gupta (Neurosurgery)"
+    ],
+    description: "Brain Tumour Surgery removes or debulks tumours of the brain and skull base using craniotomy or minimally invasive endoscopic approaches. Delhi NCR neurosurgeons use intraoperative MRI, neuro-navigation and awake craniotomy techniques to maximise tumour removal while protecting critical brain areas responsible for speech, movement and cognition. For deep-seated tumours, CyberKnife stereotactic radiosurgery offers non-invasive treatment without a surgical incision. Delhi NCR is one of the leading brain tumour surgical destinations in Asia, offering internationally trained neurosurgeons, advanced intraoperative technology and comprehensive neuro-oncology multidisciplinary care at a fraction of the cost of equivalent treatment in the USA or UK."
+  },
+  {
+    id: "t14",
+    slug: "deep-brain-stimulation-dbs-for-parkinsons-disease",
+    name: "Deep Brain Stimulation (DBS) for Parkinson's Disease",
+    category: "Functional Neurosurgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231a5276'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%232980b9' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='8' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EDeep Brain Stimulation%3C/text%3E%3C/svg%3E",
+    startingCostINR: 500000,
+    startingCostUSD: 5250,
+    averageCostINR: 750000,
+    averageCostUSD: 7900,
+    recoveryTime: "4–6 Weeks",
+    hospitalStay: "4–5 Days",
+    successRate: "90% motor improvement",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Fortis FMRI, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Dr. Aditya Gupta (Functional Neurosurgery)"
+    ],
+    description: "Deep Brain Stimulation is a neurosurgical procedure that implants electrodes in specific brain regions connected to an implantable neurostimulator in the chest, delivering electrical impulses that modulate abnormal brain circuits in Parkinson's disease, essential tremor and dystonia. DBS significantly reduces tremor, rigidity and medication-induced dyskinesias in patients with Parkinson's disease, often dramatically improving quality of life. Delhi NCR neurosurgeons trained at Johns Hopkins and other leading international centres offer comprehensive DBS programmes with multidisciplinary evaluation, implantation and long-term programming. DBS in Delhi NCR costs 60–70% less than equivalent procedures in the USA or Western Europe."
+  },
+  {
+    id: "t15",
+    slug: "robotic-radical-prostatectomy",
+    name: "Robotic Radical Prostatectomy",
+    category: "Uro-Oncology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231b4f72'/%3E%3Crect x='160' y='120' width='80' height='60' rx='8' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3ERobotic Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 350000,
+    startingCostUSD: 3700,
+    averageCostINR: 600000,
+    averageCostUSD: 6300,
+    recoveryTime: "4–6 Weeks",
+    hospitalStay: "3–4 Days",
+    successRate: "95% cancer control",
+    recommendedHospitals: [
+      "Rajiv Gandhi Cancer Institute, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Max Super Speciality Hospital Patparganj, New Delhi",
+      "Medanta – The Medicity, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Sudhir Rawal (Uro-Oncology)",
+      "Dr. Rajesh Taneja (Uro-Oncology)",
+      "Dr. Anil Agarwal (Uro-Oncology)"
+    ],
+    description: "Robotic Radical Prostatectomy uses the Da Vinci robotic surgical system to remove the prostate gland and adjacent tissues through tiny incisions with camera-guided magnified precision. The robotic approach enables nerve-sparing surgery that preserves the neurovascular bundles responsible for urinary continence and sexual function alongside complete cancer excision. Delhi NCR's uro-oncology surgeons – including Dr. Sudhir Rawal, trained at MD Anderson Cancer Centre – have performed thousands of robotic prostatectomies with continence and potency rates matching published international benchmarks. Patients are discharged in 3–4 days and return to full activity within 4–6 weeks."
+  },
+  {
+    id: "t16",
+    slug: "breast-cancer-surgery",
+    name: "Breast Cancer Surgery",
+    category: "Surgical Oncology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23a93226'/%3E%3Ccircle cx='200' cy='150' r='45' fill='%23e74c3c' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EBreast Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 200000,
+    startingCostUSD: 2100,
+    averageCostINR: 400000,
+    averageCostUSD: 4200,
+    recoveryTime: "3–6 Weeks",
+    hospitalStay: "3–5 Days",
+    successRate: "95%",
+    recommendedHospitals: [
+      "Rajiv Gandhi Cancer Institute, New Delhi",
+      "Max Super Speciality Hospital Saket, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Fortis FMRI, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Kumar Vaid (Surgical Oncology)",
+      "Dr. Niti Raizada (Surgical Oncology)",
+      "Dr. Harsh Dua (Surgical Oncology)"
+    ],
+    description: "Breast Cancer Surgery encompasses breast-conserving surgery – lumpectomy with sentinel lymph node biopsy – and mastectomy, both of which are performed at Delhi NCR hospitals with oncoplastic techniques that optimise cosmetic outcomes alongside cancer clearance. Immediate breast reconstruction using implants or autologous tissue transfer is offered at major centres. Post-surgical adjuvant chemotherapy, targeted therapy with trastuzumab, hormone therapy and radiation therapy are integrated in multidisciplinary treatment planning. Delhi NCR hospitals manage all stages of breast cancer with outcomes in early-stage disease exceeding 95% five-year survival rates using evidence-based treatment protocols."
+  },
+  {
+    id: "t17",
+    slug: "rhinoplasty-nose-reshaping",
+    name: "Rhinoplasty (Nose Reshaping)",
+    category: "Cosmetic Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23b7950b'/%3E%3Cpath d='M200 100 L170 200 L200 180 L230 200 L200 100' fill='%23f1c40f' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3ERhinoplasty%3C/text%3E%3C/svg%3E",
+    startingCostINR: 70000,
+    startingCostUSD: 750,
+    averageCostINR: 150000,
+    averageCostUSD: 1600,
+    recoveryTime: "2–3 weeks (social); 6–12 months (full)",
+    hospitalStay: "Day care – 1 day",
+    successRate: "92%",
+    recommendedHospitals: [
+      "Primus Super Speciality Hospital, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Sir Ganga Ram Hospital, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "Artemis Hospital, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Specialist Plastic & Cosmetic Surgeons at listed hospitals"
+    ],
+    description: "Rhinoplasty reshapes the nose for aesthetic improvement or functional correction of breathing difficulties, modifying the bone, cartilage and skin to achieve the desired nasal profile. Delhi NCR's plastic and cosmetic surgery centres offer both open and closed rhinoplasty techniques with experienced surgeons delivering natural-looking results. The procedure is performed under general anaesthesia with most patients returning home the same day or after one night. Swelling reduces progressively over 2–3 weeks, with final results visible at 6–12 months. Delhi NCR offers rhinoplasty at 30–50% of the cost of equivalent procedures in the UK, USA, Turkey and Thailand."
+  },
+  {
+    id: "t18",
+    slug: "liposuction-body-contouring",
+    name: "Liposuction / Body Contouring",
+    category: "Cosmetic Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d35400'/%3E%3Crect x='170' y='130' width='60' height='40' rx='5' fill='%23e67e22' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ELiposuction%3C/text%3E%3C/svg%3E",
+    startingCostINR: 80000,
+    startingCostUSD: 850,
+    averageCostINR: 180000,
+    averageCostUSD: 1900,
+    recoveryTime: "2–4 Weeks",
+    hospitalStay: "Day care – 1 day",
+    successRate: "90%",
+    recommendedHospitals: [
+      "Primus Super Speciality Hospital, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Sir Ganga Ram Hospital, New Delhi",
+      "Artemis Hospital, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Specialist Plastic & Cosmetic Surgeons at listed hospitals"
+    ],
+    description: "Liposuction permanently removes localised fat deposits from the abdomen, flanks, thighs, arms, back, neck and other areas that have not responded to diet and exercise. Modern VASER ultrasound-assisted and laser-assisted liposuction techniques provide smoother results with less bruising and faster recovery than traditional methods. Delhi NCR's cosmetic surgery centres offer comprehensive body contouring packages combining liposuction with abdominoplasty, arm lift and thigh lift for patients seeking comprehensive body transformation. Most patients return to light work within 1–2 weeks and resume full activity within 3–4 weeks."
+  },
+  {
+    id: "t19",
+    slug: "hair-transplant-fue-dhi",
+    name: "Hair Transplant (FUE / DHI)",
+    category: "Cosmetic Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%235d4e37'/%3E%3Cpath d='M170 140 Q200 100 230 140' stroke='%23f1c40f' stroke-width='4' fill='none'/%3E%3Cpath d='M180 160 Q200 120 220 160' stroke='%23f39c12' stroke-width='4' fill='none'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EHair Transplant%3C/text%3E%3C/svg%3E",
+    startingCostINR: 40000,
+    startingCostUSD: 400,
+    averageCostINR: 100000,
+    averageCostUSD: 1050,
+    recoveryTime: "1–2 weeks (return to work); 8–12 months (full result)",
+    hospitalStay: "Day care",
+    successRate: "95%",
+    recommendedHospitals: [
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "Primus Super Speciality Hospital, New Delhi",
+      "Medanta – The Medicity, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Specialist Dermatologist / Trichologist at listed hospitals"
+    ],
+    description: "Hair Transplant using Follicular Unit Extraction – FUE – or Direct Hair Implantation – DHI – harvests individual hair follicles from the donor area and implants them individually into balding areas for natural-density results with no visible linear scar. Delhi NCR has become one of Asia's leading hair transplant destinations, with experienced trichologists and dermatologists performing thousands of FUE and DHI procedures annually at prices 40–60% below Western Europe and North America. Patients return to normal activities within 1–2 weeks and full results are visible at 8–12 months when transplanted hair grows to full density."
+  },
+  {
+    id: "t20",
+    slug: "dental-implant",
+    name: "Dental Implant",
+    category: "Dental",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%233498db'/%3E%3Crect x='180' y='120' width='40' height='60' rx='5' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EDental Implant%3C/text%3E%3C/svg%3E",
+    startingCostINR: 30000,
+    startingCostUSD: 300,
+    averageCostINR: 70000,
+    averageCostUSD: 750,
+    recoveryTime: "3–6 months (osseointegration)",
+    hospitalStay: "Day care",
+    successRate: "97%",
+    recommendedHospitals: [
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "Max Super Speciality Hospital Saket, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "BLK-Max Super Speciality Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Specialist Prosthodontist / Oral & Maxillofacial Surgeon at listed hospitals"
+    ],
+    description: "Dental Implants replace missing teeth with titanium root fixtures surgically placed into the jawbone, onto which ceramic crowns are attached, providing permanent stable tooth replacements that look and function identically to natural teeth. Delhi NCR's dental departments use premium European and US implant systems including Nobel Biocare, Straumann and Osstem. Digital planning with 3D CBCT imaging ensures precise implant placement. Single tooth implants, multiple implants and full arch All-on-4 or All-on-6 immediate load implants are performed. Delhi NCR implant dentistry costs 40–70% less than equivalent treatment in the UK, USA, Australia and Singapore while using identical implant systems and materials."
+  },
+  {
+    id: "t21",
+    slug: "full-mouth-dental-rehabilitation",
+    name: "Full Mouth Dental Rehabilitation",
+    category: "Dental",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231abc9c'/%3E%3Crect x='150' y='110' width='100' height='80' rx='5' fill='%2316a085' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EFull Mouth Rehab%3C/text%3E%3C/svg%3E",
+    startingCostINR: 250000,
+    startingCostUSD: 2650,
+    averageCostINR: 600000,
+    averageCostUSD: 6300,
+    recoveryTime: "2–4 Weeks",
+    hospitalStay: "Multiple day-care visits",
+    successRate: "95%",
+    recommendedHospitals: [
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "Max Super Speciality Hospital Saket, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi"
+    ],
+    recommendedDoctors: [
+      "Specialist Prosthodontist & Oral Surgeon team at listed hospitals"
+    ],
+    description: "Full Mouth Dental Rehabilitation comprehensively restores all teeth using a combination of dental implants, crowns, bridges, veneers and gum treatment, transforming both function and aesthetics for patients with multiple missing, damaged or severely worn teeth. Delhi NCR's hospital-based dental departments use digital smile design, CAD/CAM ceramic restoration and implant-supported full arch solutions including All-on-4 and All-on-6 techniques. Treatment can often be completed within 10–14 days for international patients using immediate-load implant protocols. Cost savings of 50–75% compared to the UK, USA and Australia make Delhi NCR one of the world's most popular dental tourism destinations."
+  },
+  {
+    id: "t22",
+    slug: "bariatric-surgery-sleeve-gastrectomy",
+    name: "Bariatric Surgery – Sleeve Gastrectomy",
+    category: "Bariatric Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e74c3c'/%3E%3Cpath d='M160 130 Q200 100 240 130 L240 200 Q200 230 160 200 Z' fill='%23c0392b' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EBariatric Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 250000,
+    startingCostUSD: 2650,
+    averageCostINR: 400000,
+    averageCostUSD: 4200,
+    recoveryTime: "3–4 Weeks",
+    hospitalStay: "3–4 Days",
+    successRate: "98% (procedure success); 80%+ excess weight loss at 2 years",
+    recommendedHospitals: [
+      "Max Super Speciality Hospital Saket, New Delhi",
+      "Artemis Hospital, Gurugram",
+      "Fortis FMRI, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Medanta – The Medicity, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Pradeep Chowbey (Bariatric Surgery)"
+    ],
+    description: "Laparoscopic Sleeve Gastrectomy removes approximately 80% of the stomach laparoscopically, creating a sleeve-shaped stomach that restricts food intake and reduces hunger-stimulating hormones. It is the most commonly performed bariatric procedure globally and is the primary treatment for morbid obesity with BMI over 37.5. Delhi NCR hosts India's most experienced bariatric surgery programme under Dr. Pradeep Chowbey – Past President of the International Federation for the Surgery of Obesity – at Max Saket. Patients typically lose 60–70% of excess weight within 18 months and experience significant improvement or remission of type 2 diabetes, hypertension and sleep apnoea."
+  },
+  {
+    id: "t23",
+    slug: "lasik-eye-surgery",
+    name: "LASIK Eye Surgery",
+    category: "Ophthalmology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232980b9'/%3E%3Ccircle cx='200' cy='150' r='45' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M160 150 L240 150 M200 110 L200 190' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3ELASIK%3C/text%3E%3C/svg%3E",
+    startingCostINR: 40000,
+    startingCostUSD: 400,
+    averageCostINR: 80000,
+    averageCostUSD: 850,
+    recoveryTime: "1–2 days (functional); 1 week (full)",
+    hospitalStay: "Day care",
+    successRate: "99%",
+    recommendedHospitals: [
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Medanta – The Medicity, Gurugram",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "Jaypee Hospital, Noida"
+    ],
+    recommendedDoctors: [
+      "Specialist Ophthalmologist at listed hospitals"
+    ],
+    description: "LASIK – Laser-Assisted In Situ Keratomileusis – permanently corrects myopia, hyperopia and astigmatism by reshaping the cornea with an excimer laser, eliminating or significantly reducing dependence on spectacles or contact lenses. Modern Femto-LASIK and SMILE procedures use an additional femtosecond laser for bladeless flap creation, improving safety and predictability. Delhi NCR hospitals use the latest generation Zeiss, Alcon and Schwind laser platforms. The procedure takes 15–20 minutes per eye under topical drops with no injection or stitches. Most patients achieve 20/20 vision or better within 24–48 hours. Delhi NCR LASIK costs 30–50% less than equivalent procedures in Singapore, Malaysia, the UAE and UK."
+  },
+  {
+    id: "t24",
+    slug: "scoliosis-correction-surgery",
+    name: "Scoliosis Correction Surgery",
+    category: "Spine Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231b4f72'/%3E%3Cpath d='M140 120 Q200 100 260 120 Q220 150 260 180 Q200 200 140 180 Q180 150 140 120' fill='%232c3e50' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EScoliosis Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 400000,
+    startingCostUSD: 4200,
+    averageCostINR: 700000,
+    averageCostUSD: 7350,
+    recoveryTime: "3–6 Months",
+    hospitalStay: "7–10 Days",
+    successRate: "95%",
+    recommendedHospitals: [
+      "Fortis FMRI, Gurugram",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Artemis Hospital, Gurugram",
+      "Medanta – The Medicity, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Rajesh Sharma (Spine Surgery)",
+      "Dr. Rahul Gupta (Spine Surgery)"
+    ],
+    description: "Scoliosis Correction Surgery uses pedicle screw instrumentation and posterior spinal fusion to correct abnormal spinal curvature in adolescent idiopathic scoliosis and adult degenerative scoliosis, improving spinal alignment, appearance and in some cases lung function. Delhi NCR spine surgeons use intraoperative neuromonitoring and image-guided navigation to maximise curve correction while protecting spinal cord and nerve root function. The procedure is performed under general anaesthesia with hospital stays of 7–10 days. Patients begin physiotherapy-guided mobilisation immediately post-operatively. Delhi NCR attracts scoliosis patients from South-East Asia, the Middle East and Africa for the combination of experienced spine surgeons and significantly lower cost than equivalent treatment in Singapore, Thailand or Western Europe."
+  },
+  {
+    id: "t25",
+    slug: "cancer-immunotherapy-checkpoint-inhibitors",
+    name: "Cancer Immunotherapy (Checkpoint Inhibitors)",
+    category: "Oncology",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%238e44ad'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%239b59b6' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='15' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EImmunotherapy%3C/text%3E%3C/svg%3E",
+    startingCostINR: 100000,
+    startingCostUSD: 1050,
+    averageCostINR: 300000,
+    averageCostUSD: 3150,
+    recoveryTime: "Ongoing – infusions every 2–6 weeks",
+    hospitalStay: "Day care per infusion",
+    successRate: "Varies by tumour type and biomarker",
+    recommendedHospitals: [
+      "Medanta – The Medicity, Gurugram",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Rajiv Gandhi Cancer Institute, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Fortis FMRI, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Kumar Vaid (Oncology)",
+      "Dr. Harsh Dua (Oncology)",
+      "Dr. Manish Singhal (Oncology)",
+      "Dr. Niti Raizada (Oncology)"
+    ],
+    description: "Checkpoint Immunotherapy drugs – Pembrolizumab, Nivolumab, Atezolizumab, Durvalumab – release the brakes on the immune system, enabling it to recognise and destroy cancer cells in a wide range of tumour types including lung cancer, melanoma, bladder cancer, gastric cancer, cervical cancer and certain lymphomas. Delhi NCR oncologists were among India's first to adopt checkpoint immunotherapy and have extensive experience in biomarker testing – PD-L1, MSI, TMB – to identify patients most likely to respond. Immunotherapy is administered as an intravenous infusion on a day-care basis every 2–6 weeks. Delhi NCR immunotherapy costs are 50–70% lower than equivalent treatment in the USA or UK."
+  },
+  {
+    id: "t26",
+    slug: "rhinoplasty-with-chin-augmentation",
+    name: "Rhinoplasty with Chin Augmentation",
+    category: "Cosmetic Surgery",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23b7950b'/%3E%3Cpath d='M200 100 L170 200 L200 180 L230 200 L200 100' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M180 210 L220 210 L220 230 L180 230 Z' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EFacial Profile Surgery%3C/text%3E%3C/svg%3E",
+    startingCostINR: 150000,
+    startingCostUSD: 1600,
+    averageCostINR: 280000,
+    averageCostUSD: 2950,
+    recoveryTime: "2–4 weeks (social); 6–12 months (full)",
+    hospitalStay: "Day care – 1 day",
+    successRate: "92%",
+    recommendedHospitals: [
+      "Primus Super Speciality Hospital, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "Sir Ganga Ram Hospital, New Delhi",
+      "Artemis Hospital, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Specialist Plastic & Cosmetic Surgeons at listed hospitals"
+    ],
+    description: "Combined Rhinoplasty with Chin Augmentation – also called facial profile surgery – simultaneously reshapes the nose and augments the chin to achieve balanced facial proportions. Many patients benefit from both procedures together, as the nose-chin ratio determines facial harmony. Delhi NCR's cosmetic surgery centres offer digital facial analysis and computer simulation to help patients visualise anticipated outcomes before surgery. Both procedures are performed under general anaesthesia in a single operative session, reducing overall recovery time and cost compared to two separate procedures. Delhi NCR's experienced cosmetic surgery teams deliver natural-looking results at costs 40–60% below Western Europe and the Middle East."
+  },
+  {
+    id: "t27",
+    slug: "coronary-angiography",
+    name: "Coronary Angiography",
+    category: "Cardiac Diagnostics",
+    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232c3e50'/%3E%3Cpath d='M160 150 L240 150 M200 110 L200 190' stroke='%23e74c3c' stroke-width='4'/%3E%3Ccircle cx='180' cy='150' r='6' fill='%23f1c40f'/%3E%3Ccircle cx='220' cy='150' r='6' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EAngiography%3C/text%3E%3C/svg%3E",
+    startingCostINR: 20000,
+    startingCostUSD: 200,
+    averageCostINR: 40000,
+    averageCostUSD: 400,
+    recoveryTime: "Same day (day care)",
+    hospitalStay: "Day care – 4–6 hours",
+    successRate: "99%",
+    recommendedHospitals: [
+      "Fortis Escorts Heart Institute, New Delhi",
+      "Indraprastha Apollo Hospital, New Delhi",
+      "BLK-Max Super Speciality Hospital, New Delhi",
+      "Fortis FMRI, Gurugram",
+      "Medanta – The Medicity, Gurugram"
+    ],
+    recommendedDoctors: [
+      "Dr. Ashok Seth (Cardiology)",
+      "Dr. K.K. Saxena (Cardiology)",
+      "Dr. Subhash Chandra (Cardiology)"
+    ],
+    description: "Coronary Angiography is the gold standard diagnostic procedure for visualising the coronary arteries, identifying blockages, narrowings and abnormalities that cause chest pain, breathlessness and heart attacks. A contrast dye is injected through a catheter in the wrist or groin and X-ray images capture coronary artery anatomy in detail. The procedure takes 30–45 minutes under local anaesthesia on a day-care basis. Results are immediately reviewed by the interventional cardiologist who can proceed to angioplasty in the same session if a significant blockage is found. Delhi NCR hospitals perform thousands of coronary angiographies monthly, and it is among the most affordable cardiac diagnostic procedures available in the region."
+  }
+];
