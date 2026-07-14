@@ -199,53 +199,64 @@ export default function Home() {
       </section>
 
       {/* Featured Doctors */}
-      <section className="py-16 bg-muted/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Meet Our Expert Doctors')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {doctors.slice(0, 3).map((doctor) => (
-              <Link
-                key={doctor.id}
-                href={`/doctors/${doctor.slug}`}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-border hover:border-primary"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={doctor.image}
-                    alt={doctor.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-1">{translate(doctor.name)}</h3>
-                  <p className="text-primary text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
-                  <p className="text-xs text-muted-foreground mb-4">{translate(doctor.hospital)}</p>
-                  <div className="flex items-center gap-2 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Star size={16} className="text-yellow-600" />
-                      <span className="text-sm font-semibold">{doctor.rating}</span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground mb-4">{doctor.experience} years experience</p>
-                  <div className="text-sm font-semibold text-primary">
-                    From ${doctor.consultationFee}
-                  </div>
-                </div>
-              </Link>
-            ))}
+<section className="py-16 bg-muted/20">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 className="text-4xl font-bold text-center mb-12">{translate('Meet Our Expert Doctors')}</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {doctors.slice(0, 3).map((doctor) => (
+        <Link
+          key={doctor.id}
+          href={`/doctors/${doctor.slug}`}
+          className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-primary group flex flex-col"
+        >
+          {/* Image Container - Optimized for portrait images */}
+          <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gray-100">
+            <Image
+              src={doctor.image}
+              alt={doctor.name}
+              fill
+              className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={doctor.id <= 3}
+            />
           </div>
-          <div className="text-center mt-12">
-            <Link
-              href="/doctors"
-              className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
-            >
-              {translate('View All Doctors →')}
-            </Link>
+          
+          {/* Content */}
+          <div className="p-6 flex flex-col flex-1">
+            <h3 className="text-xl font-semibold mb-1 line-clamp-1">{translate(doctor.name)}</h3>
+            <p className="text-primary text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
+            <p className="text-xs text-muted-foreground mb-4 line-clamp-1">{translate(doctor.hospital)}</p>
+            
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-1">
+                <Star size={16} className="text-yellow-600 fill-yellow-600" />
+                <span className="text-sm font-semibold">{doctor.rating}</span>
+              </div>
+              <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
+            </div>
+            
+            <p className="text-sm text-muted-foreground mb-4">{doctor.experience} years experience</p>
+            
+            <div className="mt-auto pt-4 border-t border-border">
+              <div className="text-sm font-semibold text-primary">
+                From ${doctor.consultationFee}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </Link>
+      ))}
+    </div>
+    
+    <div className="text-center mt-12">
+      <Link
+        href="/doctors"
+        className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
+      >
+        {translate('View All Doctors →')}
+      </Link>
+    </div>
+  </div>
+</section>
 
       {/* Cost Comparison */}
       <section className="py-16">

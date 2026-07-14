@@ -57,14 +57,15 @@ export default async function DoctorDetail({ params }: { params: Promise<{ slug:
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-8 items-start md:items-center">
             
-            {/* Photo URL Display */}
-            <div className="relative h-48 w-48 rounded-2xl overflow-hidden border border-border shadow-md bg-muted flex-shrink-0">
+            {/* Photo Container - Optimized for portrait images */}
+            <div className="relative h-56 w-44 sm:h-64 sm:w-48 md:h-72 md:w-56 lg:h-80 lg:w-60 rounded-2xl overflow-hidden border border-border shadow-md bg-muted flex-shrink-0">
               <Image
                 src={doctor.image}
                 alt={`${doctor.name} Photo`}
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 priority
+                sizes="(max-width: 640px) 176px, (max-width: 768px) 192px, (max-width: 1024px) 224px, 240px"
               />
             </div>
 

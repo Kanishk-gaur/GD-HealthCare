@@ -49,24 +49,29 @@ export default function DoctorsPage() {
               <Link
                 key={doctor.id}
                 href={`/doctors/${doctor.slug}`}
-                className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all border border-border hover:border-primary group"
+                className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all border border-border hover:border-primary group flex flex-col"
               >
-                <div className="relative h-64 overflow-hidden">
+                {/* Image Container - Adjusted for portrait images */}
+                <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gray-100">
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={doctor.id <= 3} // Priority load first 3 images
                   />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-1">{doctor.name}</h3>
+                
+                {/* Content */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold mb-1 line-clamp-1">{doctor.name}</h3>
                   <p className="text-primary font-semibold text-sm mb-2">{doctor.specialization}</p>
-                  <p className="text-xs text-muted-foreground mb-4">{doctor.hospital}</p>
+                  <p className="text-xs text-muted-foreground mb-4 line-clamp-1">{doctor.hospital}</p>
 
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex items-center gap-1">
-                      <Star size={16} className="text-yellow-600" />
+                      <Star size={16} className="text-yellow-600 fill-yellow-600" />
                       <span className="text-sm font-semibold">{doctor.rating}</span>
                     </div>
                     <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
@@ -85,7 +90,7 @@ export default function DoctorsPage() {
                     ))}
                   </div>
 
-                  <div className="pt-4 border-t border-border">
+                  <div className="pt-4 border-t border-border mt-auto">
                     <p className="text-sm">
                       <span className="font-semibold text-foreground">From ${doctor.consultationFee}</span>
                       <span className="text-muted-foreground"> / consultation</span>
