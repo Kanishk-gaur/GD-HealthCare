@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Mail, Phone, MapPin } from 'lucide-react'
-import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa'
+import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa'
 
 export function Footer() {
   return (
@@ -19,7 +19,8 @@ export function Footer() {
               <span className="font-bold text-lg">GD Healthcare</span>
             </div>
             <p className="text-sm text-white/80">
-              Your trusted partner for world-class medical tourism with personalized care.
+              Trusted Medical Healthcare Worldwide | Leading medical tourism company in India, 
+              committed to providing high-quality healthcare services.
             </p>
           </div>
 
@@ -83,8 +84,8 @@ export function Footer() {
             <div className="space-y-3 text-sm">
               <div className="flex items-start gap-2">
                 <Phone size={18} className="flex-shrink-0 mt-0.5" />
-                <a href="tel:+919999999999" className="hover:text-accent transition-colors">
-                  +91 9999 999 999
+                <a href="tel:+919711614738" className="hover:text-accent transition-colors">
+                  +91 9711 614 738
                 </a>
               </div>
               <div className="flex items-start gap-2">
@@ -107,13 +108,15 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/80">
-            © 2024 GD Healthcare. All rights reserved.
+            © {new Date().getFullYear()} GD Healthcare Private Limited. All rights reserved.
           </p>
 
           {/* Social Links */}
           <div className="flex gap-4">
             <a
-              href="#"
+              href="https://www.facebook.com/share/19Siav2yNP/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-accent transition-colors"
               aria-label="Facebook"
             >
@@ -127,18 +130,31 @@ export function Footer() {
               <FaTwitter size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.linkedin.com/company/gd-healthcare-private-limited/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-accent transition-colors"
               aria-label="LinkedIn"
             >
               <FaLinkedin size={20} />
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/gd_healthcare_pvt_ltd/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-accent transition-colors"
               aria-label="Instagram"
             >
               <FaInstagram size={20} />
+            </a>
+            <a
+              href="https://youtube.com/@gdhealthcare"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white hover:text-accent transition-colors"
+              aria-label="YouTube"
+            >
+              <FaYoutube size={20} />
             </a>
           </div>
         </div>

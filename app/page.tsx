@@ -5,12 +5,52 @@ import Link from 'next/link'
 import { Star, MapPin, Stethoscope, DollarSign, Clock, TrendingUp, CheckCircle } from 'lucide-react'
 import { hospitals, doctors, treatments, testimonials, faqs } from '@/lib/data'
 import { useTranslation } from '@/hooks/useTranslation'
+import CostComparison from '@/components/CostComparison'
+import MedicalCostComparison, { allPackages } from '@/components/MedicalCostComparison'; // ✅ Added import
 
 const stats = [
   { label: '5000+', description: 'Successful Surgeries', icon: '✓' },
   { label: '50K+', description: 'Happy Patients', icon: '😊' },
   { label: '80%', description: 'Cost Savings', icon: '💰' },
   { label: '200+', description: 'Expert Doctors', icon: '👨‍⚕️' },
+]
+
+const costData = [
+  { name: 'Heart Bypass Surgery', usaCost: 120000, indiaCost: 18000 },
+  { name: 'Knee Replacement', usaCost: 35000, indiaCost: 13000 },
+  { name: 'Brain Tumor Surgery', usaCost: 150000, indiaCost: 28000 },
+  { name: 'Dental Implants', usaCost: 6000, indiaCost: 1200 },
+  { name: 'Hip Replacement', usaCost: 40000, indiaCost: 14000 },
+  { name: 'Spinal Fusion Surgery', usaCost: 110000, indiaCost: 22000 },
+  { name: 'Liver Transplant', usaCost: 550000, indiaCost: 45000 },
+  { name: 'Kidney Transplant', usaCost: 300000, indiaCost: 17000 },
+  { name: 'Bone Marrow Transplant', usaCost: 450000, indiaCost: 35000 },
+  { name: 'Coronary Angioplasty', usaCost: 45000, indiaCost: 7000 },
+  { name: 'Heart Valve Replacement', usaCost: 170000, indiaCost: 25000 },
+  { name: 'Cataract Surgery', usaCost: 5000, indiaCost: 900 },
+  { name: 'LASIK Eye Surgery', usaCost: 4500, indiaCost: 1500 },
+  { name: 'IVF Treatment', usaCost: 18000, indiaCost: 4000 },
+  { name: 'Appendix Removal', usaCost: 18000, indiaCost: 3500 },
+  { name: 'Gallbladder Removal', usaCost: 22000, indiaCost: 4500 },
+  { name: 'Hernia Repair', usaCost: 16000, indiaCost: 3000 },
+  { name: 'Prostate Surgery', usaCost: 45000, indiaCost: 8000 },
+  { name: 'Hysterectomy', usaCost: 25000, indiaCost: 5000 },
+  { name: 'Cochlear Implant', usaCost: 70000, indiaCost: 15000 },
+  { name: 'Lung Transplant', usaCost: 900000, indiaCost: 60000 },
+  { name: 'Heart Transplant', usaCost: 1400000, indiaCost: 70000 },
+  { name: 'ACL Reconstruction', usaCost: 35000, indiaCost: 6000 },
+  { name: 'Shoulder Replacement', usaCost: 40000, indiaCost: 9000 },
+  { name: 'Rotator Cuff Repair', usaCost: 25000, indiaCost: 5000 },
+  { name: 'Sleeve Gastrectomy', usaCost: 25000, indiaCost: 7000 },
+  { name: 'Gastric Bypass Surgery', usaCost: 35000, indiaCost: 8500 },
+  { name: 'Rhinoplasty', usaCost: 9000, indiaCost: 2500 },
+  { name: 'Breast Reconstruction', usaCost: 20000, indiaCost: 5000 },
+  { name: 'Chemotherapy (Per Cycle)', usaCost: 12000, indiaCost: 1200 },
+  { name: 'Radiation Therapy (Course)', usaCost: 60000, indiaCost: 5000 },
+  { name: 'PET Scan', usaCost: 6000, indiaCost: 350 },
+  { name: 'MRI Scan', usaCost: 2500, indiaCost: 150 },
+  { name: 'CT Scan', usaCost: 1500, indiaCost: 100 },
+  { name: 'Full Body Health Checkup', usaCost: 3000, indiaCost: 250 },
 ]
 
 const features = [
@@ -46,7 +86,6 @@ const treatmentCategories = [
 ]
 
 export default function Home() {
-  // No array arguments passed anymore! The hook tracks text dynamically as it renders.
   const { translate } = useTranslation();
 
   return (
@@ -199,105 +238,66 @@ export default function Home() {
       </section>
 
       {/* Featured Doctors */}
-<section className="py-16 bg-muted/20">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 className="text-4xl font-bold text-center mb-12">{translate('Meet Our Expert Doctors')}</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {doctors.slice(0, 3).map((doctor) => (
-        <Link
-          key={doctor.id}
-          href={`/doctors/${doctor.slug}`}
-          className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-primary group flex flex-col"
-        >
-          {/* Image Container - Optimized for portrait images */}
-          <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gray-100">
-            <Image
-              src={doctor.image}
-              alt={doctor.name}
-              fill
-              className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority={doctor.id <= 3}
-            />
+      <section className="py-16 bg-muted/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-12">{translate('Meet Our Expert Doctors')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {doctors.slice(0, 3).map((doctor) => (
+              <Link
+                key={doctor.id}
+                href={`/doctors/${doctor.slug}`}
+                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-primary group flex flex-col"
+              >
+                <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gray-100">
+                  <Image
+                    src={doctor.image}
+                    alt={doctor.name}
+                    fill
+                    className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={doctor.id <= 3}
+                  />
+                </div>
+                
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-xl font-semibold mb-1 line-clamp-1">{translate(doctor.name)}</h3>
+                  <p className="text-primary text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
+                  <p className="text-xs text-muted-foreground mb-4 line-clamp-1">{translate(doctor.hospital)}</p>
+                  
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex items-center gap-1">
+                      <Star size={16} className="text-yellow-600 fill-yellow-600" />
+                      <span className="text-sm font-semibold">{doctor.rating}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground mb-4">{doctor.experience} years experience</p>
+                  
+                  <div className="mt-auto pt-4 border-t border-border">
+                    <div className="text-sm font-semibold text-primary">
+                      From ${doctor.consultationFee}
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
           
-          {/* Content */}
-          <div className="p-6 flex flex-col flex-1">
-            <h3 className="text-xl font-semibold mb-1 line-clamp-1">{translate(doctor.name)}</h3>
-            <p className="text-primary text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
-            <p className="text-xs text-muted-foreground mb-4 line-clamp-1">{translate(doctor.hospital)}</p>
-            
-            <div className="flex items-center gap-2 mb-3">
-              <div className="flex items-center gap-1">
-                <Star size={16} className="text-yellow-600 fill-yellow-600" />
-                <span className="text-sm font-semibold">{doctor.rating}</span>
-              </div>
-              <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
-            </div>
-            
-            <p className="text-sm text-muted-foreground mb-4">{doctor.experience} years experience</p>
-            
-            <div className="mt-auto pt-4 border-t border-border">
-              <div className="text-sm font-semibold text-primary">
-                From ${doctor.consultationFee}
-              </div>
-            </div>
-          </div>
-        </Link>
-      ))}
-    </div>
-    
-    <div className="text-center mt-12">
-      <Link
-        href="/doctors"
-        className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
-      >
-        {translate('View All Doctors →')}
-      </Link>
-    </div>
-  </div>
-</section>
-
-      {/* Cost Comparison */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Cost Comparison: India vs Western Countries')}</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-primary text-white">
-                  <th className="px-6 py-3 font-semibold">{translate('Procedure')}</th>
-                  <th className="px-6 py-3 font-semibold text-center">{translate('USA Cost')}</th>
-                  <th className="px-6 py-3 font-semibold text-center">{translate('India Cost')}</th>
-                  <th className="px-6 py-3 font-semibold text-center">{translate('Savings')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { name: 'Heart Bypass Surgery', usa: 120000, india: 18000 },
-                  { name: 'Knee Replacement', usa: 35000, india: 13000 },
-                  { name: 'Brain Tumor Surgery', usa: 150000, india: 28000 },
-                  { name: 'Dental Implants', usa: 6000, india: 1200 },
-                ].map((item, idx) => {
-                  const savings = ((item.usa - item.india) / item.usa * 100).toFixed(0)
-                  return (
-                    <tr key={idx} className={idx % 2 === 0 ? 'bg-white' : 'bg-muted/20'} >
-                      <td className="px-6 py-3 font-semibold">{translate(item.name)}</td>
-                      <td className="px-6 py-3 text-center">${item.usa.toLocaleString()}</td>
-                      <td className="px-6 py-3 text-center text-primary font-semibold">${item.india.toLocaleString()}</td>
-                      <td className="px-6 py-3 text-center">
-                        <span className="bg-accent text-white px-3 py-1 rounded font-semibold">
-                          {savings}%
-                        </span>
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
+          <div className="text-center mt-12">
+            <Link
+              href="/doctors"
+              className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
+            >
+              {translate('View All Doctors →')}
+            </Link>
           </div>
         </div>
       </section>
+
+      {/* Cost Comparison - FIXED */}
+      <CostComparison data={costData} />
+      <MedicalCostComparison packages={allPackages} /> {/* ✅ Fixed - passing required packages prop */}
 
       {/* Testimonials */}
       <section className="py-16 bg-muted/20">
@@ -367,13 +367,13 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+919999999999"
+              href="tel:+919711614738"
               className="px-8 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-white/90 transition-colors"
             >
               {translate('Call Now')}
             </a>
             <a
-              href="https://wa.me/919999999999"
+              href="https://wa.me/919711614738"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"

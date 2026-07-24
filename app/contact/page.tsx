@@ -53,8 +53,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Phone</h3>
-                    <a href="tel:+919999999999" className="text-primary hover:underline">
-                      +91 9999 999 999
+                    <a href="tel:+919711614738" className="text-primary hover:underline">
+                      +91 9711 614 738
                     </a>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-bold mb-4">Connect With Us</h3>
                   <a
-                    href="https://wa.me/919999999999"
+                    href="https://wa.me/919711614738"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block px-6 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-colors"
@@ -211,7 +211,7 @@ export default function ContactPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+919999999999"
+              href="tel:+919711614738"
               className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               Call Now

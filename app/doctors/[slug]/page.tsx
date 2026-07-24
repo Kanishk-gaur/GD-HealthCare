@@ -280,7 +280,7 @@ export default async function DoctorDetail({ params }: { params: Promise<{ slug:
                   Book Clinical Appointment
                 </button>
                 <a
-                  href="https://wa.me/919999999999"
+                  href="https://wa.me/919711614738"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block text-center px-4 py-2.5 border border-primary/30 text-primary bg-primary/5 rounded-xl font-semibold hover:bg-primary/10 transition-colors text-sm"

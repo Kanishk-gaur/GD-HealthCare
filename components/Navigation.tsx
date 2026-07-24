@@ -49,7 +49,7 @@ export function Navigation() {
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
             <a
-              href="tel:+919999999999"
+              href="tel:+919711614738"
               className="hidden sm:flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
             >
               <Phone size={18} />
@@ -83,7 +83,7 @@ export function Navigation() {
               </Link>
             ))}
             <a
-              href="tel:+919999999999"
+              href="tel:+919711614738"
               className="block m-4 px-4 py-2 bg-accent text-white rounded-lg text-center font-medium hover:bg-accent/90 transition-colors"
             >
               Free Consultation

@@ -265,7 +265,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                   Schedule Consultation
                 </button>
                 <a
-                  href="https://wa.me/919999999999"
+                  href="https://wa.me/919711614738"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block text-center px-4 py-2.5 border border-primary/40 text-primary bg-primary/5 rounded-xl font-semibold hover:bg-primary/10 transition-colors text-sm"
@@ -283,8 +283,8 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                   <Phone size={18} className="text-primary flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs text-muted-foreground">International Hotline</p>
-                    <a href="tel:+919999999999" className="font-semibold text-primary hover:underline">
-                      +91 9999 999 999
+                    <a href="tel:+919711614738" className="font-semibold text-primary hover:underline">
+                      +91 9711 614 738
                     </a>
                   </div>
                 </div>

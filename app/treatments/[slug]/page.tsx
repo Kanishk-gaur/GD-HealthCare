@@ -263,7 +263,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
               </button>
 
               <a
-                href="https://wa.me/919999999999"
+                href="https://wa.me/919711614738"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-center px-6 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"

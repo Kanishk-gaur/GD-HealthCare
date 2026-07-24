@@ -79,7 +79,7 @@ export default function PrivacyPage() {
             </p>
             <ul className="list-none text-muted-foreground space-y-2 mb-6">
               <li>Email: <a href="mailto:privacy@gdhealthcare.com" className="text-primary hover:underline">privacy@gdhealthcare.com</a></li>
-              <li>Phone: <a href="tel:+919999999999" className="text-primary hover:underline">+91 9999 999 999</a></li>
+              <li>Phone: <a href="tel:+919711614738" className="text-primary hover:underline">+91 9711 614 738</a></li>
             </ul>
           </div>
         </div>
