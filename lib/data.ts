@@ -1893,6 +1893,8 @@ export const faqs = [
 
 // lib/data.ts
 
+// lib/data.ts
+
 export interface Treatment {
   id: string;
   slug: string;
@@ -1911,13 +1913,71 @@ export interface Treatment {
   description: string;
 }
 
+// Image mapping - maps treatment slugs to actual image paths
+export const TREATMENT_IMAGE_MAP: Record<string, string> = {
+  // Cardiology & Cardiac Surgery
+  "coronary-artery-bypass-grafting-cabg": "/treatment/Coronary Artery Bypass.jpeg",
+  "coronary-angioplasty-ptca-with-stenting": "/treatment/Coronary Angioplasty (PTCA).jpeg",
+  "heart-valve-replacement-repair": "/treatment/Heart Valve Replacement.jpeg",
+  "coronary-angiography": "/treatment/Coronary Angiography.jpeg",
+  
+  // Orthopaedics
+  "total-knee-replacement-tkr": "/treatment/Total Knee Replacement.jpeg",
+  "total-hip-replacement-thr": "/treatment/Total Hip Replacement.jpeg",
+  
+  // Spine Surgery
+  "lumbar-disc-surgery-spinal-fusion": "/treatment/Lumbar Disc Surgery _ Spinal Fusion.jpeg",
+  "scoliosis-correction-surgery": "/treatment/Scoliosis Correction Surgery.jpeg",
+  
+  // Transplant Surgery
+  "liver-transplant-living-donor-ldlt": "/treatment/Liver Transplant.jpeg",
+  "kidney-transplant": "/treatment/Kidney_transplant.jpeg",
+  
+  // Oncology
+  "bone-marrow-transplant-autologous": "/treatment/Bone Marrow Transplant-.jpeg",
+  "chemotherapy": "/treatment/Chemotherapy.jpeg",
+  "radiation-therapy-imrt-vmat-sbrt": "/treatment/Radiation Therapy (IMRT VMAT_SBRT).jpeg",
+  "cancer-immunotherapy-checkpoint-inhibitors": "/treatment/Cancer Immunotherapy.jpeg",
+  "breast-cancer-surgery": "/treatment/Breast Cancer Surgery.jpeg",
+  
+  // Neurosciences / Neurosurgery
+  "brain-tumour-surgery": "/treatment/Brain_Tumour Surgery.jpeg",
+  "deep-brain-stimulation-dbs-for-parkinsons-disease": "/treatment/Deep Brain Stimulation (DBS).jpeg",
+  
+  // Uro-Oncology
+  "robotic-radical-prostatectomy": "/treatment/Robotic Radical Prostatectomy.jpeg",
+  
+  // Reproductive Medicine
+  "ivf-icsi-in-vitro-fertilisation": "/treatment/IVF ICSI.jpeg",
+  
+  // Cosmetic Surgery
+  "rhinoplasty-nose-reshaping": "/treatment/Rhinoplasty.jpeg",
+  "liposuction-body-contouring": "/treatment/Liposuction_Body Contouring.jpeg",
+  "hair-transplant-fue-dhi": "/treatment/Hair Transplant (FUE_DHI).jpeg",
+  
+  // Dentistry
+  "dental-implant": "/treatment/Dental surgery.jpeg",
+  "full-mouth-dental-rehabilitation": "/treatment/Full Mouth Dental Rehabilitation.jpeg",
+  
+  // Bariatric Surgery
+  "bariatric-surgery-sleeve-gastrectomy": "/treatment/Bariatric Surgery-Sleeve.jpeg",
+  
+  // Ophthalmology
+  "lasik-eye-surgery": "/treatment/LASIK Eye Surgery.jpeg",
+};
+
+// Helper function to get image path for a treatment
+export function getTreatmentImagePath(treatment: Treatment): string {
+  return TREATMENT_IMAGE_MAP[treatment.slug] || treatment.thumbnailUrl;
+}
+
 export const MOCK_TREATMENTS: Treatment[] = [
   {
     id: "t1",
     slug: "coronary-artery-bypass-grafting-cabg",
     name: "Coronary Artery Bypass Grafting (CABG)",
     category: "Cardiac Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23c0392b'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23e74c3c' stroke='%23fff' stroke-width='4'/%3E%3Cpath d='M140 150 L260 150 M200 90 L200 210' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3ECABG Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Coronary Artery Bypass Grafting.jpeg",
     startingCostINR: 200000,
     startingCostUSD: 2100,
     averageCostINR: 400000,
@@ -1944,7 +2004,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "coronary-angioplasty-ptca-with-stenting",
     name: "Coronary Angioplasty (PTCA) with Stenting",
     category: "Interventional Cardiology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232980b9'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M160 150 L240 150' stroke='%23fff' stroke-width='6'/%3E%3Ccircle cx='180' cy='150' r='8' fill='%23f1c40f'/%3E%3Ccircle cx='220' cy='150' r='8' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EAngioplasty%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Coronary Angioplasty (PTCA) with Stenting.jpeg",
     startingCostINR: 150000,
     startingCostUSD: 1600,
     averageCostINR: 250000,
@@ -1971,7 +2031,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "heart-valve-replacement-repair",
     name: "Heart Valve Replacement / Repair",
     category: "Cardiac Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%238e44ad'/%3E%3Cpath d='M200 100 L160 200 L200 170 L240 200 L200 100' fill='%239b59b6' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EValve Replacement%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Heart Valve Replacement _ Repair.jpeg",
     startingCostINR: 250000,
     startingCostUSD: 2650,
     averageCostINR: 500000,
@@ -1998,7 +2058,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "total-knee-replacement-tkr",
     name: "Total Knee Replacement (TKR)",
     category: "Orthopaedics",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231abc9c'/%3E%3Crect x='160' y='120' width='80' height='60' rx='10' fill='%2316a085' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EKnee Replacement%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Total Knee Replacement.jpeg",
     startingCostINR: 200000,
     startingCostUSD: 2100,
     averageCostINR: 350000,
@@ -2026,7 +2086,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "total-hip-replacement-thr",
     name: "Total Hip Replacement (THR)",
     category: "Orthopaedics",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d35400'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%23e67e22' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EHip Replacement%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Total Hip Replacement.jpeg",
     startingCostINR: 200000,
     startingCostUSD: 2100,
     averageCostINR: 350000,
@@ -2053,7 +2113,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "lumbar-disc-surgery-spinal-fusion",
     name: "Lumbar Disc Surgery / Spinal Fusion",
     category: "Spine Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231b4f72'/%3E%3Crect x='180' y='110' width='40' height='80' rx='5' fill='%232c3e50' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ESpine Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Lumbar Disc Surgery _ Spinal Fusion.jpeg",
     startingCostINR: 150000,
     startingCostUSD: 1600,
     averageCostINR: 300000,
@@ -2079,7 +2139,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "liver-transplant-living-donor-ldlt",
     name: "Liver Transplant (Living Donor LDLT)",
     category: "Transplant Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%237d3c98'/%3E%3Cpath d='M200 90 L170 190 L200 170 L230 190 L200 90' fill='%239b59b6' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ELiver Transplant%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Liver Transplant.jpeg",
     startingCostINR: 2000000,
     startingCostUSD: 21050,
     averageCostINR: 2800000,
@@ -2105,7 +2165,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "kidney-transplant",
     name: "Kidney Transplant",
     category: "Transplant Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e67e22'/%3E%3Cpath d='M170 130 Q200 90 230 130 L230 170 Q200 210 170 170 Z' fill='%23f39c12' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EKidney Transplant%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Kidney_transplant.jpeg",
     startingCostINR: 700000,
     startingCostUSD: 7350,
     averageCostINR: 1100000,
@@ -2131,7 +2191,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "bone-marrow-transplant-autologous",
     name: "Bone Marrow Transplant – Autologous",
     category: "Oncology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23c0392b'/%3E%3Ccircle cx='200' cy='150' r='45' fill='%23e74c3c' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='20' fill='%23c0392b'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EBone Marrow Transplant%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Bone Marrow Transplant – Autologous.jpeg",
     startingCostINR: 700000,
     startingCostUSD: 7350,
     averageCostINR: 1400000,
@@ -2157,7 +2217,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "ivf-icsi-in-vitro-fertilisation",
     name: "IVF / ICSI (In Vitro Fertilisation)",
     category: "Reproductive Medicine",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d4ac0d'/%3E%3Ccircle cx='170' cy='150' r='25' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ccircle cx='230' cy='150' r='25' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EIVF%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/IVF  ICSI .jpeg",
     startingCostINR: 150000,
     startingCostUSD: 1600,
     averageCostINR: 250000,
@@ -2183,7 +2243,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "chemotherapy",
     name: "Chemotherapy",
     category: "Oncology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232c3e50'/%3E%3Crect x='160' y='110' width='80' height='80' rx='10' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EChemotherapy%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Chemotherapy.jpeg",
     startingCostINR: 50000,
     startingCostUSD: 550,
     averageCostINR: 150000,
@@ -2211,7 +2271,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "radiation-therapy-imrt-vmat-sbrt",
     name: "Radiation Therapy (IMRT / VMAT / SBRT)",
     category: "Radiation Oncology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231f6188'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%232980b9' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='15' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ERadiation Therapy%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Radiation Therapy (IMRT _ VMAT _ SBRT).jpeg",
     startingCostINR: 200000,
     startingCostUSD: 2100,
     averageCostINR: 400000,
@@ -2237,7 +2297,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "brain-tumour-surgery",
     name: "Brain Tumour Surgery",
     category: "Neurosciences",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%234a235a'/%3E%3Ccircle cx='200' cy='150' r='55' fill='%236c3483' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EBrain Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Brain_Tumour Surgery.jpeg",
     startingCostINR: 300000,
     startingCostUSD: 3150,
     averageCostINR: 550000,
@@ -2263,7 +2323,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "deep-brain-stimulation-dbs-for-parkinsons-disease",
     name: "Deep Brain Stimulation (DBS) for Parkinson's Disease",
     category: "Functional Neurosurgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231a5276'/%3E%3Ccircle cx='200' cy='150' r='50' fill='%232980b9' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='8' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EDeep Brain Stimulation%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Deep Brain Stimulation (DBS) for Parkinson_s Disease.jpeg",
     startingCostINR: 500000,
     startingCostUSD: 5250,
     averageCostINR: 750000,
@@ -2286,7 +2346,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "robotic-radical-prostatectomy",
     name: "Robotic Radical Prostatectomy",
     category: "Uro-Oncology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231b4f72'/%3E%3Crect x='160' y='120' width='80' height='60' rx='8' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3ERobotic Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Robotic Radical Prostatectomy.jpeg",
     startingCostINR: 350000,
     startingCostUSD: 3700,
     averageCostINR: 600000,
@@ -2312,7 +2372,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "breast-cancer-surgery",
     name: "Breast Cancer Surgery",
     category: "Surgical Oncology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23a93226'/%3E%3Ccircle cx='200' cy='150' r='45' fill='%23e74c3c' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EBreast Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Breast Cancer Surgery.jpeg",
     startingCostINR: 200000,
     startingCostUSD: 2100,
     averageCostINR: 400000,
@@ -2339,7 +2399,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "rhinoplasty-nose-reshaping",
     name: "Rhinoplasty (Nose Reshaping)",
     category: "Cosmetic Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23b7950b'/%3E%3Cpath d='M200 100 L170 200 L200 180 L230 200 L200 100' fill='%23f1c40f' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3ERhinoplasty%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Rhinoplasty.jpeg",
     startingCostINR: 70000,
     startingCostUSD: 750,
     averageCostINR: 150000,
@@ -2364,7 +2424,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "liposuction-body-contouring",
     name: "Liposuction / Body Contouring",
     category: "Cosmetic Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23d35400'/%3E%3Crect x='170' y='130' width='60' height='40' rx='5' fill='%23e67e22' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3ELiposuction%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Liposuction _ Body Contouring.jpeg",
     startingCostINR: 80000,
     startingCostUSD: 850,
     averageCostINR: 180000,
@@ -2388,7 +2448,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "hair-transplant-fue-dhi",
     name: "Hair Transplant (FUE / DHI)",
     category: "Cosmetic Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%235d4e37'/%3E%3Cpath d='M170 140 Q200 100 230 140' stroke='%23f1c40f' stroke-width='4' fill='none'/%3E%3Cpath d='M180 160 Q200 120 220 160' stroke='%23f39c12' stroke-width='4' fill='none'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EHair Transplant%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Hair Transplant (FUE _ DHI).jpeg",
     startingCostINR: 40000,
     startingCostUSD: 400,
     averageCostINR: 100000,
@@ -2413,7 +2473,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "dental-implant",
     name: "Dental Implant",
     category: "Dental",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%233498db'/%3E%3Crect x='180' y='120' width='40' height='60' rx='5' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3EDental Implant%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Dental surgery .jpeg",
     startingCostINR: 30000,
     startingCostUSD: 300,
     averageCostINR: 70000,
@@ -2438,7 +2498,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "full-mouth-dental-rehabilitation",
     name: "Full Mouth Dental Rehabilitation",
     category: "Dental",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231abc9c'/%3E%3Crect x='150' y='110' width='100' height='80' rx='5' fill='%2316a085' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EFull Mouth Rehab%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Full Mouth Dental Rehabilitation.jpeg",
     startingCostINR: 250000,
     startingCostUSD: 2650,
     averageCostINR: 600000,
@@ -2462,7 +2522,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "bariatric-surgery-sleeve-gastrectomy",
     name: "Bariatric Surgery – Sleeve Gastrectomy",
     category: "Bariatric Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23e74c3c'/%3E%3Cpath d='M160 130 Q200 100 240 130 L240 200 Q200 230 160 200 Z' fill='%23c0392b' stroke='%23fff' stroke-width='3'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EBariatric Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Bariatric Surgery – Sleeve Gastrectomy.jpeg",
     startingCostINR: 250000,
     startingCostUSD: 2650,
     averageCostINR: 400000,
@@ -2487,7 +2547,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "lasik-eye-surgery",
     name: "LASIK Eye Surgery",
     category: "Ophthalmology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232980b9'/%3E%3Ccircle cx='200' cy='150' r='45' fill='%233498db' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M160 150 L240 150 M200 110 L200 190' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='20' font-family='Arial' font-weight='bold'%3ELASIK%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/LASIK Eye Surgery.jpeg",
     startingCostINR: 40000,
     startingCostUSD: 400,
     averageCostINR: 80000,
@@ -2512,7 +2572,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "scoliosis-correction-surgery",
     name: "Scoliosis Correction Surgery",
     category: "Spine Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231b4f72'/%3E%3Cpath d='M140 120 Q200 100 260 120 Q220 150 260 180 Q200 200 140 180 Q180 150 140 120' fill='%232c3e50' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EScoliosis Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Scoliosis Correction Surgery.jpeg",
     startingCostINR: 400000,
     startingCostUSD: 4200,
     averageCostINR: 700000,
@@ -2537,7 +2597,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "cancer-immunotherapy-checkpoint-inhibitors",
     name: "Cancer Immunotherapy (Checkpoint Inhibitors)",
     category: "Oncology",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%238e44ad'/%3E%3Ccircle cx='200' cy='150' r='40' fill='%239b59b6' stroke='%23fff' stroke-width='3'/%3E%3Ccircle cx='200' cy='150' r='15' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EImmunotherapy%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Cancer Immunotherapy (Checkpoint Inhibitors).jpeg",
     startingCostINR: 100000,
     startingCostUSD: 1050,
     averageCostINR: 300000,
@@ -2565,7 +2625,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "rhinoplasty-with-chin-augmentation",
     name: "Rhinoplasty with Chin Augmentation",
     category: "Cosmetic Surgery",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23b7950b'/%3E%3Cpath d='M200 100 L170 200 L200 180 L230 200 L200 100' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M180 210 L220 210 L220 230 L180 230 Z' fill='%23f1c40f' stroke='%23fff' stroke-width='2'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='16' font-family='Arial' font-weight='bold'%3EFacial Profile Surgery%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Rhinoplasty.jpeg", // Using same image as rhinoplasty
     startingCostINR: 150000,
     startingCostUSD: 1600,
     averageCostINR: 280000,
@@ -2589,7 +2649,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     slug: "coronary-angiography",
     name: "Coronary Angiography",
     category: "Cardiac Diagnostics",
-    thumbnailUrl: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%232c3e50'/%3E%3Cpath d='M160 150 L240 150 M200 110 L200 190' stroke='%23e74c3c' stroke-width='4'/%3E%3Ccircle cx='180' cy='150' r='6' fill='%23f1c40f'/%3E%3Ccircle cx='220' cy='150' r='6' fill='%23f1c40f'/%3E%3Ctext x='200' y='280' text-anchor='middle' fill='white' font-size='18' font-family='Arial' font-weight='bold'%3EAngiography%3C/text%3E%3C/svg%3E",
+    thumbnailUrl: "/treatment/Coronary Angiography.jpeg",
     startingCostINR: 20000,
     startingCostUSD: 200,
     averageCostINR: 40000,
