@@ -672,7 +672,7 @@ His contributions have earned the Padma Vibhushan 2022 – India's second highes
     specialization: "Pulmonology & Internal Medicine",
     hospital: "Medanta – The Medicity",
     country: "India",
-    image: "/doctors/Randeep Guleria .png",
+    image: "/doctors/DR Randeep Gularia .png",
     rating: 4.8,
     reviews: 218,
     experience: 35,

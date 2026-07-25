@@ -29,7 +29,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Hospital Not Found</h1>
-          <Link href="/hospitals" className="text-primary hover:underline">
+          <Link href="/hospitals" className="text-[#ff4c88] hover:underline">
             Back to Hospitals
           </Link>
         </div>
@@ -56,7 +56,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
             <div className="flex items-center gap-4">
               {/* Logo URL Display */}
               {hospital.logoUrl && (
-                <div className="relative h-20 w-20 rounded-xl bg-white p-1 shadow-lg border border-border flex-shrink-0 overflow-hidden hidden sm:block">
+                <div className="relative h-20 w-20 rounded-xl bg-white p-1 shadow-lg border border-[#ffa649]/20 flex-shrink-0 overflow-hidden hidden sm:block">
                   <Image 
                     src={hospital.logoUrl} 
                     alt={`${hospital.name} Logo`} 
@@ -69,7 +69,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                 <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-2">{hospital.name}</h1>
                 <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-white/90">
                   <div className="flex items-center gap-1">
-                    <MapPin size={16} className="text-primary" />
+                    <MapPin size={16} className="text-[#ffa649]" />
                     <span className="text-sm font-medium">{hospital.city || hospital.country}, {hospital.country}</span>
                   </div>
                   <div className="h-4 w-[1px] bg-white/30 hidden sm:block" />
@@ -99,8 +99,12 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
           <div className="lg:col-span-2 space-y-12">
             
             {/* Extended Hospital Description (500-800 words) */}
-            <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
-              <h2 className="text-2xl font-bold mb-6 text-foreground border-b pb-3">Hospital Overview & Profile</h2>
+            <section className="bg-card border border-[#ffa649]/10 rounded-2xl p-6 md:p-8 shadow-sm">
+              <h2 className="text-2xl font-bold mb-6 text-foreground border-b border-[#ffa649]/10 pb-3">
+                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  Hospital Overview & Profile
+                </span>
+              </h2>
               <div className="text-muted-foreground leading-relaxed text-base whitespace-pre-line space-y-4">
                 {hospital.blogDescription || hospital.description}
               </div>
@@ -108,15 +112,17 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
 
             {/* Centres of Excellence */}
             {hospital.centresOfExcellence && hospital.centresOfExcellence.length > 0 && (
-              <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+              <section className="bg-card border border-[#ffa649]/10 rounded-2xl p-6 md:p-8 shadow-sm">
                 <h2 className="text-2xl font-bold mb-6 text-foreground flex items-center gap-2">
-                  <Building2 className="text-primary" size={24} />
-                  Centres of Excellence
+                  <Building2 className="text-[#ffa649]" size={24} />
+                  <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                    Centres of Excellence
+                  </span>
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {hospital.centresOfExcellence.map((centre, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-4 bg-muted/30 border border-border rounded-xl">
-                      <ShieldCheck className="text-primary mt-0.5 flex-shrink-0" size={18} />
+                    <div key={idx} className="flex items-start gap-3 p-4 bg-[#ffa649]/5 border border-[#ffa649]/20 rounded-xl">
+                      <ShieldCheck className="text-[#ffa649] mt-0.5 flex-shrink-0" size={18} />
                       <span className="font-semibold text-foreground text-sm md:text-base">{centre}</span>
                     </div>
                   ))}
@@ -126,15 +132,17 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
 
             {/* Treatments Offered */}
             {hospital.treatmentsOffered && hospital.treatmentsOffered.length > 0 && (
-              <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
+              <section className="bg-card border border-[#ffa649]/10 rounded-2xl p-6 md:p-8 shadow-sm">
                 <h2 className="text-2xl font-bold mb-6 text-foreground flex items-center gap-2">
-                  <Stethoscope className="text-primary" size={24} />
-                  Advanced Treatments Offered
+                  <Stethoscope className="text-[#ffa649]" size={24} />
+                  <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                    Advanced Treatments Offered
+                  </span>
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {hospital.treatmentsOffered.map((treatment, idx) => (
-                    <li key={idx} className="flex items-center gap-3 bg-muted/10 border border-border/60 p-3 rounded-lg list-none">
-                      <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0" />
+                    <li key={idx} className="flex items-center gap-3 bg-[#ffa649]/5 border border-[#ffa649]/20 p-3 rounded-lg list-none">
+                      <div className="w-2 h-2 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] rounded-full flex-shrink-0" />
                       <span className="text-muted-foreground text-sm font-medium">{treatment}</span>
                     </li>
                   ))}
@@ -143,8 +151,12 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
             )}
 
             {/* Core Facilities List */}
-            <section className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-sm">
-              <h2 className="text-2xl font-bold mb-6 text-foreground">World-Class Infrastructure Facilities</h2>
+            <section className="bg-card border border-[#ffa649]/10 rounded-2xl p-6 md:p-8 shadow-sm">
+              <h2 className="text-2xl font-bold mb-6 text-foreground">
+                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  World-Class Infrastructure Facilities
+                </span>
+              </h2>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   'Advanced Operating Theatres',
@@ -157,7 +169,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                   'International Patient Guest Houses',
                 ].map((facility, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-muted-foreground">
-                    <CheckCircle2 className="text-emerald-500 flex-shrink-0" size={18} />
+                    <CheckCircle2 className="text-[#ff4c88] flex-shrink-0" size={18} />
                     <span className="text-sm">{facility}</span>
                   </li>
                 ))}
@@ -169,8 +181,12 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
           <div className="space-y-6">
             
             {/* Vital Hospital Summary Block */}
-            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm sticky top-24">
-              <h3 className="text-xl font-bold mb-6 pb-2 border-b text-foreground">Hospital Summary Matrix</h3>
+            <div className="bg-card border border-[#ffa649]/10 rounded-2xl p-6 shadow-sm sticky top-24">
+              <h3 className="text-xl font-bold mb-6 pb-2 border-b border-[#ffa649]/10 text-foreground">
+                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  Hospital Summary Matrix
+                </span>
+              </h3>
               
               <div className="space-y-5">
                 {/* Website Link Block */}
@@ -180,7 +196,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                     href={hospital.websiteUrl} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="flex items-center gap-1.5 text-sm text-primary font-semibold hover:underline break-all"
+                    className="flex items-center gap-1.5 text-sm text-[#ff4c88] font-semibold hover:underline break-all"
                   >
                     <Globe size={16} />
                     {hospital.websiteUrl ? hospital.websiteUrl.replace('https://', '') : 'Visit Site'}
@@ -195,13 +211,13 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 pt-1">
-                  <div className="bg-muted/40 border border-border rounded-xl p-3 text-center">
+                  <div className="bg-[#ffa649]/5 border border-[#ffa649]/20 rounded-xl p-3 text-center">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">ICU Infrastructure</p>
                     <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${hospital.icuAvailability ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`}>
                       {hospital.icuAvailability ? 'Active & Available' : 'On-Demand'}
                     </span>
                   </div>
-                  <div className="bg-muted/40 border border-border rounded-xl p-3 text-center">
+                  <div className="bg-[#ffa649]/5 border border-[#ffa649]/20 rounded-xl p-3 text-center">
                     <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Beds Vol.</p>
                     <p className="text-sm font-bold text-foreground">{hospital.beds} Units</p>
                   </div>
@@ -214,7 +230,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                     {hospital.accreditations.map((accred, idx) => (
                       <span
                         key={idx}
-                        className="text-xs font-bold bg-primary/10 text-primary px-3 py-1 rounded-md border border-primary/20"
+                        className="text-xs font-bold bg-gradient-to-r from-[#ffa649]/10 to-[#ff4c88]/10 text-[#ff4c88] px-3 py-1 rounded-md border border-[#ffa649]/20"
                       >
                         {accred} Verified
                       </span>
@@ -228,7 +244,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Active Departments</p>
                     <div className="flex flex-wrap gap-1.5">
                       {hospital.departments.map((dept, idx) => (
-                        <span key={idx} className="text-[11px] font-medium bg-muted text-muted-foreground px-2 py-1 rounded">
+                        <span key={idx} className="text-[11px] font-medium bg-[#ffa649]/5 text-muted-foreground px-2 py-1 rounded border border-[#ffa649]/10">
                           {dept}
                         </span>
                       ))}
@@ -242,7 +258,7 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                     <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">International Patient Desk</p>
                     <div className="flex flex-wrap gap-1.5">
                       {hospital.intlServices.map((service, idx) => (
-                        <span key={idx} className="text-[11px] font-medium bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300 px-2 py-1 rounded border border-blue-100 dark:border-blue-900/30">
+                        <span key={idx} className="text-[11px] font-medium bg-blue-50 text-[#ff4c88] px-2 py-1 rounded border border-[#ffa649]/20">
                           ✓ {service}
                         </span>
                       ))}
@@ -251,9 +267,9 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
                 )}
 
                 {/* Cost Info inside sidebar */}
-                <div className="pt-4 border-t border-border">
+                <div className="pt-4 border-t border-[#ffa649]/10">
                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">Est. Treatment Range</p>
-                  <p className="text-xl font-black text-foreground">
+                  <p className="text-xl font-black bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
                     ${hospital.avgCost.min.toLocaleString()} - ${hospital.avgCost.max.toLocaleString()}
                   </p>
                 </div>
@@ -261,14 +277,14 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
 
               {/* Functional Interactive Consult buttons */}
               <div className="mt-6 space-y-2">
-                <button className="w-full px-4 py-2.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors text-sm">
+                <button className="w-full px-4 py-2.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 text-sm">
                   Schedule Consultation
                 </button>
                 <a
                   href="https://wa.me/919711614738"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-center px-4 py-2.5 border border-primary/40 text-primary bg-primary/5 rounded-xl font-semibold hover:bg-primary/10 transition-colors text-sm"
+                  className="block text-center px-4 py-2.5 border border-[#ff4c88]/40 text-[#ff4c88] bg-[#ff4c88]/5 rounded-xl font-semibold hover:bg-[#ff4c88]/10 transition-colors text-sm"
                 >
                   Chat on WhatsApp
                 </a>
@@ -276,23 +292,27 @@ export default async function HospitalDetail({ params }: { params: Promise<{ slu
             </div>
 
             {/* Generic Secondary Contact Information Panel */}
-            <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
-              <h3 className="text-lg font-bold mb-4 text-foreground">Inquiries Desk</h3>
+            <div className="bg-card border border-[#ffa649]/10 rounded-2xl p-6 shadow-sm">
+              <h3 className="text-lg font-bold mb-4 text-foreground">
+                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  Inquiries Desk
+                </span>
+              </h3>
               <div className="space-y-4 text-sm">
                 <div className="flex items-start gap-3">
-                  <Phone size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                  <Phone size={18} className="text-[#ffa649] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs text-muted-foreground">International Hotline</p>
-                    <a href="tel:+919711614738" className="font-semibold text-primary hover:underline">
+                    <a href="tel:+919711614738" className="font-semibold text-[#ff4c88] hover:underline">
                       +91 9711 614 738
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Mail size={18} className="text-primary flex-shrink-0 mt-0.5" />
+                  <Mail size={18} className="text-[#ffa649] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs text-muted-foreground">Support Correspondence</p>
-                    <a href="mailto:info@gdhealthcare.com" className="font-semibold text-primary hover:underline">
+                    <a href="mailto:info@gdhealthcare.com" className="font-semibold text-[#ff4c88] hover:underline">
                       info@gdhealthcare.com
                     </a>
                   </div>

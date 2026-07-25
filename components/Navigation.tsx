@@ -19,15 +19,15 @@ export function Navigation() {
   ]
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-sm border-b border-border">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-[#ffa649]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#ffa649] to-[#ff4c88] group-hover:shadow-lg group-hover:shadow-[#ff4c88]/30 transition-all duration-300 group-hover:scale-110">
               <span className="text-white font-bold text-lg">GD</span>
             </div>
-            <span className="hidden sm:inline font-bold text-lg text-primary">
+            <span className="hidden sm:inline font-bold text-lg bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
               GD Healthcare
             </span>
           </Link>
@@ -38,9 +38,10 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors"
+                className="text-sm font-medium text-foreground hover:text-[#ff4c88] transition-all duration-300 relative group"
               >
                 {link.label}
+                <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </Link>
             ))}
           </div>
@@ -50,7 +51,7 @@ export function Navigation() {
             <LanguageSwitcher />
             <a
               href="tel:+919711614738"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-accent text-white rounded-lg hover:bg-accent/90 transition-colors"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-all duration-300 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] hover:shadow-lg hover:shadow-[#ff4c88]/30 hover:scale-105"
             >
               <Phone size={18} />
               <span className="text-sm font-medium">Free Consultation</span>
@@ -58,12 +59,13 @@ export function Navigation() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden"
+              className="md:hidden p-2 rounded-lg hover:bg-[#ffa649]/10 transition-colors"
+              aria-label="Toggle menu"
             >
               {isOpen ? (
-                <X size={24} className="text-foreground" />
+                <X size={24} className="text-[#ff4c88]" />
               ) : (
-                <Menu size={24} className="text-foreground" />
+                <Menu size={24} className="text-[#ff4c88]" />
               )}
             </button>
           </div>
@@ -71,12 +73,12 @@ export function Navigation() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pb-4 pt-2 border-t border-border">
+          <div className="md:hidden pb-4 pt-2 border-t border-[#ffa649]/10 animate-in slide-in-from-top-2">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block px-4 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+                className="block px-4 py-2.5 text-sm font-medium text-foreground hover:text-[#ff4c88] transition-colors duration-200 border-l-2 border-transparent hover:border-[#ffa649] pl-4"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
@@ -84,7 +86,7 @@ export function Navigation() {
             ))}
             <a
               href="tel:+919711614738"
-              className="block m-4 px-4 py-2 bg-accent text-white rounded-lg text-center font-medium hover:bg-accent/90 transition-colors"
+              className="block m-4 px-4 py-3 rounded-lg text-white text-center font-medium transition-all duration-300 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] hover:shadow-lg hover:shadow-[#ff4c88]/30"
             >
               Free Consultation
             </a>

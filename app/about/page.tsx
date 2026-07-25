@@ -9,10 +9,16 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="w-full">
-      {/* Header */}
-      <section className="bg-gradient-to-r from-primary/10 to-accent/10 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold mb-4">About GD Healthcare</h1>
+      {/* Header - Updated Gradient */}
+      <section className="relative bg-gradient-to-br from-[#ffa649]/10 via-white to-[#ff4c88]/10 py-16 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-bl from-[#ffa649]/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-gradient-to-tr from-[#ff4c88]/5 to-transparent rounded-full blur-3xl"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-4xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              About GD Healthcare
+            </span>
+          </h1>
           <p className="text-lg text-muted-foreground">
             Leading medical tourism platform connecting patients with world-class healthcare
           </p>
@@ -20,11 +26,15 @@ export default function AboutPage() {
       </section>
 
       {/* About Content */}
-      <section className="py-16">
+      <section className="py-16 bg-gradient-to-b from-white to-[#ffa649]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+              <h2 className="text-3xl font-bold mb-6">
+                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  Our Mission
+                </span>
+              </h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 At GD Healthcare, our mission is to make world-class medical treatment accessible and affordable for everyone.
                 We believe that quality healthcare should not be a luxury, but a right.
@@ -34,7 +44,8 @@ export default function AboutPage() {
                 premium medical services at a fraction of the cost in developed countries.
               </p>
             </div>
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg">
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[#ffa649]/20">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#ffa649]/20 to-[#ff4c88]/20 z-10"></div>
               <Image
                 src="https://images.unsplash.com/photo-1576091160550-112173e7f9db?w=600&h=400&fit=crop"
                 alt="GD Healthcare"
@@ -44,9 +55,13 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Core Values */}
+          {/* Core Values - Updated */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-12">Our Core Values</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                Our Core Values
+              </span>
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
@@ -72,9 +87,9 @@ export default function AboutPage() {
               ].map((value, idx) => {
                 const Icon = value.icon
                 return (
-                  <div key={idx} className="bg-card rounded-lg p-6 border border-border text-center">
-                    <Icon className="text-primary mx-auto mb-4" size={40} />
-                    <h3 className="font-bold text-lg mb-2">{value.title}</h3>
+                  <div key={idx} className="bg-card rounded-lg p-6 border border-[#ffa649]/10 hover:border-[#ffa649] transition-all duration-300 hover:shadow-lg hover:shadow-[#ff4c88]/10 text-center group">
+                    <Icon className="text-[#ffa649] mx-auto mb-4 group-hover:text-[#ff4c88] transition-colors" size={40} />
+                    <h3 className="font-bold text-lg mb-2 group-hover:text-[#ff4c88] transition-colors">{value.title}</h3>
                     <p className="text-sm text-muted-foreground">{value.description}</p>
                   </div>
                 )
@@ -82,9 +97,13 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Achievements */}
-          <div className="mb-16 bg-muted/20 rounded-lg p-12 border border-border">
-            <h2 className="text-3xl font-bold text-center mb-12">Our Achievements</h2>
+          {/* Achievements - Updated */}
+          <div className="mb-16 bg-gradient-to-br from-[#ffa649]/10 via-white to-[#ff4c88]/10 rounded-lg p-12 border border-[#ffa649]/20 shadow-sm">
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                Our Achievements
+              </span>
+            </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
                 { number: '5000+', label: 'Successful Surgeries' },
@@ -93,16 +112,22 @@ export default function AboutPage() {
                 { number: '20+', label: 'Partner Countries' },
               ].map((achievement, idx) => (
                 <div key={idx} className="text-center">
-                  <p className="text-4xl font-bold text-primary mb-2">{achievement.number}</p>
+                  <p className="text-4xl font-bold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent mb-2">
+                    {achievement.number}
+                  </p>
                   <p className="text-muted-foreground">{achievement.label}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Why Choose Us */}
+          {/* Why Choose Us - Updated */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-12">Why Choose GD Healthcare?</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                Why Choose GD Healthcare?
+              </span>
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 'JCI-accredited hospitals with world-class facilities',
@@ -114,19 +139,23 @@ export default function AboutPage() {
                 'Multi-language support for international patients',
                 'Visa assistance and travel arrangements',
               ].map((reason, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0 mt-1">
+                <div key={idx} className="flex items-start gap-3 group hover:bg-[#ffa649]/5 p-2 rounded-lg transition-colors">
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white flex items-center justify-center flex-shrink-0 mt-1 shadow-md shadow-[#ff4c88]/20">
                     ✓
                   </div>
-                  <p className="text-muted-foreground">{reason}</p>
+                  <p className="text-muted-foreground group-hover:text-foreground transition-colors">{reason}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Process */}
+          {/* Process - Updated */}
           <div>
-            <h2 className="text-3xl font-bold text-center mb-12">Our Process</h2>
+            <h2 className="text-3xl font-bold text-center mb-12">
+              <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                Our Process
+              </span>
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {[
                 {
@@ -152,13 +181,13 @@ export default function AboutPage() {
               ].map((step, idx) => (
                 <div key={idx} className="relative">
                   {idx < 3 && (
-                    <div className="hidden md:block absolute top-12 -right-4 w-8 h-0.5 bg-primary"></div>
+                    <div className="hidden md:block absolute top-12 -right-4 w-8 h-0.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88]"></div>
                   )}
-                  <div className="bg-card rounded-lg p-6 border border-border text-center">
-                    <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold mx-auto mb-4">
+                  <div className="bg-card rounded-lg p-6 border border-[#ffa649]/10 hover:border-[#ffa649] transition-all duration-300 hover:shadow-lg hover:shadow-[#ff4c88]/10 text-center group">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white flex items-center justify-center font-bold mx-auto mb-4 group-hover:scale-110 transition-transform shadow-md shadow-[#ff4c88]/30">
                       {step.number}
                     </div>
-                    <h3 className="font-bold text-lg mb-2">{step.title}</h3>
+                    <h3 className="font-bold text-lg mb-2 group-hover:text-[#ff4c88] transition-colors">{step.title}</h3>
                     <p className="text-sm text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
@@ -168,8 +197,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-primary text-white">
+      {/* CTA - Updated Gradient */}
+      <section className="py-16 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Start Your Journey?</h2>
           <p className="text-lg text-white/90 mb-8">
@@ -177,7 +206,7 @@ export default function AboutPage() {
           </p>
           <a
             href="/contact"
-            className="px-8 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-white/90 transition-colors inline-block"
+            className="px-8 py-3 bg-white text-[#ff4c88] rounded-lg font-semibold hover:bg-gray-100 hover:shadow-lg hover:shadow-white/20 transition-all duration-300 inline-block"
           >
             Get Started
           </a>

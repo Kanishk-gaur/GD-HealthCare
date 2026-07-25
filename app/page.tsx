@@ -6,7 +6,7 @@ import { Star, MapPin, Stethoscope, DollarSign, Clock, TrendingUp, CheckCircle }
 import { hospitals, doctors, treatments, testimonials, faqs } from '@/lib/data'
 import { useTranslation } from '@/hooks/useTranslation'
 import CostComparison from '@/components/CostComparison'
-import MedicalCostComparison, { allPackages } from '@/components/MedicalCostComparison'; // ✅ Added import
+import MedicalCostComparison, { allPackages } from '@/components/MedicalCostComparison'
 
 const stats = [
   { label: '5000+', description: 'Successful Surgeries', icon: '✓' },
@@ -90,14 +90,23 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      {/* Hero Section */}
+      {/* Hero Section - Updated Gradient */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffa649]/20 via-white to-[#ff4c88]/20 z-0"></div>
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-[#ffa649]/10 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-[#ff4c88]/10 to-transparent rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
+              <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-[#ffa649]/20 to-[#ff4c88]/20 text-sm font-medium text-[#ff4c88] mb-6">
+                🌟 Trusted by 50K+ Patients Worldwide
+              </div>
               <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-                {translate('World-Class Healthcare at Affordable Prices')}
+                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  {translate('World-Class Healthcare')}
+                </span>
+                <br />
+                <span>{translate('at Affordable Prices')}</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 {translate('Access premium medical treatments from top hospitals and surgeons worldwide. Save up to 80% while receiving world-class care.')}
@@ -105,19 +114,20 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="#consultation"
-                  className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors text-center"
+                  className="px-8 py-3 rounded-lg font-semibold text-center text-white bg-gradient-to-r from-[#ffa649] to-[#ff4c88] hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 transform hover:scale-105"
                 >
                   {translate('Schedule Consultation')}
                 </a>
                 <a
                   href="/treatments"
-                  className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors text-center"
+                  className="px-8 py-3 rounded-lg font-semibold text-center bg-white text-[#ff4c88] border-2 border-[#ff4c88] hover:bg-gradient-to-r hover:from-[#ffa649] hover:to-[#ff4c88] hover:text-white hover:border-transparent transition-all duration-300"
                 >
                   {translate('Explore Treatments')}
                 </a>
               </div>
             </div>
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-2xl">
+            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#ffa649]/20 to-[#ff4c88]/20 z-10"></div>
               <Image
                 src="https://images.unsplash.com/photo-1631217314831-c6227db76b6e?w=600&h=400&fit=crop"
                 alt="Medical consultation"
@@ -130,31 +140,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="bg-primary text-white py-12">
+      {/* Stats Section - Updated Gradient */}
+      <section className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, idx) => (
               <div key={idx} className="text-center">
                 <div className="text-4xl font-bold mb-2">{stat.label}</div>
-                <p className="text-white/80">{translate(stat.description)}</p>
+                <p className="text-white/90">{translate(stat.description)}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section - Updated Colors */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Why Choose GD Healthcare?')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Why Choose GD Healthcare?')}
+            </span>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, idx) => {
               const Icon = feature.icon
               return (
-                <div key={idx} className="bg-card rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-border">
-                  <Icon className="text-primary mb-4" size={40} />
-                  <h3 className="text-xl font-semibold mb-2">{translate(feature.title)}</h3>
+                <div key={idx} className="bg-card rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-[#ffa649] group">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#ffa649]/20 to-[#ff4c88]/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="text-[#ff4c88]" size={28} />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 group-hover:text-[#ff4c88] transition-colors">{translate(feature.title)}</h3>
                   <p className="text-muted-foreground">{translate(feature.description)}</p>
                 </div>
               )
@@ -163,19 +179,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Treatment Categories */}
-      <section className="py-16 bg-muted/20">
+      {/* Treatment Categories - Updated Colors */}
+      <section className="py-16 bg-gradient-to-br from-[#ffa649]/5 via-white to-[#ff4c88]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Popular Treatments')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Popular Treatments')}
+            </span>
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {treatmentCategories.map((category, idx) => (
               <Link
                 key={idx}
                 href={`/treatments?category=${category.name}`}
-                className="bg-white rounded-lg p-4 text-center hover:shadow-lg transition-shadow border border-border hover:border-primary"
+                className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all duration-300 border border-border hover:border-[#ffa649] group"
               >
-                <div className="text-4xl mb-2">{category.icon}</div>
-                <h3 className="font-semibold text-sm mb-1">{translate(category.name)}</h3>
+                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform">{category.icon}</div>
+                <h3 className="font-semibold text-sm mb-1 group-hover:text-[#ff4c88] transition-colors">{translate(category.name)}</h3>
                 <p className="text-xs text-muted-foreground">{category.count}+ {translate('procedures')}</p>
               </Link>
             ))}
@@ -183,31 +203,36 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Hospitals */}
+      {/* Featured Hospitals - Updated Colors */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Our Partner Hospitals')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Our Partner Hospitals')}
+            </span>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {hospitals.slice(0, 3).map((hospital) => (
               <Link
                 key={hospital.id}
                 href={`/hospitals/${hospital.slug}`}
-                className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow border border-border hover:border-primary group"
+                className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-border hover:border-[#ffa649] group"
               >
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={hospital.image}
                     alt={hospital.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold">{translate(hospital.name)}</h3>
-                    <div className="flex items-center gap-1 bg-yellow-100 px-2 py-1 rounded">
-                      <Star size={16} className="text-yellow-600" />
-                      <span className="text-sm font-semibold text-yellow-600">{hospital.rating}</span>
+                    <h3 className="text-xl font-semibold group-hover:text-[#ff4c88] transition-colors">{translate(hospital.name)}</h3>
+                    <div className="flex items-center gap-1 bg-gradient-to-r from-[#ffa649]/20 to-[#ff4c88]/20 px-2 py-1 rounded">
+                      <Star size={16} className="text-[#ffa649] fill-[#ffa649]" />
+                      <span className="text-sm font-semibold text-[#ff4c88]">{hospital.rating}</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground mb-4">
@@ -217,7 +242,7 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground mb-4">{translate(hospital.description)}</p>
                   <div className="flex flex-wrap gap-2">
                     {hospital.specializations.slice(0, 2).map((spec, idx) => (
-                      <span key={idx} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                      <span key={idx} className="text-xs bg-gradient-to-r from-[#ffa649]/10 to-[#ff4c88]/10 text-[#ff4c88] px-2 py-1 rounded">
                         {translate(spec)}
                       </span>
                     ))}
@@ -229,7 +254,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               href="/hospitals"
-              className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
+              className="px-8 py-3 rounded-lg font-semibold inline-block bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 transform hover:scale-105"
             >
               {translate('View All Hospitals →')}
             </Link>
@@ -237,36 +262,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Doctors */}
-      <section className="py-16 bg-muted/20">
+      {/* Featured Doctors - Updated Colors */}
+      <section className="py-16 bg-gradient-to-br from-[#ffa649]/5 via-white to-[#ff4c88]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Meet Our Expert Doctors')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Meet Our Expert Doctors')}
+            </span>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {doctors.slice(0, 3).map((doctor) => (
               <Link
                 key={doctor.id}
                 href={`/doctors/${doctor.slug}`}
-                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-primary group flex flex-col"
+                className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-border hover:border-[#ffa649] group flex flex-col"
               >
-                <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gray-100">
+                <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gradient-to-br from-[#ffa649]/10 to-[#ff4c88]/10">
                   <Image
                     src={doctor.image}
                     alt={doctor.name}
                     fill
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={doctor.id <= 3}
                   />
                 </div>
                 
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-semibold mb-1 line-clamp-1">{translate(doctor.name)}</h3>
-                  <p className="text-primary text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
+                  <h3 className="text-xl font-semibold mb-1 line-clamp-1 group-hover:text-[#ff4c88] transition-colors">{translate(doctor.name)}</h3>
+                  <p className="text-[#ffa649] text-sm font-medium mb-2">{translate(doctor.specialization)}</p>
                   <p className="text-xs text-muted-foreground mb-4 line-clamp-1">{translate(doctor.hospital)}</p>
                   
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex items-center gap-1">
-                      <Star size={16} className="text-yellow-600 fill-yellow-600" />
+                      <Star size={16} className="text-[#ffa649] fill-[#ffa649]" />
                       <span className="text-sm font-semibold">{doctor.rating}</span>
                     </div>
                     <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
@@ -275,7 +304,7 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground mb-4">{doctor.experience} years experience</p>
                   
                   <div className="mt-auto pt-4 border-t border-border">
-                    <div className="text-sm font-semibold text-primary">
+                    <div className="text-sm font-semibold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
                       From ${doctor.consultationFee}
                     </div>
                   </div>
@@ -287,7 +316,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               href="/doctors"
-              className="px-8 py-3 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors inline-block"
+              className="px-8 py-3 rounded-lg font-semibold inline-block bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 transform hover:scale-105"
             >
               {translate('View All Doctors →')}
             </Link>
@@ -295,53 +324,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Cost Comparison - FIXED */}
+      {/* Cost Comparison - Updated Colors */}
       <CostComparison data={costData} />
-      <MedicalCostComparison packages={allPackages} /> {/* ✅ Fixed - passing required packages prop */}
+      <MedicalCostComparison packages={allPackages} />
 
-      {/* Testimonials */}
-      <section className="py-16 bg-muted/20">
+      {/* Testimonials - Updated Colors */}
+      <section className="py-16 bg-gradient-to-br from-[#ffa649]/5 via-white to-[#ff4c88]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Patient Testimonials')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Patient Testimonials')}
+            </span>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {testimonials.slice(0, 3).map((testimonial) => (
-              <div key={testimonial.id} className="bg-white rounded-lg p-6 shadow-md border border-border hover:shadow-lg transition-shadow">
+              <div key={testimonial.id} className="bg-white rounded-lg p-6 shadow-md border border-border hover:shadow-xl transition-all duration-300 hover:border-[#ffa649] group">
                 <div className="flex items-center gap-4 mb-4">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width={50}
-                    height={50}
-                    className="rounded-full"
-                  />
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#ffa649]">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                   <div>
-                    <h4 className="font-semibold">{translate(testimonial.name)}</h4>
+                    <h4 className="font-semibold group-hover:text-[#ff4c88] transition-colors">{translate(testimonial.name)}</h4>
                     <p className="text-xs text-muted-foreground">{translate(testimonial.location)}</p>
                   </div>
                 </div>
                 <div className="flex gap-1 mb-3">
                   {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} size={16} className="text-yellow-600 fill-yellow-600" />
+                    <Star key={idx} size={16} className="text-[#ffa649] fill-[#ffa649]" />
                   ))}
                 </div>
                 <p className="text-muted-foreground text-sm mb-2">&quot;{translate(testimonial.text)}&quot;</p>
-                <p className="text-xs text-primary font-semibold">{translate(testimonial.treatment)} at {translate(testimonial.hospital)}</p>
+                <p className="text-xs font-semibold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                  {translate(testimonial.treatment)} at {translate(testimonial.hospital)}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section - Updated Colors */}
       <section className="py-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">{translate('Frequently Asked Questions')}</h2>
+          <h2 className="text-4xl font-bold text-center mb-12">
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Frequently Asked Questions')}
+            </span>
+          </h2>
           <div className="space-y-4">
             {faqs.slice(0, 5).map((faq, idx) => (
-              <details key={idx} className="bg-card rounded-lg border border-border p-6 hover:border-primary transition-colors cursor-pointer">
-                <summary className="font-semibold flex justify-between items-center">
+              <details key={idx} className="bg-card rounded-lg border border-border p-6 hover:border-[#ffa649] transition-all duration-300 cursor-pointer group">
+                <summary className="font-semibold flex justify-between items-center group-hover:text-[#ff4c88] transition-colors">
                   {translate(faq.question)}
-                  <span className="text-primary">+</span>
+                  <span className="text-[#ffa649] group-hover:text-[#ff4c88] text-xl">+</span>
                 </summary>
                 <p className="text-muted-foreground mt-4">{translate(faq.answer)}</p>
               </details>
@@ -350,7 +390,7 @@ export default function Home() {
           <div className="text-center mt-12">
             <Link
               href="/contact"
-              className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-block"
+              className="px-8 py-3 rounded-lg font-semibold inline-block bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 transform hover:scale-105"
             >
               {translate('Have More Questions? Contact Us')}
             </Link>
@@ -358,8 +398,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section id="consultation" className="py-20 bg-gradient-to-r from-primary to-primary/80 text-white">
+      {/* CTA Section - Updated Gradient */}
+      <section id="consultation" className="py-20 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">{translate('Ready to Transform Your Health?')}</h2>
           <p className="text-lg text-white/90 mb-8">
@@ -368,7 +408,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="tel:+919711614738"
-              className="px-8 py-3 bg-white text-primary rounded-lg font-semibold hover:bg-white/90 transition-colors"
+              className="px-8 py-3 bg-white text-[#ff4c88] rounded-lg font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               {translate('Call Now')}
             </a>
@@ -376,7 +416,7 @@ export default function Home() {
               href="https://wa.me/919711614738"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors"
+              className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 hover:scale-105 transition-all duration-300"
             >
               {translate('WhatsApp')}
             </a>

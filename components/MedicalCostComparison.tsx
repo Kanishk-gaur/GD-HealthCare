@@ -445,10 +445,10 @@ export default function MedicalCostComparison({
 
   const getSpecialtyIcon = (specialty: string) => {
     switch (specialty) {
-      case 'Cardiac': return <Heart className="text-red-500" size={18} />;
-      case 'Neuro-Spine': return <Brain className="text-purple-500" size={18} />;
-      case 'Orthopedics': return <Bone className="text-blue-500" size={18} />;
-      case 'General Surgery': return <Stethoscope className="text-green-500" size={18} />;
+      case 'Cardiac': return <Heart className="text-[#ff4c88]" size={18} />;
+      case 'Neuro-Spine': return <Brain className="text-[#ffa649]" size={18} />;
+      case 'Orthopedics': return <Bone className="text-[#ff4c88]" size={18} />;
+      case 'General Surgery': return <Stethoscope className="text-[#ffa649]" size={18} />;
       default: return <Activity className="text-gray-500" size={18} />;
     }
   };
@@ -476,9 +476,13 @@ export default function MedicalCostComparison({
   };
 
   return (
-    <div className={`py-8 ${className}`}>
+    <div className={`py-16 ${className} bg-gradient-to-b from-[#ffa649]/5 via-white to-[#ff4c88]/5`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center mb-2">{translate(title)}</h2>
+        <h2 className="text-4xl font-bold text-center mb-2">
+          <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+            {translate(title)}
+          </span>
+        </h2>
         <p className="text-center text-muted-foreground mb-8">
           {translate('Fixed price packages from leading hospitals in India')}
         </p>
@@ -493,16 +497,16 @@ export default function MedicalCostComparison({
                   placeholder={translate('Search procedures...')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-4 py-2 pl-10 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-card"
+                  className="w-full px-4 py-2 pl-10 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ffa649] focus:border-transparent bg-card"
                 />
-                <Search size={18} className="absolute left-3 top-2.5 text-muted-foreground" />
+                <Search size={18} className="absolute left-3 top-2.5 text-[#ffa649]" />
               </div>
             )}
 
             {showFilters && (
               <div className="flex flex-wrap gap-2 items-center">
-                <div className="flex items-center gap-1 bg-card border border-border rounded-lg px-2 py-1">
-                  <Bed size={16} className="text-muted-foreground" />
+                <div className="flex items-center gap-1 bg-card border border-border rounded-lg px-2 py-1 hover:border-[#ffa649] transition-colors">
+                  <Bed size={16} className="text-[#ff4c88]" />
                   <select
                     value={roomType}
                     onChange={(e) => setRoomType(e.target.value as any)}
@@ -514,8 +518,8 @@ export default function MedicalCostComparison({
                   </select>
                 </div>
 
-                <div className="flex items-center gap-1 bg-card border border-border rounded-lg px-2 py-1">
-                  <Hospital size={16} className="text-muted-foreground" />
+                <div className="flex items-center gap-1 bg-card border border-border rounded-lg px-2 py-1 hover:border-[#ffa649] transition-colors">
+                  <Hospital size={16} className="text-[#ff4c88]" />
                   <select
                     value={selectedHospital}
                     onChange={(e) => setSelectedHospital(e.target.value as any)}
@@ -539,8 +543,8 @@ export default function MedicalCostComparison({
                   onClick={() => setSelectedSpecialty(specialty)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
                     selectedSpecialty === specialty
-                      ? 'bg-primary text-white shadow-md'
-                      : 'bg-card border border-border hover:border-primary hover:bg-muted/20'
+                      ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white shadow-lg shadow-[#ff4c88]/20'
+                      : 'bg-card border border-border hover:border-[#ffa649] hover:bg-muted/20'
                   }`}
                 >
                   {specialty !== 'all' && getSpecialtyIcon(specialty)}
@@ -554,30 +558,30 @@ export default function MedicalCostComparison({
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => handleSort('procedure')}
-              className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+              className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                 sortBy === 'procedure'
-                  ? 'bg-primary text-white border-primary'
-                  : 'border-border hover:border-primary'
+                  ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md'
+                  : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
               }`}
             >
               {translate('Procedure')} {getSortIcon('procedure')}
             </button>
             <button
               onClick={() => handleSort('price')}
-              className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+              className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                 sortBy === 'price'
-                  ? 'bg-primary text-white border-primary'
-                  : 'border-border hover:border-primary'
+                  ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md'
+                  : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
               }`}
             >
               {translate('Price')} {getSortIcon('price')}
             </button>
             <button
               onClick={() => handleSort('los')}
-              className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+              className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                 sortBy === 'los'
-                  ? 'bg-primary text-white border-primary'
-                  : 'border-border hover:border-primary'
+                  ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md'
+                  : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
               }`}
             >
               {translate('Stay Duration')} {getSortIcon('los')}
@@ -587,14 +591,14 @@ export default function MedicalCostComparison({
 
         {/* Results Count */}
         <div className="mb-4 text-sm text-muted-foreground">
-          {processedData.length} {translate('packages found')}
+          <span className="font-semibold text-[#ff4c88]">{processedData.length}</span> {translate('packages found')}
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto rounded-lg border border-border shadow-sm">
+        <div className="overflow-x-auto rounded-xl border border-border shadow-lg hover:shadow-xl transition-shadow duration-300">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-primary text-white">
+              <tr className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white">
                 <th className="px-4 sm:px-6 py-3 font-semibold text-sm sm:text-base">
                   {translate('Procedure')}
                 </th>
@@ -625,14 +629,18 @@ export default function MedicalCostComparison({
                   return (
                     <tr
                       key={pkg.id}
-                      className={`${idx % 2 === 0 ? 'bg-white' : 'bg-muted/10'} hover:bg-muted/30 transition-colors`}
+                      className={`${
+                        idx % 2 === 0 ? 'bg-white' : 'bg-[#ffa649]/5'
+                      } hover:bg-[#ff4c88]/5 transition-colors duration-200`}
                     >
                       <td className="px-4 sm:px-6 py-3">
-                        <div className="font-semibold text-sm sm:text-base">
+                        <div className="font-semibold text-sm sm:text-base hover:text-[#ff4c88] transition-colors">
                           {translate(pkg.procedure)}
                         </div>
                         {pkg.notes && (
-                          <div className="text-xs text-muted-foreground mt-1">{pkg.notes}</div>
+                          <div className="text-xs text-muted-foreground mt-1 border-l-2 border-[#ffa649] pl-2">
+                            {pkg.notes}
+                          </div>
                         )}
                       </td>
                       <td className="px-4 sm:px-6 py-3 text-center hidden md:table-cell">
@@ -644,25 +652,25 @@ export default function MedicalCostComparison({
                       <td className="px-4 sm:px-6 py-3 text-center">
                         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
                           pkg.hospital === 'Max Healthcare'
-                            ? 'bg-blue-100 text-blue-700'
-                            : 'bg-purple-100 text-purple-700'
+                            ? 'bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700'
+                            : 'bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700'
                         }`}>
                           {pkg.hospital}
                         </span>
                       </td>
                       <td className="px-4 sm:px-6 py-3 text-center">
                         <div className="flex items-center justify-center gap-1">
-                          <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs">
+                          <span className="bg-gradient-to-r from-red-100 to-red-200 text-red-700 px-2 py-0.5 rounded text-xs font-medium">
                             {pkg.icuDays}D ICU
                           </span>
                           <span className="text-muted-foreground">+</span>
-                          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs">
+                          <span className="bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-2 py-0.5 rounded text-xs font-medium">
                             {pkg.wardDays}D Ward
                           </span>
                         </div>
                       </td>
                       <td className="px-4 sm:px-6 py-3 text-center">
-                        <div className="font-bold text-primary text-sm sm:text-base">
+                        <div className="font-bold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent text-sm sm:text-base">
                           {formatCurrency(price)}
                         </div>
                       </td>
@@ -679,7 +687,7 @@ export default function MedicalCostComparison({
           <div className="text-center mt-6">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="px-6 py-2 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors flex items-center gap-2 mx-auto"
+              className="px-6 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 mx-auto bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white hover:shadow-lg hover:shadow-[#ff4c88]/30 hover:scale-105"
             >
               {expanded ? (
                 <>
@@ -697,17 +705,29 @@ export default function MedicalCostComparison({
         )}
 
         {/* Package Notes */}
-        <div className="mt-6 p-4 bg-muted/10 rounded-lg border border-border">
+        <div className="mt-6 p-4 bg-gradient-to-br from-[#ffa649]/10 via-white to-[#ff4c88]/10 rounded-xl border border-[#ffa649]/20 shadow-sm">
           <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-            <DollarSign size={16} className="text-primary" />
-            {translate('Package Includes')}
+            <DollarSign size={16} className="text-[#ffa649]" />
+            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {translate('Package Includes')}
+            </span>
           </h4>
           <ul className="text-xs text-muted-foreground space-y-1 list-disc list-inside">
-            <li>{translate('Fixed cost for the specified duration of stay')}</li>
-            <li>{translate('3-day buffer included at no additional cost')}</li>
-            <li>{translate('US FDA approved implants included where specified')}</li>
-            <li>{translate('Excludes: Change in line of treatment, unplanned procedures')}</li>
-            <li>{translate('Post-package charges: USD 500 per day for extended stay')}</li>
+            <li className="hover:text-[#ff4c88] transition-colors">
+              {translate('Fixed cost for the specified duration of stay')}
+            </li>
+            <li className="hover:text-[#ff4c88] transition-colors">
+              {translate('3-day buffer included at no additional cost')}
+            </li>
+            <li className="hover:text-[#ff4c88] transition-colors">
+              {translate('US FDA approved implants included where specified')}
+            </li>
+            <li className="hover:text-[#ff4c88] transition-colors">
+              {translate('Excludes: Change in line of treatment, unplanned procedures')}
+            </li>
+            <li className="hover:text-[#ff4c88] transition-colors">
+              {translate('Post-package charges: USD 500 per day for extended stay')}
+            </li>
           </ul>
         </div>
       </div>

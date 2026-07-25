@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@/hooks/useTranslation';
-import { ChevronDown, ChevronUp, TrendingDown, DollarSign } from 'lucide-react';
+import { ChevronDown, ChevronUp, TrendingDown, DollarSign, Search } from 'lucide-react';
 
 interface CostItem {
   id?: string | number;
@@ -90,10 +90,44 @@ export default function CostComparison({
     }
   };
 
+  // Calculate average savings for the stat
+  const averageSavings = data.reduce((acc, item) => {
+    return acc + ((item.usaCost - item.indiaCost) / item.usaCost * 100);
+  }, 0) / data.length;
+
   return (
-    <div className={`py-8 ${className}`}>
+    <div className={`py-16 ${className} bg-gradient-to-b from-[#ffa649]/5 via-white to-[#ff4c88]/5`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl font-bold text-center mb-4">{translate(title)}</h2>
+        <h2 className="text-4xl font-bold text-center mb-2">
+          <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+            {translate(title)}
+          </span>
+        </h2>
+        <p className="text-center text-muted-foreground mb-8">
+          {translate('Save up to 80% on medical procedures with world-class quality')}
+        </p>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div className="bg-card rounded-lg p-4 border border-[#ffa649]/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+              {averageSavings.toFixed(0)}%
+            </div>
+            <div className="text-sm text-muted-foreground">{translate('Average Savings')}</div>
+          </div>
+          <div className="bg-card rounded-lg p-4 border border-[#ffa649]/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold text-[#ff4c88]">
+              ${Math.max(...data.map(item => item.usaCost - item.indiaCost)).toLocaleString()}
+            </div>
+            <div className="text-sm text-muted-foreground">{translate('Maximum Savings')}</div>
+          </div>
+          <div className="bg-card rounded-lg p-4 border border-[#ffa649]/20 shadow-sm hover:shadow-md transition-shadow">
+            <div className="text-2xl font-bold text-[#ffa649]">
+              {data.length}
+            </div>
+            <div className="text-sm text-muted-foreground">{translate('Procedures Compared')}</div>
+          </div>
+        </div>
         
         {/* Controls */}
         <div className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-between">
@@ -104,9 +138,9 @@ export default function CostComparison({
                 placeholder={translate('Search procedures...')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 pl-10 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-card"
+                className="w-full px-4 py-2 pl-10 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ffa649] focus:border-transparent bg-card"
               />
-              <DollarSign size={18} className="absolute left-3 top-3 text-muted-foreground" />
+              <Search size={18} className="absolute left-3 top-2.5 text-[#ffa649]" />
             </div>
           )}
           
@@ -114,40 +148,40 @@ export default function CostComparison({
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => handleSort('name')}
-                className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                   sortBy === 'name' 
-                    ? 'bg-primary text-white border-primary' 
-                    : 'border-border hover:border-primary'
+                    ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md' 
+                    : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
                 }`}
               >
                 {translate('Procedure')} {getSortIcon('name')}
               </button>
               <button
                 onClick={() => handleSort('savings')}
-                className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                   sortBy === 'savings' 
-                    ? 'bg-primary text-white border-primary' 
-                    : 'border-border hover:border-primary'
+                    ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md' 
+                    : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
                 }`}
               >
                 {translate('Savings')} {getSortIcon('savings')}
               </button>
               <button
                 onClick={() => handleSort('usaCost')}
-                className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                   sortBy === 'usaCost' 
-                    ? 'bg-primary text-white border-primary' 
-                    : 'border-border hover:border-primary'
+                    ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md' 
+                    : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
                 }`}
               >
                 {translate('USA Cost')} {getSortIcon('usaCost')}
               </button>
               <button
                 onClick={() => handleSort('indiaCost')}
-                className={`px-3 py-1 rounded-lg text-sm border transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1 rounded-lg text-sm border transition-all duration-300 flex items-center gap-1 ${
                   sortBy === 'indiaCost' 
-                    ? 'bg-primary text-white border-primary' 
-                    : 'border-border hover:border-primary'
+                    ? 'bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white border-transparent shadow-md' 
+                    : 'border-border hover:border-[#ffa649] hover:bg-[#ffa649]/5'
                 }`}
               >
                 {translate('India Cost')} {getSortIcon('indiaCost')}
@@ -156,12 +190,17 @@ export default function CostComparison({
           )}
         </div>
 
+        {/* Results Count */}
+        <div className="mb-4 text-sm text-muted-foreground">
+          <span className="font-semibold text-[#ff4c88]">{processedData.length}</span> {translate('procedures found')}
+        </div>
+
         {/* Table */}
-        <div className="overflow-x-auto rounded-lg border border-border shadow-sm">
+        <div className="overflow-x-auto rounded-xl border border-border shadow-lg hover:shadow-xl transition-shadow duration-300">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-primary text-white">
-                <th className="px-4 sm:px-6 py-3 font-semibold text-sm sm:text-base">
+              <tr className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white">
+                <th className="px-4 sm:px-6 py-3 font-semibold text-sm sm:text-base rounded-tl-xl">
                   {translate('Procedure')}
                 </th>
                 <th className="px-4 sm:px-6 py-3 font-semibold text-center text-sm sm:text-base">
@@ -170,7 +209,7 @@ export default function CostComparison({
                 <th className="px-4 sm:px-6 py-3 font-semibold text-center text-sm sm:text-base">
                   {translate('India Cost')}
                 </th>
-                <th className="px-4 sm:px-6 py-3 font-semibold text-center text-sm sm:text-base">
+                <th className="px-4 sm:px-6 py-3 font-semibold text-center text-sm sm:text-base rounded-tr-xl">
                   {translate('Savings')}
                 </th>
               </tr>
@@ -191,28 +230,36 @@ export default function CostComparison({
                   return (
                     <tr 
                       key={item.id || idx} 
-                      className={`${idx % 2 === 0 ? 'bg-white' : 'bg-muted/10'} hover:bg-muted/30 transition-colors`}
+                      className={`${
+                        idx % 2 === 0 ? 'bg-white' : 'bg-[#ffa649]/5'
+                      } hover:bg-[#ff4c88]/5 transition-colors duration-200`}
                     >
-                      <td className="px-4 sm:px-6 py-3 font-semibold text-sm sm:text-base">
+                      <td className="px-4 sm:px-6 py-3 font-semibold text-sm sm:text-base hover:text-[#ff4c88] transition-colors">
                         {translate(item.name)}
                       </td>
-                      <td className="px-4 sm:px-6 py-3 text-center text-sm sm:text-base text-muted-foreground line-through decoration-red-400 decoration-2">
-                        {formatCurrency(item.usaCost)}
-                      </td>
-                      <td className="px-4 sm:px-6 py-3 text-center text-primary font-bold text-sm sm:text-base">
-                        {formatCurrency(item.indiaCost)}
+                      <td className="px-4 sm:px-6 py-3 text-center text-sm sm:text-base">
+                        <span className="text-muted-foreground line-through decoration-red-400 decoration-2">
+                          {formatCurrency(item.usaCost)}
+                        </span>
                       </td>
                       <td className="px-4 sm:px-6 py-3 text-center">
-                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full font-semibold text-sm ${
-                          isHighSaving 
-                            ? 'bg-green-100 text-green-700' 
-                            : 'bg-accent/10 text-accent'
-                        }`}>
-                          <TrendingDown size={14} className={isHighSaving ? 'text-green-600' : 'text-accent'} />
-                          {savings}%
+                        <span className="font-bold text-sm sm:text-base bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                          {formatCurrency(item.indiaCost)}
                         </span>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          {translate('Save')} {formatCurrency(savingsAmount)}
+                      </td>
+                      <td className="px-4 sm:px-6 py-3 text-center">
+                        <div className="flex flex-col items-center gap-0.5">
+                          <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full font-semibold text-sm ${
+                            isHighSaving 
+                              ? 'bg-gradient-to-r from-green-100 to-green-200 text-green-700' 
+                              : 'bg-gradient-to-r from-[#ffa649]/20 to-[#ff4c88]/20 text-[#ff4c88]'
+                          }`}>
+                            <TrendingDown size={14} className={isHighSaving ? 'text-green-600' : 'text-[#ff4c88]'} />
+                            {savings}%
+                          </span>
+                          <span className="text-xs text-muted-foreground">
+                            {translate('Save')} {formatCurrency(savingsAmount)}
+                          </span>
                         </div>
                       </td>
                     </tr>
@@ -228,7 +275,7 @@ export default function CostComparison({
           <div className="text-center mt-6">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="px-6 py-2 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors flex items-center gap-2 mx-auto"
+              className="px-6 py-2 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 mx-auto bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white hover:shadow-lg hover:shadow-[#ff4c88]/30 hover:scale-105"
             >
               {expanded ? (
                 <>
@@ -244,6 +291,23 @@ export default function CostComparison({
             </button>
           </div>
         )}
+
+        {/* Savings Note */}
+        <div className="mt-6 p-4 bg-gradient-to-br from-[#ffa649]/10 via-white to-[#ff4c88]/10 rounded-xl border border-[#ffa649]/20 shadow-sm">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#ffa649]/20 to-[#ff4c88]/20 flex items-center justify-center flex-shrink-0 mt-1">
+              <DollarSign size={20} className="text-[#ff4c88]" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-sm bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                {translate('Why Choose India for Medical Treatment?')}
+              </h4>
+              <p className="text-xs text-muted-foreground mt-1">
+                {translate('India offers world-class medical facilities with JCI-accredited hospitals, highly skilled doctors, and significant cost savings compared to Western countries. All procedures include top-quality care, modern technology, and comprehensive patient support.')}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
