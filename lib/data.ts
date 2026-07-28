@@ -2501,7 +2501,7 @@ export const MOCK_TREATMENTS: Treatment[] = [
     thumbnailUrl: "/treatment/Full Mouth Dental Rehabilitation.jpeg",
     startingCostINR: 250000,
     startingCostUSD: 2650,
-    averageCostINR: 600000,
+    averageCostINR:  600000,
     averageCostUSD: 6300,
     recoveryTime: "2–4 Weeks",
     hospitalStay: "Multiple day-care visits",
