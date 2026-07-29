@@ -1,28 +1,33 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Star, MapPin, Award, Phone, Mail, GraduationCap, Briefcase, Languages, Coins, HeartPulse, ShieldAlert, CheckCircle2, ArrowLeft } from 'lucide-react'
-import { doctors } from '@/lib/data'
+import { connectToDatabase } from '@/lib/mongodb'
+import DoctorModel, { type IDoctor } from '@/lib/models/Doctor'
 
-export function generateStaticParams() {
+export const revalidate = 0
+
+export async function generateStaticParams() {
+  await connectToDatabase()
+  const doctors = await DoctorModel.find().select('slug').lean<{ slug: string }[]>()
   return doctors.map((doctor) => ({
     slug: doctor.slug,
   }))
 }
 
-// Fixed: Made params asynchronous for generateMetadata
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
-  const doctor = doctors.find((d) => d.slug === resolvedParams.slug)
+  await connectToDatabase()
+  const doctor = await DoctorModel.findOne({ slug: resolvedParams.slug }).lean<IDoctor>()
   return {
     title: `${doctor?.name} | ${doctor?.specialization} Expert`,
     description: doctor?.description,
   }
 }
 
-// Fixed: Made the component async and awaited params to solve the Next.js API Promise error
 export default async function DoctorDetail({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
-  const doctor = doctors.find((d) => d.slug === resolvedParams.slug)
+  await connectToDatabase()
+  const doctor = await DoctorModel.findOne({ slug: resolvedParams.slug }).lean<IDoctor>()
 
   if (!doctor) {
     return (

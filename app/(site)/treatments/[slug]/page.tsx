@@ -1,24 +1,35 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Clock, TrendingUp, DollarSign, Award, Phone } from 'lucide-react'
-import { treatments, hospitals, doctors } from '@/lib/data'
+import { Clock, TrendingUp, Award } from 'lucide-react'
+import { connectToDatabase } from '@/lib/mongodb'
+import TreatmentModel, { type ITreatment } from '@/lib/models/Treatment'
+import Hospital, { type IHospital } from '@/lib/models/Hospital'
+import Doctor, { type IDoctor } from '@/lib/models/Doctor'
 
-export function generateStaticParams() {
+export const revalidate = 0
+
+export async function generateStaticParams() {
+  await connectToDatabase()
+  const treatments = await TreatmentModel.find().select('slug').lean<{ slug: string }[]>()
   return treatments.map((treatment) => ({
     slug: treatment.slug,
   }))
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const treatment = treatments.find((t) => t.slug === params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  await connectToDatabase()
+  const treatment = await TreatmentModel.findOne({ slug }).lean<ITreatment>()
   return {
     title: `${treatment?.name} | GD Healthcare`,
     description: `Learn about ${treatment?.name} - cost, procedure, success rate, and top hospitals offering this treatment.`,
   }
 }
 
-export default function TreatmentDetail({ params }: { params: { slug: string } }) {
-  const treatment = treatments.find((t) => t.slug === params.slug)
+export default async function TreatmentDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  await connectToDatabase()
+  const treatment = await TreatmentModel.findOne({ slug }).lean<ITreatment>()
 
   if (!treatment) {
     return (
@@ -33,15 +44,19 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
     )
   }
 
-  const relatedHospitals = hospitals.filter((h) => treatment.hospitals.includes(h.name))
-  const relatedDoctors = doctors.filter((d) => treatment.doctors.includes(d.name))
+  // Slug-based matching — reliable regardless of how a hospital/doctor's
+  // display name is edited later in the admin panel.
+  const [relatedHospitals, relatedDoctors] = await Promise.all([
+    Hospital.find({ slug: { $in: treatment.recommendedHospitalSlugs } }).lean<IHospital[]>(),
+    Doctor.find({ slug: { $in: treatment.recommendedDoctorSlugs } }).lean<IDoctor[]>(),
+  ])
 
   return (
     <div className="w-full">
       {/* Hero Image */}
       <div className="relative h-96 w-full overflow-hidden">
         <Image
-          src={treatment.image}
+          src={treatment.thumbnailUrl}
           alt={treatment.name}
           fill
           className="object-cover"
@@ -64,19 +79,19 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 p-6 bg-muted/20 rounded-lg border border-border">
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Success Rate</p>
-                <p className="text-2xl font-bold text-primary">{treatment.successRate}%</p>
+                <p className="text-2xl font-bold text-primary">{treatment.successRate}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Hospital Stay</p>
-                <p className="text-2xl font-bold">{treatment.duration}</p>
+                <p className="text-2xl font-bold">{treatment.hospitalStay}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Recovery Time</p>
-                <p className="text-2xl font-bold">{treatment.recovery}</p>
+                <p className="text-2xl font-bold">{treatment.recoveryTime}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Avg Cost</p>
-                <p className="text-2xl font-bold text-primary">${treatment.avgCost.min}</p>
+                <p className="text-sm text-muted-foreground mb-1">Starting From</p>
+                <p className="text-2xl font-bold text-primary">${treatment.startingCostUSD.toLocaleString()}</p>
               </div>
             </div>
 
@@ -88,7 +103,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                 This procedure involves the use of latest medical technology and techniques to ensure optimal patient outcomes.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                With a success rate of {treatment.successRate}%, this treatment has helped thousands of patients achieve better health
+                With a success rate of {treatment.successRate}, this treatment has helped thousands of patients achieve better health
                 outcomes. Our expert surgeons use minimally invasive techniques where possible to reduce recovery time and complications.
               </p>
             </div>
@@ -155,7 +170,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
             <div className="mb-12">
               <h2 className="text-2xl font-bold mb-6">Recovery & Aftercare</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Recovery from {treatment.name} typically takes {treatment.recovery}. During this time, follow your surgeon&apos;s
+                Recovery from {treatment.name} typically takes {treatment.recoveryTime}. During this time, follow your surgeon&apos;s
                 instructions carefully to ensure optimal healing.
               </p>
               <div className="bg-muted/20 rounded-lg p-6 border border-border">
@@ -184,7 +199,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {relatedHospitals.map((hospital) => (
                     <Link
-                      key={hospital.id}
+                      key={hospital.slug}
                       href={`/hospitals/${hospital.slug}`}
                       className="p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
                     >
@@ -204,7 +219,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {relatedDoctors.map((doctor) => (
                     <Link
-                      key={doctor.id}
+                      key={doctor.slug}
                       href={`/doctors/${doctor.slug}`}
                       className="p-6 bg-card rounded-lg border border-border hover:border-primary transition-colors"
                     >
@@ -229,7 +244,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                 <div className="p-4 bg-primary/10 rounded-lg">
                   <p className="text-sm text-muted-foreground mb-1">Estimated Cost</p>
                   <p className="text-2xl font-bold text-primary">
-                    ${treatment.avgCost.min.toLocaleString()} - ${treatment.avgCost.max.toLocaleString()}
+                    ${treatment.startingCostUSD.toLocaleString()} - ${treatment.averageCostUSD.toLocaleString()}
                   </p>
                 </div>
 
@@ -237,7 +252,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                   <Clock size={20} className="text-primary flex-shrink-0" />
                   <div>
                     <p className="text-xs text-muted-foreground">Hospital Stay</p>
-                    <p className="font-semibold">{treatment.duration}</p>
+                    <p className="font-semibold">{treatment.hospitalStay}</p>
                   </div>
                 </div>
 
@@ -245,7 +260,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                   <TrendingUp size={20} className="text-green-600 flex-shrink-0" />
                   <div>
                     <p className="text-xs text-muted-foreground">Success Rate</p>
-                    <p className="font-semibold">{treatment.successRate}%</p>
+                    <p className="font-semibold">{treatment.successRate}</p>
                   </div>
                 </div>
 
@@ -253,7 +268,7 @@ export default function TreatmentDetail({ params }: { params: { slug: string } }
                   <Award size={20} className="text-primary flex-shrink-0" />
                   <div>
                     <p className="text-xs text-muted-foreground">Recovery</p>
-                    <p className="font-semibold">{treatment.recovery}</p>
+                    <p className="font-semibold">{treatment.recoveryTime}</p>
                   </div>
                 </div>
               </div>

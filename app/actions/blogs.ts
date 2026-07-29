@@ -26,7 +26,7 @@ export async function createBlogPost(formData: FormData) {
   const data = buildBlogData(formData)
   await BlogPost.create(data)
   revalidatePath('/admin/blogs')
-  revalidatePath('/blogs')
+  revalidatePath('/blog')
   redirect('/admin/blogs')
 }
 
@@ -35,8 +35,8 @@ export async function updateBlogPost(id: string, formData: FormData) {
   const data = buildBlogData(formData)
   await BlogPost.findByIdAndUpdate(id, data)
   revalidatePath('/admin/blogs')
-  revalidatePath('/blogs')
-  revalidatePath(`/blogs/${data.slug}`)
+  revalidatePath('/blog')
+  revalidatePath(`/blog/${data.slug}`)
   redirect('/admin/blogs')
 }
 
@@ -44,5 +44,5 @@ export async function deleteBlogPost(id: string) {
   await connectToDatabase()
   await BlogPost.findByIdAndDelete(id)
   revalidatePath('/admin/blogs')
-  revalidatePath('/blogs')
+  revalidatePath('/blog')
 }

@@ -1,28 +1,35 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Star, MapPin, Bed, Award, Phone, Mail, Globe, Building2, CheckCircle2, ShieldCheck, Stethoscope } from 'lucide-react'
-import { hospitals } from '@/lib/data'
+import { connectToDatabase } from '@/lib/mongodb'
+import HospitalModel, { type IHospital } from '@/lib/models/Hospital'
 
-export function generateStaticParams() {
+// Public content changes whenever the admin edits it — don't cache a stale
+// build-time snapshot.
+export const revalidate = 0
+
+export async function generateStaticParams() {
+  await connectToDatabase()
+  const hospitals = await HospitalModel.find().select('slug').lean<{ slug: string }[]>()
   return hospitals.map((hospital) => ({
     slug: hospital.slug,
   }))
 }
 
-// Fixed: Made params asynchronous for Next.js 16 compatibility
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
-  const hospital = hospitals.find((h) => h.slug === resolvedParams.slug)
+  await connectToDatabase()
+  const hospital = await HospitalModel.findOne({ slug: resolvedParams.slug }).lean<IHospital>()
   return {
     title: `${hospital?.name} | GD Healthcare`,
     description: hospital?.description,
   }
 }
 
-// Fixed: Made the component async and awaited params for Next.js 16 compatibility
 export default async function HospitalDetail({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
-  const hospital = hospitals.find((h) => h.slug === resolvedParams.slug)
+  await connectToDatabase()
+  const hospital = await HospitalModel.findOne({ slug: resolvedParams.slug }).lean<IHospital>()
 
   if (!hospital) {
     return (

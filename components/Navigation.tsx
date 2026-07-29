@@ -13,6 +13,7 @@ export function Navigation() {
     { href: '/hospitals', label: 'Hospitals' },
     { href: '/doctors', label: 'Doctors' },
     { href: '/treatments', label: 'Treatments' },
+    { href: '/blog', label: 'Blog' },
     { href: '/countries', label: 'Countries' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
