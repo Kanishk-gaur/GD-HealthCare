@@ -58,8 +58,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Blog
+                <Link href="/patient-testimonials" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
+                  Patient Testimonials
                 </Link>
               </li>
             </ul>

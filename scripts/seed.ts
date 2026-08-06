@@ -13,14 +13,14 @@ import {
   hospitals as rawHospitals,
   doctors as rawDoctors,
   MOCK_TREATMENTS as rawTreatments,
-  testimonials as rawTestimonials,
-  blogPosts as rawBlogPosts,
+  patientTestimonials as rawPatientTestimonials,
+  faqs as rawFAQs,
 } from '../lib/data'
 import Hospital from '../lib/models/Hospital'
 import Doctor from '../lib/models/Doctor'
 import Treatment from '../lib/models/Treatment'
-import Testimonial from '../lib/models/Testimonial'
-import BlogPost from '../lib/models/BlogPost'
+import PatientTestimonial from '../lib/models/PatientTestimonial'
+import FAQ from '../lib/models/FAQ'
 import User from '../lib/models/User'
 
 const WIPE_FIRST = true
@@ -88,13 +88,6 @@ function findDoctorSlugByFuzzyName(
   return match ? match.slug : null
 }
 
-const TESTIMONIAL_HOSPITAL_FIX: Record<string, string> = {
-  'Max Healthcare Bangalore': 'Max Super Speciality Hospital, Saket',
-  'Apollo Hospital Delhi': 'Indraprastha Apollo Hospital',
-  'American Hospital Dubai': 'Medanta – The Medicity',
-  'Fortis Hospital Hyderabad': 'Fortis Memorial Research Institute (FMRI)',
-}
-
 async function main() {
   const MONGODB_URI = process.env.MONGODB_URI
   if (!MONGODB_URI) {
@@ -110,8 +103,8 @@ async function main() {
       Hospital.deleteMany({}),
       Doctor.deleteMany({}),
       Treatment.deleteMany({}),
-      Testimonial.deleteMany({}),
-      BlogPost.deleteMany({}),
+      PatientTestimonial.deleteMany({}),
+      FAQ.deleteMany({}),
     ])
   }
 
@@ -187,22 +180,24 @@ async function main() {
     )
   }
 
-  console.log(`Seeding ${rawTestimonials.length} testimonials...`)
-  await Testimonial.insertMany(
-    rawTestimonials.map((t) => ({
-      name: t.name, location: t.location, treatment: t.treatment,
-      hospital: TESTIMONIAL_HOSPITAL_FIX[t.hospital] ?? t.hospital,
-      image: t.image, text: t.text, rating: t.rating,
+  console.log(`Seeding ${rawPatientTestimonials.length} patient testimonials...`)
+  await PatientTestimonial.insertMany(
+    rawPatientTestimonials.map((b) => ({
+      slug: b.slug, title: b.title, author: b.author, date: new Date(b.date),
+      image: b.image, excerpt: b.excerpt, category: b.category,
+      content: `${b.excerpt}\n\n[TODO: replace this placeholder with the real patient story via the admin panel]`,
+      published: true,
+      // Placeholder patient-story fields — these are generic articles seeded
+      // before the patient-testimonial redesign; replace via the admin panel.
+      patientName: b.author, patientAge: 0, patientGender: 'Other', patientCountry: 'N/A',
+      treatment: b.category, hospital: 'N/A',
     }))
   )
 
-  console.log(`Seeding ${rawBlogPosts.length} blog posts...`)
-  await BlogPost.insertMany(
-    rawBlogPosts.map((b) => ({
-      slug: b.slug, title: b.title, author: b.author, date: new Date(b.date),
-      image: b.image, excerpt: b.excerpt, category: b.category,
-      content: `${b.excerpt}\n\n[TODO: replace this placeholder with real article content via the admin panel]`,
-      published: true,
+  console.log(`Seeding ${rawFAQs.length} FAQs...`)
+  await FAQ.insertMany(
+    rawFAQs.map((f, index) => ({
+      question: f.question, answer: f.answer, order: index,
     }))
   )
 

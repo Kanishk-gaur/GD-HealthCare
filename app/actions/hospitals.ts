@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/mongodb'
 import Hospital from '@/lib/models/Hospital'
 import { parseLines, toSlug } from '@/lib/admin-utils'
+import { requireAdmin } from '@/lib/require-admin'
 
 function buildHospitalData(formData: FormData) {
   const name = String(formData.get('name') || '')
@@ -38,6 +39,7 @@ function buildHospitalData(formData: FormData) {
 }
 
 export async function createHospital(formData: FormData) {
+  await requireAdmin()
   await connectToDatabase()
   const data = buildHospitalData(formData)
   await Hospital.create(data)
@@ -47,6 +49,7 @@ export async function createHospital(formData: FormData) {
 }
 
 export async function updateHospital(id: string, formData: FormData) {
+  await requireAdmin()
   await connectToDatabase()
   const data = buildHospitalData(formData)
   await Hospital.findByIdAndUpdate(id, data)
@@ -57,6 +60,7 @@ export async function updateHospital(id: string, formData: FormData) {
 }
 
 export async function deleteHospital(id: string) {
+  await requireAdmin()
   await connectToDatabase()
   await Hospital.findByIdAndDelete(id)
   revalidatePath('/admin/hospitals')

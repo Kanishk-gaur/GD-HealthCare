@@ -11,8 +11,10 @@ const NAV_ITEMS = [
   { href: '/admin/hospitals', label: 'Hospitals' },
   { href: '/admin/doctors', label: 'Doctors' },
   { href: '/admin/treatments', label: 'Treatments' },
-  { href: '/admin/blogs', label: 'Blog Posts' },
-  { href: '/admin/testimonials', label: 'Testimonials' },
+  { href: '/admin/patient-testimonials', label: 'Patient Testimonials' },
+  { href: '/admin/cost-comparisons', label: 'Cost Comparison' },
+  { href: '/admin/medical-packages', label: 'Procedure Packages' },
+  { href: '/admin/faqs', label: 'FAQs' },
 ]
 
 export function AdminSidebar() {

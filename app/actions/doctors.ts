@@ -6,6 +6,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import Doctor from '@/lib/models/Doctor'
 import Hospital from '@/lib/models/Hospital'
 import { parseLines, toSlug } from '@/lib/admin-utils'
+import { requireAdmin } from '@/lib/require-admin'
 
 async function buildDoctorData(formData: FormData) {
   const name = String(formData.get('name') || '')
@@ -46,6 +47,7 @@ async function buildDoctorData(formData: FormData) {
 }
 
 export async function createDoctor(formData: FormData) {
+  await requireAdmin()
   await connectToDatabase()
   const data = await buildDoctorData(formData)
   await Doctor.create(data)
@@ -55,6 +57,7 @@ export async function createDoctor(formData: FormData) {
 }
 
 export async function updateDoctor(id: string, formData: FormData) {
+  await requireAdmin()
   await connectToDatabase()
   const data = await buildDoctorData(formData)
   await Doctor.findByIdAndUpdate(id, data)
@@ -65,6 +68,7 @@ export async function updateDoctor(id: string, formData: FormData) {
 }
 
 export async function deleteDoctor(id: string) {
+  await requireAdmin()
   await connectToDatabase()
   await Doctor.findByIdAndDelete(id)
   revalidatePath('/admin/doctors')

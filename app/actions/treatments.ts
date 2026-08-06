@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/mongodb'
 import Treatment from '@/lib/models/Treatment'
 import { toSlug } from '@/lib/admin-utils'
+import { requireAdmin } from '@/lib/require-admin'
 
 function buildTreatmentData(formData: FormData) {
   const name = String(formData.get('name') || '')
@@ -27,6 +28,7 @@ function buildTreatmentData(formData: FormData) {
 }
 
 export async function createTreatment(formData: FormData) {
+  await requireAdmin()
   await connectToDatabase()
   const data = buildTreatmentData(formData)
   await Treatment.create(data)
@@ -36,6 +38,7 @@ export async function createTreatment(formData: FormData) {
 }
 
 export async function updateTreatment(id: string, formData: FormData) {
+  await requireAdmin()
   await connectToDatabase()
   const data = buildTreatmentData(formData)
   await Treatment.findByIdAndUpdate(id, data)
@@ -46,6 +49,7 @@ export async function updateTreatment(id: string, formData: FormData) {
 }
 
 export async function deleteTreatment(id: string) {
+  await requireAdmin()
   await connectToDatabase()
   await Treatment.findByIdAndDelete(id)
   revalidatePath('/admin/treatments')

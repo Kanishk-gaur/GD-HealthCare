@@ -3,9 +3,13 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { connectToDatabase } from '@/lib/mongodb'
 import User from '@/lib/models/User'
+import { ADMIN_SESSION_MAX_AGE_SECONDS } from '@/lib/session-config'
 
 export const authOptions: AuthOptions = {
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+    maxAge: ADMIN_SESSION_MAX_AGE_SECONDS,
+  },
   pages: {
     signIn: '/admin/login',
   },
@@ -44,6 +48,11 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as { role?: string }).role
+        // Recorded once, at sign-in, and never touched again — this is what
+        // lets proxy.ts and requireAdmin() enforce a hard session lifetime
+        // even though the token itself keeps sliding its own `exp` forward
+        // on every active use (see lib/session-config.ts for why).
+        token.loginTime = Date.now()
       }
       return token
     },
@@ -51,6 +60,7 @@ export const authOptions: AuthOptions = {
       if (session.user) {
         (session.user as { role?: string }).role = token.role as string
       }
+      ;(session as { loginTime?: number }).loginTime = token.loginTime as number
       return session
     },
   },

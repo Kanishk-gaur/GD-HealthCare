@@ -1771,60 +1771,7 @@ export const countries = [
   },
 ];
 
-export const testimonials = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    location: 'USA',
-    treatment: 'Knee Replacement',
-    hospital: 'Max Healthcare Bangalore',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
-    text: 'Amazing experience! The staff was incredibly professional and caring. I saved 80% on my surgery costs.',
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: 'James Wilson',
-    location: 'Canada',
-    treatment: 'Heart Bypass Surgery',
-    hospital: 'Apollo Hospital Delhi',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-    text: 'Exceptional care from top surgeons. The entire experience was seamless from consultation to recovery.',
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: 'Maria Garcia',
-    location: 'Spain',
-    treatment: 'Dental Implants',
-    hospital: 'Apollo Hospital Delhi',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop',
-    text: 'Best decision I made. Professional doctors, modern facilities, and unbeatable prices!',
-    rating: 5,
-  },
-  {
-    id: 4,
-    name: 'Ahmed Mohamed',
-    location: 'Saudi Arabia',
-    treatment: 'Brain Surgery',
-    hospital: 'American Hospital Dubai',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop',
-    text: 'Top-notch medical expertise combined with warm hospitality. Highly recommended!',
-    rating: 5,
-  },
-  {
-    id: 5,
-    name: 'Lisa Chen',
-    location: 'Australia',
-    treatment: 'Orthopedic Surgery',
-    hospital: 'Fortis Hospital Hyderabad',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
-    text: 'The care I received was world-class. I\'m back to normal life in just 4 months!',
-    rating: 5,
-  },
-];
-
-export const blogPosts = [
+export const patientTestimonials = [
   {
     id: 1,
     slug: 'cost-savings-medical-tourism',

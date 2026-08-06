@@ -3,13 +3,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Star, MapPin, Stethoscope, DollarSign, Clock, TrendingUp, CheckCircle } from 'lucide-react'
-import { faqs } from '@/lib/data'
 import { useTranslation } from '@/hooks/useTranslation'
 import CostComparison from '@/components/CostComparison'
-import MedicalCostComparison, { allPackages } from '@/components/MedicalCostComparison'
+import MedicalCostComparison from '@/components/MedicalCostComparison'
+import { PatientTestimonialCard } from '@/components/PatientTestimonialCard'
 import type { IHospital } from '@/lib/models/Hospital'
 import type { IDoctor } from '@/lib/models/Doctor'
-import type { ITestimonial } from '@/lib/models/Testimonial'
+import type { IPatientTestimonial } from '@/lib/models/PatientTestimonial'
+import type { ICostComparison } from '@/lib/models/CostComparison'
+import type { IMedicalPackage } from '@/lib/models/MedicalPackage'
+import type { IFAQ } from '@/lib/models/FAQ'
 
 type Serialized<T> = Omit<T, '_id' | 'createdAt' | 'updatedAt'> & { _id: string }
 
@@ -20,7 +23,12 @@ const stats = [
   { label: '200+', description: 'Expert Doctors', icon: '👨‍⚕️' },
 ]
 
-const costData = [
+export const costData: {
+  name: string
+  usaCost: number
+  indiaCost: number
+  category?: string
+}[] = [
   { name: 'Heart Bypass Surgery', usaCost: 120000, indiaCost: 4700 },
   { name: 'Knee Replacement', usaCost: 35000, indiaCost: 6800 },
   { name: 'Brain Tumor Surgery', usaCost: 150000, indiaCost: 6500 },
@@ -93,10 +101,20 @@ const treatmentCategories = [
 interface HomeClientProps {
   hospitals: Serialized<IHospital>[]
   doctors: Serialized<IDoctor>[]
-  testimonials: Serialized<ITestimonial>[]
+  patientTestimonials: Serialized<IPatientTestimonial>[]
+  costComparisons: Serialized<ICostComparison>[]
+  medicalPackages: Serialized<IMedicalPackage>[]
+  faqs: Serialized<IFAQ>[]
 }
 
-export function HomeClient({ hospitals, doctors, testimonials }: HomeClientProps) {
+export function HomeClient({
+  hospitals,
+  doctors,
+  patientTestimonials,
+  costComparisons,
+  medicalPackages,
+  faqs,
+}: HomeClientProps) {
   const { translate } = useTranslation();
 
   return (
@@ -336,44 +354,51 @@ export function HomeClient({ hospitals, doctors, testimonials }: HomeClientProps
       </section>
 
       {/* Cost Comparison - Updated Colors */}
-      <CostComparison data={costData} />
-      <MedicalCostComparison packages={allPackages} />
+      <CostComparison
+        data={costComparisons.map((c) => ({
+          id: c._id,
+          name: c.name,
+          usaCost: c.usaCost,
+          indiaCost: c.indiaCost,
+          category: c.category,
+        }))}
+      />
+      <MedicalCostComparison
+        packages={medicalPackages.map((p) => ({
+          id: p._id,
+          procedure: p.procedure,
+          specialty: p.specialty,
+          hospital: p.hospital,
+          los: p.los,
+          icuDays: p.icuDays,
+          wardDays: p.wardDays,
+          economyPrice: p.economyPrice,
+          doublePrice: p.doublePrice,
+          singlePrice: p.singlePrice,
+          notes: p.notes,
+          includes: p.includes,
+        }))}
+      />
 
-      {/* Testimonials - Updated Colors */}
+      {/* Patient Testimonials */}
       <section className="py-16 bg-gradient-to-br from-[#ffa649]/5 via-white to-[#ff4c88]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
-              {translate('Patient Testimonials')}
-            </span>
-          </h2>
+          <div className="flex items-center justify-between mb-12">
+            <h2 className="text-4xl font-bold">
+              <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
+                {translate('Patient Testimonials')}
+              </span>
+            </h2>
+            <Link
+              href="/patient-testimonials"
+              className="hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-[#ff4c88] hover:underline"
+            >
+              {translate('View all')}
+            </Link>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.slice(0, 3).map((testimonial) => (
-              <div key={testimonial._id} className="bg-white rounded-lg p-6 shadow-md border border-border hover:shadow-xl transition-all duration-300 hover:border-[#ffa649] group">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#ffa649]">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold group-hover:text-[#ff4c88] transition-colors">{translate(testimonial.name)}</h4>
-                    <p className="text-xs text-muted-foreground">{translate(testimonial.location)}</p>
-                  </div>
-                </div>
-                <div className="flex gap-1 mb-3">
-                  {[...Array(5)].map((_, idx) => (
-                    <Star key={idx} size={16} className="text-[#ffa649] fill-[#ffa649]" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground text-sm mb-2">&quot;{translate(testimonial.text)}&quot;</p>
-                <p className="text-xs font-semibold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
-                  {translate(testimonial.treatment)} at {translate(testimonial.hospital)}
-                </p>
-              </div>
+            {patientTestimonials.slice(0, 3).map((testimonial) => (
+              <PatientTestimonialCard key={testimonial._id} post={testimonial} />
             ))}
           </div>
         </div>
@@ -388,8 +413,8 @@ export function HomeClient({ hospitals, doctors, testimonials }: HomeClientProps
             </span>
           </h2>
           <div className="space-y-4">
-            {faqs.slice(0, 5).map((faq, idx) => (
-              <details key={idx} className="bg-card rounded-lg border border-border p-6 hover:border-[#ffa649] transition-all duration-300 cursor-pointer group">
+            {faqs.map((faq) => (
+              <details key={faq._id} className="bg-card rounded-lg border border-border p-6 hover:border-[#ffa649] transition-all duration-300 cursor-pointer group">
                 <summary className="font-semibold flex justify-between items-center group-hover:text-[#ff4c88] transition-colors">
                   {translate(faq.question)}
                   <span className="text-[#ffa649] group-hover:text-[#ff4c88] text-xl">+</span>

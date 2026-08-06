@@ -24,14 +24,16 @@ import {
 interface MedicalPackage {
   id: string | number;
   procedure: string;
-  specialty: 'Cardiac' | 'Neuro-Spine' | 'Orthopedics' | 'General Surgery' | 'Other';
+  // Free-form — new specialties/hospitals can be added from the admin panel.
+  // getSpecialtyIcon() falls back to a generic icon for unrecognized values.
+  specialty: string;
   los: string; // Length of Stay (e.g., "1+5")
   icuDays: number;
   wardDays: number;
   economyPrice: number;
   doublePrice: number;
   singlePrice: number;
-  hospital: 'Max Healthcare' | 'IPS';
+  hospital: string;
   notes?: string;
   includes?: string[];
 }
@@ -39,7 +41,7 @@ interface MedicalPackage {
 interface MedicalCostComparisonProps {
   packages: MedicalPackage[];
   title?: string;
-  hospitalFilter?: 'Max Healthcare' | 'IPS' | 'all';
+  hospitalFilter?: string;
   specialtyFilter?: string;
   showSearch?: boolean;
   showFilters?: boolean;
@@ -375,7 +377,7 @@ export default function MedicalCostComparison({
 }: MedicalCostComparisonProps) {
   const { translate } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedHospital, setSelectedHospital] = useState<'all' | 'Max Healthcare' | 'IPS'>(hospitalFilter);
+  const [selectedHospital, setSelectedHospital] = useState<string>(hospitalFilter);
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>(specialtyFilter);
   const [roomType, setRoomType] = useState<'economy' | 'double' | 'single'>('economy');
   const [sortBy, setSortBy] = useState<'procedure' | 'price' | 'savings' | 'los'>('procedure');
@@ -385,6 +387,12 @@ export default function MedicalCostComparison({
   // Get unique specialties
   const specialties = useMemo(() => {
     const unique = new Set(packages.map(p => p.specialty));
+    return ['all', ...Array.from(unique)];
+  }, [packages]);
+
+  // Get unique hospitals
+  const hospitalOptions = useMemo(() => {
+    const unique = new Set(packages.map(p => p.hospital));
     return ['all', ...Array.from(unique)];
   }, [packages]);
 
@@ -522,12 +530,14 @@ export default function MedicalCostComparison({
                   <Hospital size={16} className="text-[#ff4c88]" />
                   <select
                     value={selectedHospital}
-                    onChange={(e) => setSelectedHospital(e.target.value as any)}
+                    onChange={(e) => setSelectedHospital(e.target.value)}
                     className="bg-transparent py-1 px-1 text-sm focus:outline-none"
                   >
-                    <option value="all">All Hospitals</option>
-                    <option value="Max Healthcare">Max Healthcare</option>
-                    <option value="IPS">IPS</option>
+                    {hospitalOptions.map((hospital) => (
+                      <option key={hospital} value={hospital}>
+                        {hospital === 'all' ? 'All Hospitals' : hospital}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
