@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Star, MapPin, Stethoscope, DollarSign, Clock, TrendingUp, CheckCircle } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { HeroIllustration } from '@/components/HeroIllustration'
+import { HeroTextBackdrop } from '@/components/HeroTextBackdrop'
 import CostComparison from '@/components/CostComparison'
 import MedicalCostComparison from '@/components/MedicalCostComparison'
 import { PatientTestimonialCard } from '@/components/PatientTestimonialCard'
@@ -126,9 +128,10 @@ export function HomeClient({
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-[#ff4c88]/10 to-transparent rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="relative">
+              <HeroTextBackdrop className="absolute inset-0 -z-10 w-full h-full pointer-events-none" />
               <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-[#ffa649]/20 to-[#ff4c88]/20 text-sm font-medium text-[#ff4c88] mb-6">
-                🌟 Trusted by 50K+ Patients Worldwide
+                🌟 {translate('Trusted by 50K+ Patients Worldwide')}
               </div>
               <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
@@ -156,14 +159,7 @@ export function HomeClient({
               </div>
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#ffa649]/20 to-[#ff4c88]/20 z-10"></div>
-              <Image
-                src="https://images.unsplash.com/photo-1631217314831-c6227db76b6e?w=600&h=400&fit=crop"
-                alt="Medical consultation"
-                fill
-                className="object-cover"
-                priority
-              />
+              <HeroIllustration className="absolute inset-0 w-full h-full" />
             </div>
           </div>
         </div>
@@ -250,7 +246,7 @@ export function HomeClient({
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src={hospital.image}
-                    alt={hospital.name}
+                    alt={translate(hospital.name)}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
@@ -309,7 +305,7 @@ export function HomeClient({
                 <div className="relative w-full aspect-[3/4] md:aspect-[2/3] overflow-hidden bg-gradient-to-br from-[#ffa649]/10 to-[#ff4c88]/10">
                   <Image
                     src={doctor.image}
-                    alt={doctor.name}
+                    alt={translate(doctor.name)}
                     fill
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -327,14 +323,14 @@ export function HomeClient({
                       <Star size={16} className="text-[#ffa649] fill-[#ffa649]" />
                       <span className="text-sm font-semibold">{doctor.rating}</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">({doctor.reviews} reviews)</span>
+                    <span className="text-xs text-muted-foreground">({doctor.reviews} {translate('reviews')})</span>
                   </div>
-                  
-                  <p className="text-sm text-muted-foreground mb-4">{doctor.experience} years experience</p>
-                  
+
+                  <p className="text-sm text-muted-foreground mb-4">{doctor.experience} {translate('years experience')}</p>
+
                   <div className="mt-auto pt-4 border-t border-border">
                     <div className="text-sm font-semibold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
-                      From ${doctor.consultationFee}
+                      {translate('From')} ${doctor.consultationFee}
                     </div>
                   </div>
                 </div>

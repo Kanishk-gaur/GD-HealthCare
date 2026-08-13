@@ -1,4 +1,7 @@
+'use client'
+
 import { CheckCircle2 } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 // Lightweight formatting for the admin-authored story text — not full
 // markdown, just the handful of patterns patient stories actually use:
@@ -61,6 +64,7 @@ function segment(content: string): Segment[] {
 }
 
 export function PatientTestimonialStory({ content }: { content: string }) {
+  const { translate } = useTranslation()
   const segments = segment(content)
 
   return (
@@ -72,7 +76,7 @@ export function PatientTestimonialStory({ content }: { content: string }) {
               {seg.lines.map((line, j) => (
                 <li key={j} className="flex items-start gap-2.5">
                   <CheckCircle2 size={18} className="text-[#ff4c88] mt-0.5 shrink-0" />
-                  <span>{renderInline(line.replace(/^[-*]\s+/, ''))}</span>
+                  <span>{renderInline(translate(line.replace(/^[-*]\s+/, '')))}</span>
                 </li>
               ))}
             </ul>
@@ -85,14 +89,14 @@ export function PatientTestimonialStory({ content }: { content: string }) {
               key={i}
               className="mt-0! border-l-4 border-[#ffa649] pl-4 italic text-foreground/80"
             >
-              {renderInline(seg.line)}
+              {renderInline(translate(seg.line))}
             </blockquote>
           )
         }
 
         return (
           <p key={i} className="mt-0!">
-            {renderInline(seg.lines.join(' '))}
+            {renderInline(translate(seg.lines.join(' ')))}
           </p>
         )
       })}

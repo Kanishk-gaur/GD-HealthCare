@@ -61,17 +61,17 @@ export function DoctorsClient({ doctors }: { doctors: SerializedDoctor[] }) {
             <div className="flex items-center gap-2">
               <Users size={18} className="text-[#ff4c88]" />
               <span className="text-2xl font-bold text-[#ff4c88]">{doctors.length}</span>
-              <span className="text-sm text-muted-foreground">Expert Doctors</span>
+              <span className="text-sm text-muted-foreground">{translate('Expert Doctors')}</span>
             </div>
             <div className="flex items-center gap-2">
               <Award size={18} className="text-[#ffa649]" />
               <span className="text-2xl font-bold text-[#ffa649]">{avgExperience}+</span>
-              <span className="text-sm text-muted-foreground">Years Avg. Experience</span>
+              <span className="text-sm text-muted-foreground">{translate('Years Avg. Experience')}</span>
             </div>
             <div className="flex items-center gap-2">
               <Globe size={18} className="text-[#ff4c88]" />
               <span className="text-2xl font-bold text-[#ff4c88]">{specializations.length - 1}</span>
-              <span className="text-sm text-muted-foreground">Specializations</span>
+              <span className="text-sm text-muted-foreground">{translate('Specializations')}</span>
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@ export function DoctorsClient({ doctors }: { doctors: SerializedDoctor[] }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Results count */}
           <div className="mb-6 text-sm text-muted-foreground">
-            <span className="font-semibold text-[#ff4c88]">{filteredDoctors.length}</span> doctors found
+            <span className="font-semibold text-[#ff4c88]">{filteredDoctors.length}</span> {translate('doctors found')}
           </div>
 
           {filteredDoctors.length === 0 ? (
@@ -150,7 +150,7 @@ export function DoctorsClient({ doctors }: { doctors: SerializedDoctor[] }) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <Image
                       src={doctor.image}
-                      alt={doctor.name}
+                      alt={translate(doctor.name)}
                       fill
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -164,7 +164,7 @@ export function DoctorsClient({ doctors }: { doctors: SerializedDoctor[] }) {
                     {/* Experience Badge on Image */}
                     <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1 bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full">
                       <Briefcase size={14} className="text-white" />
-                      <span className="text-xs font-medium text-white">{doctor.experience} years exp.</span>
+                      <span className="text-xs font-medium text-white">{doctor.experience} {translate('years exp.')}</span>
                     </div>
                   </div>
                   

@@ -438,7 +438,7 @@ export default function MedicalCostComparison({
       }
       return sortOrder === 'asc' ? comparison : -comparison;
     });
-  }, [packages, selectedHospital, selectedSpecialty, searchTerm, roomType, sortBy, sortOrder]);
+  }, [packages, selectedHospital, selectedSpecialty, searchTerm, roomType, sortBy, sortOrder, translate]);
 
   const visibleData = expanded ? processedData : processedData.slice(0, 5);
 
@@ -520,9 +520,9 @@ export default function MedicalCostComparison({
                     onChange={(e) => setRoomType(e.target.value as any)}
                     className="bg-transparent py-1 px-1 text-sm focus:outline-none"
                   >
-                    <option value="economy">Economy</option>
-                    <option value="double">Double</option>
-                    <option value="single">Single</option>
+                    <option value="economy">{translate('Economy')}</option>
+                    <option value="double">{translate('Double')}</option>
+                    <option value="single">{translate('Single')}</option>
                   </select>
                 </div>
 
@@ -535,7 +535,7 @@ export default function MedicalCostComparison({
                   >
                     {hospitalOptions.map((hospital) => (
                       <option key={hospital} value={hospital}>
-                        {hospital === 'all' ? 'All Hospitals' : hospital}
+                        {hospital === 'all' ? translate('All Hospitals') : translate(hospital)}
                       </option>
                     ))}
                   </select>
@@ -558,7 +558,7 @@ export default function MedicalCostComparison({
                   }`}
                 >
                   {specialty !== 'all' && getSpecialtyIcon(specialty)}
-                  {specialty === 'all' ? 'All Specialties' : translate(specialty)}
+                  {specialty === 'all' ? translate('All Specialties') : translate(specialty)}
                 </button>
               ))}
             </div>
@@ -649,7 +649,7 @@ export default function MedicalCostComparison({
                         </div>
                         {pkg.notes && (
                           <div className="text-xs text-muted-foreground mt-1 border-l-2 border-[#ffa649] pl-2">
-                            {pkg.notes}
+                            {translate(pkg.notes)}
                           </div>
                         )}
                       </td>
@@ -665,17 +665,17 @@ export default function MedicalCostComparison({
                             ? 'bg-gradient-to-r from-blue-100 to-blue-200 text-blue-700'
                             : 'bg-gradient-to-r from-purple-100 to-purple-200 text-purple-700'
                         }`}>
-                          {pkg.hospital}
+                          {translate(pkg.hospital)}
                         </span>
                       </td>
                       <td className="px-4 sm:px-6 py-3 text-center">
                         <div className="flex items-center justify-center gap-1">
                           <span className="bg-gradient-to-r from-red-100 to-red-200 text-red-700 px-2 py-0.5 rounded text-xs font-medium">
-                            {pkg.icuDays}D ICU
+                            {pkg.icuDays}{translate('D ICU')}
                           </span>
                           <span className="text-muted-foreground">+</span>
                           <span className="bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-2 py-0.5 rounded text-xs font-medium">
-                            {pkg.wardDays}D Ward
+                            {pkg.wardDays}{translate('D Ward')}
                           </span>
                         </div>
                       </td>

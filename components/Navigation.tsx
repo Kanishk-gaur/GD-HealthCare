@@ -4,9 +4,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, Phone } from 'lucide-react'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const { translate } = useTranslation()
 
   const links = [
     { href: '/', label: 'Home' },
@@ -16,7 +18,6 @@ export function Navigation() {
     { href: '/patient-testimonials', label: 'Patient Testimonials' },
     { href: '/countries', label: 'Countries' },
     { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
   ]
 
   return (
@@ -41,7 +42,7 @@ export function Navigation() {
                 href={link.href}
                 className="text-sm font-medium text-foreground hover:text-[#ff4c88] transition-all duration-300 relative group"
               >
-                {link.label}
+                {translate(link.label)}
                 <span className="absolute inset-x-0 -bottom-1 h-0.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
               </Link>
             ))}
@@ -50,13 +51,13 @@ export function Navigation() {
           {/* Right Section */}
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
-            <a
-              href="tel:+919711614738"
+            <Link
+              href="/contact"
               className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg text-white font-medium transition-all duration-300 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] hover:shadow-lg hover:shadow-[#ff4c88]/30 hover:scale-105"
             >
               <Phone size={18} />
-              <span className="text-sm font-medium">Free Consultation</span>
-            </a>
+              <span className="text-sm font-medium">{translate('Free Consultation')}</span>
+            </Link>
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -82,15 +83,16 @@ export function Navigation() {
                 className="block px-4 py-2.5 text-sm font-medium text-foreground hover:text-[#ff4c88] transition-colors duration-200 border-l-2 border-transparent hover:border-[#ffa649] pl-4"
                 onClick={() => setIsOpen(false)}
               >
-                {link.label}
+                {translate(link.label)}
               </Link>
             ))}
-            <a
-              href="tel:+919711614738"
+            <Link
+              href="/contact"
               className="block m-4 px-4 py-3 rounded-lg text-white text-center font-medium transition-all duration-300 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] hover:shadow-lg hover:shadow-[#ff4c88]/30"
+              onClick={() => setIsOpen(false)}
             >
-              Free Consultation
-            </a>
+              {translate('Free Consultation')}
+            </Link>
           </div>
         )}
       </div>

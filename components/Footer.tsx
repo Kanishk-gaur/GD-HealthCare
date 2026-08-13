@@ -3,8 +3,10 @@
 import Link from 'next/link'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export function Footer() {
+  const { translate } = useTranslation()
   return (
     <footer className="bg-gradient-to-br from-[#ffa649] via-[#ffa649]/95 to-[#ff4c88] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -19,8 +21,7 @@ export function Footer() {
               <span className="font-bold text-lg text-white">GD Healthcare</span>
             </div>
             <p className="text-sm text-white/90 leading-relaxed">
-              Trusted Medical Healthcare Worldwide | Leading medical tourism company in India, 
-              committed to providing high-quality healthcare services.
+              {translate('Trusted Medical Healthcare Worldwide | Leading medical tourism company in India, committed to providing high-quality healthcare services.')}
             </p>
             {/* Trust Badge */}
             <div className="mt-4 flex items-center gap-2">
@@ -31,35 +32,35 @@ export function Footer() {
                   </div>
                 ))}
               </div>
-              <span className="text-xs text-white/80">Trusted by 50K+ patients</span>
+              <span className="text-xs text-white/80">{translate('Trusted by 50K+ patients')}</span>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
             <h4 className="font-semibold mb-4 text-white relative inline-block">
-              Quick Links
+              {translate('Quick Links')}
               <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-white/50 rounded-full"></span>
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link href="/hospitals" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Hospitals
+                  {translate('Hospitals')}
                 </Link>
               </li>
               <li>
                 <Link href="/doctors" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Doctors
+                  {translate('Doctors')}
                 </Link>
               </li>
               <li>
                 <Link href="/treatments" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Treatments
+                  {translate('Treatments')}
                 </Link>
               </li>
               <li>
                 <Link href="/patient-testimonials" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Patient Testimonials
+                  {translate('Patient Testimonials')}
                 </Link>
               </li>
             </ul>
@@ -68,28 +69,28 @@ export function Footer() {
           {/* Company */}
           <div>
             <h4 className="font-semibold mb-4 text-white relative inline-block">
-              Company
+              {translate('Company')}
               <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-white/50 rounded-full"></span>
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <Link href="/about" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  About Us
+                  {translate('About Us')}
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Contact
+                  {translate('Contact')}
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Privacy Policy
+                  {translate('Privacy Policy')}
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-white/80 hover:text-white transition-all duration-300 hover:translate-x-1 inline-block">
-                  Terms & Conditions
+                  {translate('Terms & Conditions')}
                 </Link>
               </li>
             </ul>
@@ -98,7 +99,7 @@ export function Footer() {
           {/* Contact Info */}
           <div>
             <h4 className="font-semibold mb-4 text-white relative inline-block">
-              Get In Touch
+              {translate('Get In Touch')}
               <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-white/50 rounded-full"></span>
             </h4>
             <div className="space-y-3.5 text-sm">
@@ -122,7 +123,7 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
                   <MapPin size={16} className="text-white" />
                 </div>
-                <p className="text-white/80">New Delhi, India</p>
+                <p className="text-white/80">{translate('New Delhi, India')}</p>
               </div>
             </div>
           </div>
@@ -134,7 +135,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/80">
-            © {new Date().getFullYear()} GD Healthcare Private Limited. All rights reserved.
+            © {new Date().getFullYear()} {translate('GD Healthcare Private Limited. All rights reserved.')}
           </p>
 
           {/* Social Links */}
@@ -188,8 +189,8 @@ export function Footer() {
         {/* Back to Top Button - Floating */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-white text-[#ff4c88] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center z-50"
-          aria-label="Back to top"
+          className="fixed bottom-24 right-6 w-12 h-12 rounded-full bg-white text-[#ff4c88] shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center z-40"
+          aria-label={translate('Back to top')}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />

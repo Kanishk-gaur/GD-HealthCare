@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, MapPin, Bed, Search, Filter, X } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 import type { IHospital } from "@/lib/models/Hospital";
 
 type SerializedHospital = Omit<IHospital, "_id" | "createdAt" | "updatedAt"> & {
@@ -11,6 +12,7 @@ type SerializedHospital = Omit<IHospital, "_id" | "createdAt" | "updatedAt"> & {
 };
 
 export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[] }) {
+  const { translate } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("All Countries");
 
@@ -52,12 +54,13 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
-              Our Partner Hospitals
+              {translate("Our Partner Hospitals")}
             </span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl">
-            Discover world-class healthcare facilities with expert doctors and
-            advanced medical technology across the globe
+            {translate(
+              "Discover world-class healthcare facilities with expert doctors and advanced medical technology across the globe"
+            )}
           </p>
           {/* Stats */}
           <div className="flex flex-wrap gap-6 mt-6">
@@ -65,13 +68,13 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
               <span className="text-2xl font-bold text-[#ff4c88]">
                 {hospitals.length}
               </span>
-              <span className="text-sm text-muted-foreground">Partner Hospitals</span>
+              <span className="text-sm text-muted-foreground">{translate("Partner Hospitals")}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold text-[#ffa649]">
                 {countries.length - 1}
               </span>
-              <span className="text-sm text-muted-foreground">Countries</span>
+              <span className="text-sm text-muted-foreground">{translate("Countries")}</span>
             </div>
           </div>
         </div>
@@ -85,7 +88,7 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
               <Search size={18} className="absolute left-3 top-3 text-[#ffa649]" />
               <input
                 type="text"
-                placeholder="Search hospitals by name, city, country, or specialty..."
+                placeholder={translate("Search hospitals by name, city, country, or specialty...")}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#ffa649] focus:border-transparent bg-card transition-all duration-300"
@@ -108,7 +111,7 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
               >
                 {countries.map((country) => (
                   <option key={country} value={country}>
-                    {country}
+                    {translate(country)}
                   </option>
                 ))}
               </select>
@@ -122,14 +125,14 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Results count */}
           <div className="mb-6 text-sm text-muted-foreground">
-            <span className="font-semibold text-[#ff4c88]">{filteredHospitals.length}</span> hospitals found
+            <span className="font-semibold text-[#ff4c88]">{filteredHospitals.length}</span> {translate("hospitals found")}
           </div>
 
           {filteredHospitals.length === 0 ? (
             <div className="text-center py-20 bg-white rounded-2xl border border-[#ffa649]/20 shadow-sm">
               <div className="text-6xl mb-4">🏥</div>
               <p className="text-lg text-muted-foreground mb-4">
-                No hospitals found matching your criteria
+                {translate("No hospitals found matching your criteria")}
               </p>
               <button
                 onClick={() => {
@@ -138,7 +141,7 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
                 }}
                 className="px-6 py-2 rounded-lg font-medium bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 hover:scale-105"
               >
-                Clear filters
+                {translate("Clear filters")}
               </button>
             </div>
           ) : (
@@ -153,7 +156,7 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <Image
                       src={hospital.image}
-                      alt={hospital.name}
+                      alt={translate(hospital.name)}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
@@ -165,23 +168,23 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
                   </div>
                   <div className="p-6 flex flex-col flex-1">
                     <h3 className="text-xl font-bold mb-2 line-clamp-2 group-hover:text-[#ff4c88] transition-colors">
-                      {hospital.name}
+                      {translate(hospital.name)}
                     </h3>
 
                     <div className="flex items-center gap-2 text-muted-foreground mb-3">
                       <MapPin size={16} className="text-[#ffa649]" />
                       <span className="text-sm">
-                        {hospital.city || hospital.country}, {hospital.country}
+                        {translate(hospital.city || hospital.country)}, {translate(hospital.country)}
                       </span>
                     </div>
 
                     <p className="text-sm text-muted-foreground mb-4 line-clamp-2 leading-relaxed">
-                      {hospital.description}
+                      {translate(hospital.description)}
                     </p>
 
                     <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
                       <Bed size={16} className="text-[#ff4c88]" />
-                      <span>{hospital.beds} beds</span>
+                      <span>{hospital.beds} {translate("beds")}</span>
                     </div>
 
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -190,12 +193,12 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
                           key={idx}
                           className="text-xs bg-gradient-to-r from-[#ffa649]/10 to-[#ff4c88]/10 text-[#ff4c88] px-3 py-1 rounded-full font-medium"
                         >
-                          {spec}
+                          {translate(spec)}
                         </span>
                       ))}
                       {hospital.specializations.length > 2 && (
                         <span className="text-xs text-muted-foreground px-2 py-1">
-                          +{hospital.specializations.length - 2} more
+                          +{hospital.specializations.length - 2} {translate("more")}
                         </span>
                       )}
                     </div>
@@ -203,7 +206,7 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
                     <div className="pt-4 border-t border-[#ffa649]/10 mt-auto">
                       <div className="flex justify-between items-center">
                         <p className="text-sm text-muted-foreground">
-                          <span className="font-semibold text-foreground">Avg. Cost:</span>
+                          <span className="font-semibold text-foreground">{translate("Avg. Cost:")}</span>
                         </p>
                         <p className="text-sm font-bold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
                           ${hospital.avgCost.min.toLocaleString()} - ${hospital.avgCost.max.toLocaleString()}

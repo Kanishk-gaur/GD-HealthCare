@@ -13,7 +13,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   const dir = language === 'ar' ? 'rtl' : 'ltr';
 
   return (
-    <html lang={language} dir={dir} className="bg-background">
+    <html lang={language} dir={dir} className="bg-background" suppressHydrationWarning>
       <body className="font-sans antialiased flex flex-col min-h-screen">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
