@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
@@ -23,9 +24,12 @@ export function AdminSidebar() {
   return (
     <aside className="w-60 shrink-0 border-r bg-muted/30 flex flex-col justify-between min-h-screen">
       <div>
-        <div className="px-4 py-5 border-b">
-          <p className="font-semibold text-sm">GD Healthcare</p>
-          <p className="text-xs text-muted-foreground">Admin Panel</p>
+        <div className="px-4 py-5 border-b flex items-center gap-2">
+          <Image src="/1.png" alt="GD Healthcare" width={28} height={28} className="w-7 h-7 object-contain shrink-0" />
+          <div>
+            <p className="font-semibold text-sm">GD Healthcare</p>
+            <p className="text-xs text-muted-foreground">Admin Panel</p>
+          </div>
         </div>
         <nav className="p-2 space-y-1">
           {NAV_ITEMS.map((item) => {

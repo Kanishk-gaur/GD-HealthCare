@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram, FaYoutube } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -15,8 +16,8 @@ export function Footer() {
           {/* About */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <span className="bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent font-bold">GD</span>
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center p-1 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <Image src="/1.png" alt="GD Healthcare" width={32} height={32} className="w-full h-full object-contain" />
               </div>
               <span className="font-bold text-lg text-white">GD Healthcare</span>
             </div>

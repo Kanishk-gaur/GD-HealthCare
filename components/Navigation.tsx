@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X, Phone } from 'lucide-react'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -26,8 +27,8 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#ffa649] to-[#ff4c88] group-hover:shadow-lg group-hover:shadow-[#ff4c88]/30 transition-all duration-300 group-hover:scale-110">
-              <span className="text-white font-bold text-lg">GD</span>
+            <div className="w-8 h-8 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <Image src="/1.png" alt="GD Healthcare" width={32} height={32} className="w-full h-full object-contain" />
             </div>
             <span className="hidden sm:inline font-bold text-lg bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
               GD Healthcare

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, Suspense } from 'react'
+import Image from 'next/image'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
@@ -51,6 +52,7 @@ function LoginForm() {
     <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
+          <Image src="/1.png" alt="GD Healthcare" width={40} height={40} className="mb-2" />
           <CardTitle>GD Healthcare Admin</CardTitle>
           <CardDescription>Sign in to manage site content</CardDescription>
         </CardHeader>
