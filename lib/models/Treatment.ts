@@ -18,6 +18,7 @@ export interface ITreatment {
   recommendedHospitalSlugs: string[]
   recommendedDoctorSlugs: string[]
   description: string
+  order: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -38,6 +39,9 @@ const TreatmentSchema = new Schema<ITreatment>(
     recommendedHospitalSlugs: { type: [String], default: [] },
     recommendedDoctorSlugs: { type: [String], default: [] },
     description: { type: String, required: true },
+    // Controls display order on the site (ascending). Defaults to 0; the
+    // admin drag-and-drop reorder UI keeps this in sync with position.
+    order: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 )

@@ -6,7 +6,7 @@ export const revalidate = 0
 
 export default async function DoctorsPage() {
   await connectToDatabase()
-  const doctors = await Doctor.find().sort({ name: 1 }).lean()
+  const doctors = await Doctor.find().sort({ order: 1 }).lean()
   const serialized = JSON.parse(JSON.stringify(doctors))
 
   return <DoctorsClient doctors={serialized} />

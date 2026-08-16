@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/mongodb'
 import CostComparison from '@/lib/models/CostComparison'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 function buildCostComparisonData(formData: FormData) {
   return {
@@ -37,6 +38,14 @@ export async function deleteCostComparison(id: string) {
   await requireAdmin()
   await connectToDatabase()
   await CostComparison.findByIdAndDelete(id)
+  revalidatePath('/admin/cost-comparisons')
+  revalidatePath('/')
+}
+
+export async function reorderCostComparisons(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(CostComparison, orderedIds)
   revalidatePath('/admin/cost-comparisons')
   revalidatePath('/')
 }

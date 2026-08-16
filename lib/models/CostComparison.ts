@@ -6,6 +6,7 @@ export interface ICostComparison {
   usaCost: number
   indiaCost: number
   category?: string
+  order: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -17,6 +18,9 @@ const CostComparisonSchema = new Schema<ICostComparison>(
     usaCost: { type: Number, required: true },
     indiaCost: { type: Number, required: true },
     category: String,
+    // Controls display order on the site (ascending). Defaults to 0; the
+    // admin drag-and-drop reorder UI keeps this in sync with position.
+    order: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 )

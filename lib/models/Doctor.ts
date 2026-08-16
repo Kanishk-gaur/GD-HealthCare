@@ -26,6 +26,7 @@ export interface IDoctor {
   memberships: string[]
   intlExperience: string[]
   recommendedTreatments: string[]
+  order: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -56,6 +57,9 @@ const DoctorSchema = new Schema<IDoctor>(
     memberships: { type: [String], default: [] },
     intlExperience: { type: [String], default: [] },
     recommendedTreatments: { type: [String], default: [] },
+    // Controls display order on the site (ascending). Defaults to 0; the
+    // admin drag-and-drop reorder UI keeps this in sync with position.
+    order: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 )

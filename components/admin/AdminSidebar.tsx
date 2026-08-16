@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: '/admin/hospitals', label: 'Hospitals' },
   { href: '/admin/doctors', label: 'Doctors' },
   { href: '/admin/treatments', label: 'Treatments' },
+  { href: '/admin/countries', label: 'Countries' },
   { href: '/admin/patient-testimonials', label: 'Patient Testimonials' },
   { href: '/admin/cost-comparisons', label: 'Cost Comparison' },
   { href: '/admin/medical-packages', label: 'Procedure Packages' },

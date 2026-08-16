@@ -1,9 +1,20 @@
 'use client'
 
 import Link from 'next/link'
-import { Phone, Mail, MapPin, Clock } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, CheckCircle2 } from 'lucide-react'
+import { FaWhatsapp } from 'react-icons/fa'
 import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog'
+
+const WHATSAPP_NUMBER = '919711614738'
 
 export default function ContactPage() {
   const { translate } = useTranslation()
@@ -15,6 +26,7 @@ export default function ContactPage() {
     message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -34,7 +46,7 @@ export default function ContactPage() {
       })
       if (!response.ok) throw new Error('Failed to send message')
 
-      alert(translate('Thank you for contacting us. We will get back to you soon!'))
+      setShowSuccessDialog(true)
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' })
     } catch (error) {
       console.error('Contact form submission error:', error)
@@ -257,6 +269,34 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+              <CheckCircle2 className="h-7 w-7 text-green-600" />
+            </div>
+            <DialogTitle className="text-center">
+              {translate('Message sent!')}
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              {translate('Thank you for contacting us. We will get back to you soon!')}{' '}
+              {translate('If you have medical reports or documents to share, sending them on WhatsApp is the fastest way to get them to our team.')}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="sm:justify-center">
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi, I just sent an enquiry through your website. I would like to share my medical reports.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 hover:shadow-lg hover:shadow-green-500/30 transition-all duration-300"
+            >
+              <FaWhatsapp size={20} />
+              {translate('Send reports on WhatsApp')}
+            </a>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

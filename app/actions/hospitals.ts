@@ -6,6 +6,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import Hospital from '@/lib/models/Hospital'
 import { parseLines, toSlug } from '@/lib/admin-utils'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 function buildHospitalData(formData: FormData) {
   const name = String(formData.get('name') || '')
@@ -65,4 +66,13 @@ export async function deleteHospital(id: string) {
   await Hospital.findByIdAndDelete(id)
   revalidatePath('/admin/hospitals')
   revalidatePath('/hospitals')
+}
+
+export async function reorderHospitals(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(Hospital, orderedIds)
+  revalidatePath('/admin/hospitals')
+  revalidatePath('/hospitals')
+  revalidatePath('/')
 }

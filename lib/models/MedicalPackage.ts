@@ -16,6 +16,7 @@ export interface IMedicalPackage {
   singlePrice: number
   notes?: string
   includes: string[]
+  order: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -34,6 +35,9 @@ const MedicalPackageSchema = new Schema<IMedicalPackage>(
     singlePrice: { type: Number, required: true },
     notes: String,
     includes: { type: [String], default: [] },
+    // Controls display order on the site (ascending). Defaults to 0; the
+    // admin drag-and-drop reorder UI keeps this in sync with position.
+    order: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 )

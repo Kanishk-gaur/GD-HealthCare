@@ -14,11 +14,11 @@ export default async function Home() {
 
   const [hospitals, doctors, patientTestimonials, costComparisons, medicalPackages, faqs] =
     await Promise.all([
-      Hospital.find().sort({ rating: -1 }).limit(3).lean(),
-      Doctor.find().sort({ rating: -1 }).limit(3).lean(),
-      PatientTestimonial.find({ published: true }).sort({ date: -1 }).limit(3).lean(),
-      CostComparison.find().sort({ name: 1 }).lean(),
-      MedicalPackage.find().sort({ hospital: 1, procedure: 1 }).lean(),
+      Hospital.find().sort({ order: 1 }).limit(3).lean(),
+      Doctor.find().sort({ order: 1 }).limit(3).lean(),
+      PatientTestimonial.find({ published: true }).sort({ order: 1 }).limit(3).lean(),
+      CostComparison.find().sort({ order: 1 }).lean(),
+      MedicalPackage.find().sort({ order: 1 }).lean(),
       FAQ.find().sort({ order: 1 }).limit(5).lean(),
     ])
 

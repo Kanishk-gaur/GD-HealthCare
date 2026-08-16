@@ -6,6 +6,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import Treatment from '@/lib/models/Treatment'
 import { toSlug } from '@/lib/admin-utils'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 function buildTreatmentData(formData: FormData) {
   const name = String(formData.get('name') || '')
@@ -52,6 +53,14 @@ export async function deleteTreatment(id: string) {
   await requireAdmin()
   await connectToDatabase()
   await Treatment.findByIdAndDelete(id)
+  revalidatePath('/admin/treatments')
+  revalidatePath('/treatments')
+}
+
+export async function reorderTreatments(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(Treatment, orderedIds)
   revalidatePath('/admin/treatments')
   revalidatePath('/treatments')
 }

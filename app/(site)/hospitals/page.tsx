@@ -8,7 +8,7 @@ export const revalidate = 0;
 
 export default async function HospitalsPage() {
   await connectToDatabase();
-  const hospitals = await Hospital.find().sort({ name: 1 }).lean();
+  const hospitals = await Hospital.find().sort({ order: 1 }).lean();
 
   // Mongoose lean() docs contain ObjectId/Date instances, which aren't
   // serializable across the Server -> Client component boundary as-is.

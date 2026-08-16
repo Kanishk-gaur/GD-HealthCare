@@ -24,6 +24,7 @@ export interface IPatientTestimonial {
   hospitalSlug?: string
   treatmentSlug?: string
   youtubeUrl?: string
+  order: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -49,6 +50,9 @@ const PatientTestimonialSchema = new Schema<IPatientTestimonial>(
     hospitalSlug: { type: String, index: true },
     treatmentSlug: { type: String, index: true },
     youtubeUrl: String,
+    // Controls display order on the site (ascending). Defaults to 0; the
+    // admin drag-and-drop reorder UI keeps this in sync with position.
+    order: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 )

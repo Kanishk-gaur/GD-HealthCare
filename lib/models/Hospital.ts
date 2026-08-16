@@ -24,6 +24,7 @@ export interface IHospital {
   departments: string[]
   centresOfExcellence: string[]
   treatmentsOffered: string[]
+  order: number
   createdAt?: Date
   updatedAt?: Date
 }
@@ -55,6 +56,9 @@ const HospitalSchema = new Schema<IHospital>(
     departments: { type: [String], default: [] },
     centresOfExcellence: { type: [String], default: [] },
     treatmentsOffered: { type: [String], default: [] },
+    // Controls display order on the site (ascending). Defaults to 0; the
+    // admin drag-and-drop reorder UI keeps this in sync with position.
+    order: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 )

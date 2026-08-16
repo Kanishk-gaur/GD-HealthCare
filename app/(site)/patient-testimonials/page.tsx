@@ -12,7 +12,7 @@ export const metadata = {
 export default async function PatientTestimonialsListPage() {
   await connectToDatabase()
   const posts = await PatientTestimonial.find({ published: true })
-    .sort({ date: -1 })
+    .sort({ order: 1 })
     .lean<IPatientTestimonial[]>()
   const serialized = JSON.parse(JSON.stringify(posts))
 

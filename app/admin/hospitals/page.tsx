@@ -2,29 +2,23 @@ import Link from 'next/link'
 import { connectToDatabase } from '@/lib/mongodb'
 import Hospital, { type IHospital } from '@/lib/models/Hospital'
 import { Button } from '@/components/ui/button'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { DeleteButton } from '@/components/admin/DeleteButton'
-import { deleteHospital } from '@/app/actions/hospitals'
+import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { HospitalsTable } from './HospitalsTable'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminHospitalsPage() {
   await connectToDatabase()
-  const hospitals = await Hospital.find().sort({ name: 1 }).lean<IHospital[]>()
+  const hospitals = await Hospital.find().sort({ order: 1 }).lean<IHospital[]>()
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Hospitals</h1>
-          <p className="text-muted-foreground text-sm">{hospitals.length} total</p>
+          <p className="text-muted-foreground text-sm">
+            {hospitals.length} total — drag rows to change display order
+          </p>
         </div>
         <Button asChild>
           <Link href="/admin/hospitals/new">Add hospital</Link>
@@ -34,6 +28,7 @@ export default async function AdminHospitalsPage() {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead className="w-8" />
             <TableHead>Name</TableHead>
             <TableHead>City</TableHead>
             <TableHead>Rating</TableHead>
@@ -41,25 +36,7 @@ export default async function AdminHospitalsPage() {
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {hospitals.map((h) => (
-            <TableRow key={String(h._id)}>
-              <TableCell className="font-medium">{h.name}</TableCell>
-              <TableCell>{h.city}</TableCell>
-              <TableCell>{h.rating}</TableCell>
-              <TableCell>{h.beds}</TableCell>
-              <TableCell className="text-right space-x-2">
-                <Button variant="outline" size="sm" asChild>
-                  <Link href={`/admin/hospitals/${h._id}/edit`}>Edit</Link>
-                </Button>
-                <DeleteButton
-                  itemName={h.name}
-                  action={deleteHospital.bind(null, String(h._id))}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+        <HospitalsTable hospitals={JSON.parse(JSON.stringify(hospitals))} />
       </Table>
     </div>
   )

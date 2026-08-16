@@ -7,6 +7,7 @@ import Doctor from '@/lib/models/Doctor'
 import Hospital from '@/lib/models/Hospital'
 import { parseLines, toSlug } from '@/lib/admin-utils'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 async function buildDoctorData(formData: FormData) {
   const name = String(formData.get('name') || '')
@@ -73,4 +74,13 @@ export async function deleteDoctor(id: string) {
   await Doctor.findByIdAndDelete(id)
   revalidatePath('/admin/doctors')
   revalidatePath('/doctors')
+}
+
+export async function reorderDoctors(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(Doctor, orderedIds)
+  revalidatePath('/admin/doctors')
+  revalidatePath('/doctors')
+  revalidatePath('/')
 }

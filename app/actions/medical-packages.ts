@@ -6,6 +6,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import MedicalPackage from '@/lib/models/MedicalPackage'
 import { parseLines } from '@/lib/admin-utils'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 function buildMedicalPackageData(formData: FormData) {
   const icuDays = Number(formData.get('icuDays') || 0)
@@ -50,6 +51,14 @@ export async function deleteMedicalPackage(id: string) {
   await requireAdmin()
   await connectToDatabase()
   await MedicalPackage.findByIdAndDelete(id)
+  revalidatePath('/admin/medical-packages')
+  revalidatePath('/')
+}
+
+export async function reorderMedicalPackages(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(MedicalPackage, orderedIds)
   revalidatePath('/admin/medical-packages')
   revalidatePath('/')
 }

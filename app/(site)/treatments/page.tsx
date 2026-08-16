@@ -10,7 +10,7 @@ export default async function TreatmentsPage() {
   await connectToDatabase();
 
   const [treatments, hospitals, doctors] = await Promise.all([
-    Treatment.find().sort({ name: 1 }).lean(),
+    Treatment.find().sort({ order: 1 }).lean(),
     Hospital.find().select("slug name").lean<{ slug: string; name: string }[]>(),
     Doctor.find().select("slug name").lean<{ slug: string; name: string }[]>(),
   ]);

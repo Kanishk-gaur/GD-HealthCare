@@ -6,6 +6,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import PatientTestimonial from '@/lib/models/PatientTestimonial'
 import { toSlug } from '@/lib/admin-utils'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 function buildPatientTestimonialData(formData: FormData) {
   const title = String(formData.get('title') || '')
@@ -59,4 +60,13 @@ export async function deletePatientTestimonial(id: string) {
   await PatientTestimonial.findByIdAndDelete(id)
   revalidatePath('/admin/patient-testimonials')
   revalidatePath('/patient-testimonials')
+}
+
+export async function reorderPatientTestimonials(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(PatientTestimonial, orderedIds)
+  revalidatePath('/admin/patient-testimonials')
+  revalidatePath('/patient-testimonials')
+  revalidatePath('/')
 }

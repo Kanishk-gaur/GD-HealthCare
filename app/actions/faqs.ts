@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '@/lib/mongodb'
 import FAQ from '@/lib/models/FAQ'
 import { requireAdmin } from '@/lib/require-admin'
+import { bulkReorder } from '@/lib/reorder'
 
 function buildFAQData(formData: FormData) {
   return {
@@ -36,6 +37,14 @@ export async function deleteFAQ(id: string) {
   await requireAdmin()
   await connectToDatabase()
   await FAQ.findByIdAndDelete(id)
+  revalidatePath('/admin/faqs')
+  revalidatePath('/')
+}
+
+export async function reorderFAQs(orderedIds: string[]) {
+  await requireAdmin()
+  await connectToDatabase()
+  await bulkReorder(FAQ, orderedIds)
   revalidatePath('/admin/faqs')
   revalidatePath('/')
 }
