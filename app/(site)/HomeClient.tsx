@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Star, MapPin, Stethoscope, DollarSign, Clock, TrendingUp, CheckCircle } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
-import { HeroIllustration } from '@/components/HeroIllustration'
 import { HeroTextBackdrop } from '@/components/HeroTextBackdrop'
 import CostComparison from '@/components/CostComparison'
 import MedicalCostComparison from '@/components/MedicalCostComparison'
@@ -123,7 +122,16 @@ export function HomeClient({
     <div className="w-full">
       {/* Hero Section - Updated Gradient */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#ffa649]/20 via-white to-[#ff4c88]/20 z-0"></div>
+        <Image
+          src="/home/gd-home-page.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover z-0"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/50 z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ffa649]/20 via-transparent to-[#ff4c88]/20 z-0"></div>
         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-bl from-[#ffa649]/10 to-transparent rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-[#ff4c88]/10 to-transparent rounded-full blur-3xl"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
@@ -159,7 +167,13 @@ export function HomeClient({
               </div>
             </div>
             <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <HeroIllustration className="absolute inset-0 w-full h-full" />
+              <Image
+                src="/home/gd-home.jpeg"
+                alt={translate('Global medical travel, planned and documented')}
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
