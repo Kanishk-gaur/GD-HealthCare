@@ -73,7 +73,7 @@ export function PrivacyClient() {
             </p>
             <ul className="list-none text-muted-foreground space-y-2 mb-6">
               <li>{translate('Email:')} <a href="mailto:privacy@gdhealthcare.com" className="text-primary hover:underline">privacy@gdhealthcare.com</a></li>
-              <li>{translate('Phone:')} <a href="tel:+919711614738" className="text-primary hover:underline">+91 9711 614 738</a></li>
+              <li>{translate('Phone:')} <a href="tel:+919711614738" className="text-primary hover:underline">+91 9711 614 738</a> / <a href="tel:+9184468817445" className="text-primary hover:underline">+91 8446 881 7445</a></li>
             </ul>
           </div>
         </div>

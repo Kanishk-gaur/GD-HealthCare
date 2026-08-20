@@ -5,6 +5,7 @@ import PatientTestimonial from '@/lib/models/PatientTestimonial'
 import CostComparison from '@/lib/models/CostComparison'
 import MedicalPackage from '@/lib/models/MedicalPackage'
 import FAQ from '@/lib/models/FAQ'
+import Treatment from '@/lib/models/Treatment'
 import { HomeClient } from './HomeClient'
 
 export const revalidate = 0
@@ -12,7 +13,7 @@ export const revalidate = 0
 export default async function Home() {
   await connectToDatabase()
 
-  const [hospitals, doctors, patientTestimonials, costComparisons, medicalPackages, faqs] =
+  const [hospitals, doctors, patientTestimonials, costComparisons, medicalPackages, faqs, treatments] =
     await Promise.all([
       Hospital.find().sort({ order: 1 }).limit(3).lean(),
       Doctor.find().sort({ order: 1 }).limit(3).lean(),
@@ -20,6 +21,7 @@ export default async function Home() {
       CostComparison.find().sort({ order: 1 }).lean(),
       MedicalPackage.find().sort({ order: 1 }).lean(),
       FAQ.find().sort({ order: 1 }).limit(5).lean(),
+      Treatment.find().sort({ order: 1 }).select('category thumbnailUrl').lean(),
     ])
 
   return (
@@ -30,6 +32,7 @@ export default async function Home() {
       costComparisons={JSON.parse(JSON.stringify(costComparisons))}
       medicalPackages={JSON.parse(JSON.stringify(medicalPackages))}
       faqs={JSON.parse(JSON.stringify(faqs))}
+      treatments={JSON.parse(JSON.stringify(treatments))}
     />
   )
 }

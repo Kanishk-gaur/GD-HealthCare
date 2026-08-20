@@ -108,16 +108,21 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
                   <Phone size={16} className="text-white" />
                 </div>
-                <a href="tel:+919711614738" className="text-white/80 hover:text-white transition-colors">
-                  +91 9711 614 738
-                </a>
+                <div className="flex flex-col">
+                  <a href="tel:+919711614738" className="text-white/80 hover:text-white transition-colors">
+                    +91 9711 614 738
+                  </a>
+                  <a href="tel:+9184468817445" className="text-white/80 hover:text-white transition-colors">
+                    +91 8446 881 7445
+                  </a>
+                </div>
               </div>
               <div className="flex items-start gap-3 group">
                 <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors">
                   <Mail size={16} className="text-white" />
                 </div>
-                <a href="mailto:info@gdhealthcare.com" className="text-white/80 hover:text-white transition-colors">
-                  info@gdhealthcare.com
+                <a href="mailto:info@gdhealthcare.in" className="text-white/80 hover:text-white transition-colors">
+                  info@gdhealthcare.in
                 </a>
               </div>
               <div className="flex items-start gap-3 group">

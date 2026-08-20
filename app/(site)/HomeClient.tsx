@@ -91,12 +91,12 @@ const features = [
 ]
 
 const treatmentCategories = [
-  { name: 'Cardiology', icon: '❤️', count: 5 },
-  { name: 'Orthopedics', icon: '🦴', count: 8 },
-  { name: 'Neurosurgery', icon: '🧠', count: 4 },
-  { name: 'Oncology', icon: '🔬', count: 6 },
-  { name: 'Dentistry', icon: '😁', count: 12 },
-  { name: 'IVF', icon: '👶', count: 3 },
+  { name: 'Cardiology', icon: '❤️', count: 5, keywords: ['cardiac', 'cardiology'] },
+  { name: 'Orthopedics', icon: '🦴', count: 8, keywords: ['orthopaedic', 'orthopedic'] },
+  { name: 'Neurosurgery', icon: '🧠', count: 4, keywords: ['neuro'] },
+  { name: 'Oncology', icon: '🔬', count: 6, keywords: ['oncology'] },
+  { name: 'Dentistry', icon: '😁', count: 12, keywords: ['dental'] },
+  { name: 'IVF', icon: '👶', count: 3, keywords: ['reproductive', 'ivf', 'fertility'] },
 ]
 
 interface HomeClientProps {
@@ -106,6 +106,7 @@ interface HomeClientProps {
   costComparisons: Serialized<ICostComparison>[]
   medicalPackages: Serialized<IMedicalPackage>[]
   faqs: Serialized<IFAQ>[]
+  treatments: { category: string; thumbnailUrl: string }[]
 }
 
 export function HomeClient({
@@ -115,8 +116,13 @@ export function HomeClient({
   costComparisons,
   medicalPackages,
   faqs,
+  treatments,
 }: HomeClientProps) {
   const { translate } = useTranslation();
+
+  // First real treatment thumbnail whose DB category matches a home page category's keywords
+  const categoryImage = (keywords: string[]): string | undefined =>
+    treatments.find((t) => keywords.some((kw) => t.category.toLowerCase().includes(kw)))?.thumbnailUrl
 
   return (
     <div className="w-full">
@@ -227,17 +233,26 @@ export function HomeClient({
             </span>
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {treatmentCategories.map((category, idx) => (
-              <Link
-                key={idx}
-                href={`/treatments?category=${category.name}`}
-                className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all duration-300 border border-border hover:border-[#ffa649] group"
-              >
-                <div className="text-4xl mb-2 group-hover:scale-110 transition-transform">{category.icon}</div>
-                <h3 className="font-semibold text-sm mb-1 group-hover:text-[#ff4c88] transition-colors">{translate(category.name)}</h3>
-                <p className="text-xs text-muted-foreground">{category.count}+ {translate('procedures')}</p>
-              </Link>
-            ))}
+            {treatmentCategories.map((category, idx) => {
+              const image = categoryImage(category.keywords)
+              return (
+                <Link
+                  key={idx}
+                  href={`/treatments?category=${category.name}`}
+                  className="bg-white rounded-lg p-4 text-center hover:shadow-xl transition-all duration-300 border border-border hover:border-[#ffa649] group"
+                >
+                  {image ? (
+                    <div className="relative w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden ring-2 ring-[#ffa649]/20 group-hover:scale-110 transition-transform">
+                      <Image src={image} alt={category.name} fill sizes="48px" className="object-cover" />
+                    </div>
+                  ) : (
+                    <div className="text-4xl mb-2 group-hover:scale-110 transition-transform">{category.icon}</div>
+                  )}
+                  <h3 className="font-semibold text-sm mb-1 group-hover:text-[#ff4c88] transition-colors">{translate(category.name)}</h3>
+                  <p className="text-xs text-muted-foreground">{category.count}+ {translate('procedures')}</p>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>

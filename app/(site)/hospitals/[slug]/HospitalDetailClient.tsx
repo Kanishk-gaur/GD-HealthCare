@@ -256,9 +256,12 @@ export function HospitalDetailClient({ hospital }: { hospital: SerializedHospita
 
               {/* Functional Interactive Consult buttons */}
               <div className="mt-6 space-y-2">
-                <button className="w-full px-4 py-2.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 text-sm">
+                <Link
+                  href="/contact"
+                  className="block text-center w-full px-4 py-2.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 text-sm"
+                >
                   {translate('Schedule Consultation')}
-                </button>
+                </Link>
                 <a
                   href="https://wa.me/919711614738"
                   target="_blank"
@@ -285,14 +288,18 @@ export function HospitalDetailClient({ hospital }: { hospital: SerializedHospita
                     <a href="tel:+919711614738" className="font-semibold text-[#ff4c88] hover:underline">
                       +91 9711 614 738
                     </a>
+                    <br />
+                    <a href="tel:+9184468817445" className="font-semibold text-[#ff4c88] hover:underline">
+                      +91 8446 881 7445
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <Mail size={18} className="text-[#ffa649] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="text-xs text-muted-foreground">{translate('Support Correspondence')}</p>
-                    <a href="mailto:info@gdhealthcare.com" className="font-semibold text-[#ff4c88] hover:underline">
-                      info@gdhealthcare.com
+                    <a href="mailto:info@gdhealthcare.in" className="font-semibold text-[#ff4c88] hover:underline">
+                      info@gdhealthcare.in
                     </a>
                   </div>
                 </div>

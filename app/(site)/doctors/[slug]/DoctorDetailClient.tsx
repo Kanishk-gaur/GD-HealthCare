@@ -251,9 +251,12 @@ export function DoctorDetailClient({ doctor, profileUrl }: { doctor: SerializedD
 
               {/* Interventions Schedule Action Panels */}
               <div className="space-y-2 pt-2">
-                <button className="w-full px-4 py-2.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 text-sm">
+                <Link
+                  href="/contact"
+                  className="block text-center w-full px-4 py-2.5 bg-gradient-to-r from-[#ffa649] to-[#ff4c88] text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-[#ff4c88]/30 transition-all duration-300 text-sm"
+                >
                   {translate('Book Clinical Appointment')}
-                </button>
+                </Link>
                 <a
                   href="https://wa.me/919711614738"
                   target="_blank"
@@ -277,7 +280,7 @@ export function DoctorDetailClient({ doctor, profileUrl }: { doctor: SerializedD
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail size={14} className="text-[#ffa649]" />
-                  <span>{translate('Desk')}: info@gdhealthcare.com</span>
+                  <span>{translate('Desk')}: info@gdhealthcare.in</span>
                 </div>
               </div>
             </div>

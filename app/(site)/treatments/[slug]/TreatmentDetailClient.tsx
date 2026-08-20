@@ -244,9 +244,12 @@ export function TreatmentDetailClient({
                 </div>
               </div>
 
-              <button className="w-full px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors mb-3">
+              <Link
+                href="/contact"
+                className="block text-center w-full px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors mb-3"
+              >
                 {translate('Schedule Consultation')}
-              </button>
+              </Link>
 
               <a
                 href="https://wa.me/919711614738"

@@ -91,6 +91,10 @@ export default function ContactPage() {
                     <a href="tel:+919711614738" className="text-[#ff4c88] hover:underline">
                       +91 9711 614 738
                     </a>
+                    <br />
+                    <a href="tel:+9184468817445" className="text-[#ff4c88] hover:underline">
+                      +91 8446 881 7445
+                    </a>
                   </div>
                 </div>
 
@@ -101,8 +105,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">{translate('Email')}</h3>
-                    <a href="mailto:info@gdhealthcare.com" className="text-[#ff4c88] hover:underline">
-                      info@gdhealthcare.com
+                    <a href="mailto:info@gdhealthcare.in" className="text-[#ff4c88] hover:underline">
+                      info@gdhealthcare.in
                     </a>
                   </div>
                 </div>
