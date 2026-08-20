@@ -92,8 +92,8 @@ export default function ContactPage() {
                       +91 9711 614 738
                     </a>
                     <br />
-                    <a href="tel:+9184468817445" className="text-[#ff4c88] hover:underline">
-                      +91 8446 881 7445
+                    <a href="tel:+918468817445" className="text-[#ff4c88] hover:underline">
+                      +91 8468 817 445
                     </a>
                   </div>
                 </div>

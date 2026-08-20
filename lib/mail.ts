@@ -33,7 +33,7 @@ export function emailLayout(bodyHtml: string) {
         <div style="padding:20px 32px;background:#fafafa;border-top:1px solid #f0f0f0;color:#9ca3af;font-size:12px;line-height:1.6;">
           GD Healthcare &middot; New Delhi, India<br/>
           <a href="mailto:info@gdhealthcare.in" style="color:#ff4c88;text-decoration:none;">info@gdhealthcare.in</a>
-          &nbsp;&middot;&nbsp; +91 9711 614 738 / +91 8446 881 7445
+          &nbsp;&middot;&nbsp; +91 9711 614 738 / +91 8468 817 445
         </div>
       </div>
     </div>
