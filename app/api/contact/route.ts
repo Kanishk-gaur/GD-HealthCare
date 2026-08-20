@@ -12,9 +12,18 @@ function escapeHtml(value: string) {
     .replace(/'/g, '&#39;')
 }
 
+// Strips CR/LF and other control characters so user input can't break out of
+// a mail header (nodemailer's installed version has known CRLF-injection
+// CVEs in header fields — see npm audit).
+function sanitizeHeaderValue(value: string) {
+  return value.replace(/[\r\n\x00-\x1f]+/g, ' ').trim()
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, phone, subject, message } = await request.json()
+    const body = await request.json()
+    const { email, phone, subject, message } = body
+    const name = typeof body.name === 'string' ? sanitizeHeaderValue(body.name) : body.name
 
     if (!name || !email || !subject || !message) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -30,7 +39,7 @@ export async function POST(request: NextRequest) {
       visa: 'Visa Assistance',
       other: 'Other',
     }
-    const subjectLabel = subjectLabels[subject] || subject
+    const subjectLabel = subjectLabels[subject] || sanitizeHeaderValue(String(subject))
 
     const adminHtml = emailLayout(`
       <h2 style="margin:0 0 20px;font-size:18px;color:#111827;">New Contact Form Submission</h2>
