@@ -42,13 +42,12 @@ export function AboutClient() {
                 {translate('Through our network of internationally accredited hospitals and experienced doctors, we help patients access premium medical services at a fraction of the cost in developed countries.')}
               </p>
             </div>
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[#ffa649]/20">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#ffa649]/20 to-[#ff4c88]/20 z-10"></div>
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[#ffa649]/20 bg-white">
               <Image
-                src="https://images.unsplash.com/photo-1576091160550-112173e7f9db?w=600&h=400&fit=crop"
+                src="/3.png"
                 alt={translate('GD Healthcare')}
                 fill
-                className="object-cover"
+                className="object-contain p-16"
               />
             </div>
           </div>

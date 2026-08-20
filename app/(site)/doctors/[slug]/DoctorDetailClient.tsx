@@ -185,14 +185,14 @@ export function DoctorDetailClient({ doctor, profileUrl }: { doctor: SerializedD
                 </span>
               </h3>
 
-              {/* Consultation Fee (INR) */}
+              {/* Consultation Fee (USD) */}
               <div className="bg-gradient-to-r from-[#ffa649]/5 to-[#ff4c88]/5 border border-[#ffa649]/20 rounded-xl p-4">
                 <div className="flex items-center gap-2 text-muted-foreground text-xs font-bold uppercase tracking-wider mb-1">
                   <Coins size={14} className="text-[#ffa649]" />
                   {translate('Consultation Fee')}
                 </div>
                 <p className="text-2xl font-black text-foreground">
-                  ₹{doctor.consultationFee.toLocaleString()} <span className="text-xs font-medium text-muted-foreground">{translate('INR / session')}</span>
+                  ${doctor.consultationFee.toLocaleString()} <span className="text-xs font-medium text-muted-foreground">{translate('USD / session')}</span>
                 </p>
               </div>
 
