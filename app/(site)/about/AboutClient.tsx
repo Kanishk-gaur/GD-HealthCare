@@ -42,12 +42,12 @@ export function AboutClient() {
                 {translate('Through our network of internationally accredited hospitals and experienced doctors, we help patients access premium medical services at a fraction of the cost in developed countries.')}
               </p>
             </div>
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[#ffa649]/20 bg-white">
+            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg border border-[#ffa649]/20">
               <Image
-                src="/3.png"
+                src="/About.png"
                 alt={translate('GD Healthcare')}
                 fill
-                className="object-contain p-16"
+                className="object-cover"
               />
             </div>
           </div>

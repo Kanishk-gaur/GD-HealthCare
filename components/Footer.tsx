@@ -112,8 +112,8 @@ export function Footer() {
                   <a href="tel:+919711614738" className="text-white/80 hover:text-white transition-colors">
                     +91 9711 614 738
                   </a>
-                  <a href="tel:+918468817445" className="text-white/80 hover:text-white transition-colors">
-                    +91 8468 817 445
+                  <a href="tel:+919821760900" className="text-white/80 hover:text-white transition-colors">
+                    +91 9821 760 900
                   </a>
                 </div>
               </div>
@@ -156,7 +156,9 @@ export function Footer() {
               <FaFacebook size={18} className="text-white" />
             </a>
             <a
-              href="#"
+              href="https://x.com/GDHealthcarePvt"
+              target="_blank"
+              rel="noopener noreferrer"
               className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all duration-300 hover:scale-110 hover:shadow-lg"
               aria-label="Twitter"
             >

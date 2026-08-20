@@ -289,8 +289,8 @@ export function HospitalDetailClient({ hospital }: { hospital: SerializedHospita
                       +91 9711 614 738
                     </a>
                     <br />
-                    <a href="tel:+918468817445" className="font-semibold text-[#ff4c88] hover:underline">
-                      +91 8468 817 445
+                    <a href="tel:+919821760900" className="font-semibold text-[#ff4c88] hover:underline">
+                      +91 9821 760 900
                     </a>
                   </div>
                 </div>
