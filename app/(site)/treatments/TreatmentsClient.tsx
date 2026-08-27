@@ -167,13 +167,13 @@ export function TreatmentsClient({ treatments }: { treatments: DisplayTreatment[
 
                 <div className="border-t border-[#ffa649]/10 pt-2 flex justify-between items-center text-xs">
                   <div>
-                    <span className="text-[10px] text-muted-foreground block">{translate('Starting From')}</span>
+                    <span className="text-[10px] text-muted-foreground block">{translate('Average Cost in India Hospital')}</span>
                     <span className="font-semibold text-[#ffa649] text-sm">
                       ₹{treatment.startingCostINR.toLocaleString("en-IN")}
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-muted-foreground block">{translate('Global Cost')}</span>
+                    <span className="text-[10px] text-muted-foreground block">{translate('Average Global Cost')}</span>
                     <span className="font-semibold text-[#ff4c88] text-sm">
                       ${treatment.startingCostUSD.toLocaleString("en-US")}
                     </span>

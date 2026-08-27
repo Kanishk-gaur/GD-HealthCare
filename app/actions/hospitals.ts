@@ -27,10 +27,6 @@ function buildHospitalData(formData: FormData) {
     established: formData.get('established') ? Number(formData.get('established')) : undefined,
     specializations: parseLines(formData.get('specializations')),
     accreditations: parseLines(formData.get('accreditations')),
-    avgCost: {
-      min: Number(formData.get('avgCostMin') || 0),
-      max: Number(formData.get('avgCostMax') || 0),
-    },
     icuAvailability: formData.get('icuAvailability') === 'on',
     intlServices: parseLines(formData.get('intlServices')),
     departments: parseLines(formData.get('departments')),

@@ -72,17 +72,6 @@ export function HospitalForm({ action, hospital }: HospitalFormProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="avgCostMin">Avg cost min (USD)</Label>
-          <Input id="avgCostMin" name="avgCostMin" type="number" min="0" defaultValue={hospital?.avgCost?.min} required />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="avgCostMax">Avg cost max (USD)</Label>
-          <Input id="avgCostMax" name="avgCostMax" type="number" min="0" defaultValue={hospital?.avgCost?.max} required />
-        </div>
-      </div>
-
       <div className="flex items-center gap-2">
         <Switch id="icuAvailability" name="icuAvailability" defaultChecked={hospital?.icuAvailability} />
         <Label htmlFor="icuAvailability">ICU available</Label>

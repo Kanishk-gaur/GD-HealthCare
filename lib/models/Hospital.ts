@@ -18,7 +18,6 @@ export interface IHospital {
   established?: number
   specializations: string[]
   accreditations: string[]
-  avgCost: { min: number; max: number }
   icuAvailability: boolean
   intlServices: string[]
   departments: string[]
@@ -47,10 +46,6 @@ const HospitalSchema = new Schema<IHospital>(
     established: Number,
     specializations: { type: [String], default: [] },
     accreditations: { type: [String], default: [] },
-    avgCost: {
-      min: { type: Number, required: true },
-      max: { type: Number, required: true },
-    },
     icuAvailability: { type: Boolean, default: false },
     intlServices: { type: [String], default: [] },
     departments: { type: [String], default: [] },

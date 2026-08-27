@@ -245,13 +245,6 @@ export function HospitalDetailClient({ hospital }: { hospital: SerializedHospita
                   </div>
                 )}
 
-                {/* Cost Info inside sidebar */}
-                <div className="pt-4 border-t border-[#ffa649]/10">
-                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1">{translate('Est. Treatment Range')}</p>
-                  <p className="text-xl font-black bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
-                    ${hospital.avgCost.min.toLocaleString()} - ${hospital.avgCost.max.toLocaleString()}
-                  </p>
-                </div>
               </div>
 
               {/* Functional Interactive Consult buttons */}

@@ -202,17 +202,6 @@ export function HospitalsClient({ hospitals }: { hospitals: SerializedHospital[]
                         </span>
                       )}
                     </div>
-
-                    <div className="pt-4 border-t border-[#ffa649]/10 mt-auto">
-                      <div className="flex justify-between items-center">
-                        <p className="text-sm text-muted-foreground">
-                          <span className="font-semibold text-foreground">{translate("Avg. Cost:")}</span>
-                        </p>
-                        <p className="text-sm font-bold bg-gradient-to-r from-[#ffa649] to-[#ff4c88] bg-clip-text text-transparent">
-                          ${hospital.avgCost.min.toLocaleString()} - ${hospital.avgCost.max.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </Link>
               ))}

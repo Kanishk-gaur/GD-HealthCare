@@ -62,7 +62,7 @@ export function TreatmentDetailClient({
                 <p className="text-2xl font-bold">{translate(treatment.recoveryTime)}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground mb-1">{translate('Starting From')}</p>
+                <p className="text-sm text-muted-foreground mb-1">{translate('Average Global Cost')}</p>
                 <p className="text-2xl font-bold text-primary">${treatment.startingCostUSD.toLocaleString()}</p>
               </div>
             </div>
