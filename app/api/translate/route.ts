@@ -34,11 +34,54 @@ function chunkTexts(texts: string[]): string[][] {
   return chunks
 }
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+// Google's unofficial endpoint has no SLA and rate-limits per source IP —
+// a transient 429/5xx is common and usually succeeds a moment later, so a
+// couple of short retries recover far more translations than giving up
+// immediately (which used to silently leave the original English text).
+async function fetchWithRetry(url: string, attempts = 3): Promise<Response | null> {
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const response = await fetch(url, { headers: { Accept: 'application/json' } })
+      if (response.ok) return response
+      if (response.status !== 429 && response.status < 500) return response
+    } catch {
+      // network error — fall through to retry
+    }
+    if (i < attempts - 1) await sleep(300 * 2 ** i)
+  }
+  return null
+}
+
+// Caps how many requests are in flight at once. Firing every chunk (and every
+// per-string fallback within a chunk) via Promise.all created bursts of dozens
+// of simultaneous requests from the same server IP — exactly what trips
+// Google's rate limiter and made some strings translate while others silently
+// didn't. Running a handful at a time avoids provoking that in the first place.
+async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(items.length)
+  let next = 0
+  async function worker() {
+    while (next < items.length) {
+      const i = next++
+      results[i] = await fn(items[i])
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker))
+  return results
+}
+
+const CHUNK_CONCURRENCY = 3
+const SINGLE_FALLBACK_CONCURRENCY = 5
+
 async function translateSingleUnofficial(text: string, target: string): Promise<string> {
   try {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(text)}`
-    const response = await fetch(url, { headers: { Accept: 'application/json' } })
-    if (!response.ok) return text
+    const response = await fetchWithRetry(url)
+    if (!response) return text
     const data = await response.json()
     const joined = (data?.[0] ?? []).map((seg: unknown) => (Array.isArray(seg) ? seg[0] : '')).join('')
     return joined || text
@@ -52,8 +95,8 @@ async function translateChunkUnofficial(chunk: string[], target: string): Promis
   const joined = chunk.map((t) => t.replace(/\n+/g, ' ')).join('\n')
   try {
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${target}&dt=t&q=${encodeURIComponent(joined)}`
-    const response = await fetch(url, { headers: { Accept: 'application/json' } })
-    if (!response.ok) throw new Error(`bad status ${response.status}`)
+    const response = await fetchWithRetry(url)
+    if (!response) throw new Error('request failed after retries')
     const data = await response.json()
     const segments: unknown[] = data?.[0] ?? []
     const parts = segments.map((seg) => (Array.isArray(seg) && typeof seg[0] === 'string' ? seg[0].replace(/\n$/, '') : ''))
@@ -61,16 +104,17 @@ async function translateChunkUnofficial(chunk: string[], target: string): Promis
     if (parts.length !== chunk.length) throw new Error('chunk length mismatch')
     return parts
   } catch {
-    // Google merged/split lines unexpectedly (rare for punctuation-heavy or
-    // very short strings) — fall back to translating this chunk one at a
-    // time so a single bad line doesn't corrupt the whole batch.
-    return Promise.all(chunk.map((t) => translateSingleUnofficial(t, target)))
+    // Google merged/split lines unexpectedly, or the whole-chunk request
+    // never succeeded — fall back to translating this chunk one at a time
+    // (capped concurrency, same retry logic) so a single bad line or a
+    // rate-limited request doesn't leave the rest of the chunk untranslated.
+    return mapWithConcurrency(chunk, SINGLE_FALLBACK_CONCURRENCY, (t) => translateSingleUnofficial(t, target))
   }
 }
 
 async function translateBatchUnofficial(texts: string[], target: string): Promise<string[]> {
   const chunks = chunkTexts(texts)
-  const results = await Promise.all(chunks.map((chunk) => translateChunkUnofficial(chunk, target)))
+  const results = await mapWithConcurrency(chunks, CHUNK_CONCURRENCY, (chunk) => translateChunkUnofficial(chunk, target))
   return results.flat()
 }
 
